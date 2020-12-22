@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "string": "cpp",
+        "ostream": "cpp",
+        "iosfwd": "cpp",
+        "set": "cpp",
+        "utility": "cpp"
+    },
+    "json.schemas": [
+    
+    ],
+    "git.ignoreLimitWarning": true
+}

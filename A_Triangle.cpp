@@ -1,0 +1,176 @@
+
+
+#ifndef _GLIBCXX_NO_ASSERT
+#include <cassert>
+#endif
+#include <cctype>
+#include <cerrno>
+#include <cfloat>
+#include <ciso646>
+#include <climits>
+#include <clocale>
+#include <cmath>
+#include <csetjmp>
+#include <csignal>
+#include <cstdarg>
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <cwchar>
+#include <cwctype>
+
+#if __cplusplus >= 201103L
+#include <ccomplex>
+#include <cfenv>
+#include <cinttypes>
+#include <cstdalign>
+#include <cstdbool>
+#include <cstdint>
+#include <ctgmath>
+#include <cuchar>
+#endif
+
+// C++
+#include <algorithm>
+#include <bitset>
+#include <complex>
+#include <deque>
+#include <exception>
+#include <fstream>
+#include <functional>
+#include <iomanip>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <istream>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <locale>
+#include <map>
+#include <memory>
+#include <new>
+#include <numeric>
+#include <ostream>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdexcept>
+#include <streambuf>
+#include <string>
+#include <typeinfo>
+#include <utility>
+#include <valarray>
+#include <vector>
+
+#if __cplusplus >= 201103L
+#include <array>
+#include <atomic>
+#include <chrono>
+#include <codecvt>
+#include <condition_variable>
+#include <forward_list>
+#include <future>
+#include <initializer_list>
+#include <mutex>
+#include <random>
+#include <ratio>
+#include <regex>
+#include <scoped_allocator>
+#include <system_error>
+#include <thread>
+#include <tuple>
+#include <typeindex>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#endif
+
+#if __cplusplus >= 201402L
+#include <shared_mutex>
+#endif
+
+#if __cplusplus >= 201703L
+#include <any>
+#include <charconv>
+// #include <execution>
+#include <filesystem>
+#include <optional>
+#include <memory_resource>
+#include <string_view>
+#include <variant>
+#endif
+
+#if __cplusplus > 201703L
+#include <bit>
+#include <compare>
+#include <concepts>
+#if __cpp_impl_coroutine
+# include <coroutine>
+#endif
+#include <latch>
+#include <numbers>
+#include <ranges>
+#include <span>
+#include <stop_token>
+#include <semaphore>
+#include <syncstream>
+#include <version>
+#endif
+using namespace std;
+
+// Tanya Rajhans
+int gcd(int a, int b)
+{
+    if (b == 0)
+        return a;
+    return gcd(b, a % b); 
+     
+}
+
+bool isright(vector<int> c){
+int sides[3] = {0};
+    sides[0] = (c[4] - c[2]) * (c[4] - c[2]) + (c[5] - c[3])* (c[5] - c[3]); 
+    sides[1] = (c[4] - c[0]) * (c[4] - c[0]) + (c[5] - c[1])* (c[5] - c[1]); 
+    sides[2] = (c[2] - c[0]) * (c[2] - c[0]) + (c[3] - c[1])* (c[3] - c[1]); 
+
+    std::sort(sides, sides + 3);
+    if(sides[0] > 0 && sides[2] == sides[0] + sides[1]){return 1;}
+    else{return 0;}
+} 
+
+
+int main(){
+vector<int> p;
+for(int i=0;i<6;i++)
+{
+    int x;
+    cin>>x;
+    p.push_back(x);
+}
+string out="NEITHER";
+if(isright(p))
+{
+    out="RIGHT";
+}
+else{
+    for(int k=0;k<6;k++){
+        ++p[k];
+        if(isright(p)){
+            out="ALMOST";
+            break;
+        }
+        p[k]-=2;
+           if(isright(p)){
+            out="ALMOST";
+            break;
+        }
+        ++p[k];
+    }
+}
+cout<<out<<endl;
+    return 0;
+}
