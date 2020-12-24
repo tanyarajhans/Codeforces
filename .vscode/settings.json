@@ -11,7 +11,8 @@
         "memory": "cpp",
         "variant": "cpp",
         "type_traits": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "vector": "cpp"
     },
     "json.schemas": [
     
