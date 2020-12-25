@@ -12,7 +12,8 @@
         "variant": "cpp",
         "type_traits": "cpp",
         "iostream": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "random": "cpp"
     },
     "json.schemas": [
     
