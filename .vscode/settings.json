@@ -13,7 +13,14 @@
         "type_traits": "cpp",
         "iostream": "cpp",
         "vector": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "map": "cpp",
+        "deque": "cpp",
+        "functional": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "ios": "cpp"
     },
     "json.schemas": [
     
