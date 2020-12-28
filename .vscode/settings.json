@@ -20,7 +20,8 @@
         "list": "cpp",
         "unordered_map": "cpp",
         "unordered_set": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "algorithm": "cpp"
     },
     "json.schemas": [
     
