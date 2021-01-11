@@ -121,6 +121,7 @@
 #include <version>
 #endif
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -131,19 +132,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -153,17 +154,27 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
-    
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+ll n,m;
+cin>>n>>m;
+ll d[m+1];
+for(int i=0;i<m;i++){
+    cin>>d[i];
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+sort(d,d+m);
+if(d[0]==1 || d[m-1]==n)
+{
+   cout<<"NO";
+   return 0; 
 }
-cout<<s;
+for(int i=0;i<m-2;i++){
+    if(d[i]+1==d[i+1]&& d[i+1]+1==d[i+2]){
+        cout<<"NO";
+        return 0;
+    }
+}
+cout<<"YES";
+
+return 0;
 }

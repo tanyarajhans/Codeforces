@@ -3,6 +3,7 @@
 #ifndef _GLIBCXX_NO_ASSERT
 #include <cassert>
 #endif
+#include <vector>
 #include <cctype>
 #include <cerrno>
 #include <cfloat>
@@ -153,17 +154,40 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
-    
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+    int n,k;
+    cin>>n>>k;
+     vector<long long>a(n);
+     vector<long long>b(n);
+      long long mini=1e9;
+      int id=-1;
+       for(int i=0;i<n;i++){
+        cin>>a[i];
+        long long x=a[i];
+         b[i]=0;
+         while(x%k==0){
+          x/=k;
+          b[i]++;
+           }
+          if(b[i]<mini){
+             mini=b[i];
+              id=i;      
+             }
+         }
+           long long ans=0;
+        for(int i=0;i<n;i++){
+          ans+=(mini+1LL)*a[i];
+         }
+        for(int i=0;i<id;i++){
+        ans+=a[i];
+         }
+                    
+    cout<<ans<<endl;
+
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
-}
-cout<<s;
+return 0;
 }

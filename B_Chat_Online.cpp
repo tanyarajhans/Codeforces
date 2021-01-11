@@ -121,6 +121,7 @@
 #include <version>
 #endif
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -131,19 +132,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -153,17 +154,39 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
-    
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+ll p,q,l,r;
+cin>>p>>q>>l>>r;
+vector< pair< int, int> > z;
+vector< pair< int, int> > x;
+for(ll i=0;i<p;i++){
+    int x,y;
+    cin>>x>>y;
+    z.push_back(make_pair(x,y));
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+for(ll i=0;i<q;i++){
+    int h,y;
+    cin>>h>>y;
+    x.push_back(make_pair(h,y));
+
 }
-cout<<s;
+int ans=0,g=0;map<int, int> mp;
+for(ll k=l;k<=r;k++){
+for(ll g=0,i=0;i<p && g==0;i++){
+    ll a=z[i].first;
+    ll b=z[i].second;
+    for(ll j=0;j<q && g==0;j++){
+        ll c=x[j].first;
+        ll d=x[j].second;
+        
+            if(a<=d+k && b>=c+k)
+                g=++ans;
+        }
+
+    }
+}
+
+cout<<ans<<endl;
+return 0;
 }

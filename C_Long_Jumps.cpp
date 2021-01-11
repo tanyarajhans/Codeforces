@@ -153,17 +153,33 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+    int n;
+    cin>>n;
+    long long a[n];
+    long long dp[n];
+    long long maxi=-1,maxind;
+    maxi=-1,maxind=-1;
+    for(int i=0;i<n;i++){
+     cin>>a[i];
     
+    }
+for(int i=n-1;i>=0;i--){
+    dp[i]=a[i];
+
+  if(i+a[i]<n){
+      dp[i]+=a[i+a[i]];
+  }
+   a[i]=dp[i];
+    maxi=max(dp[i],maxi);
+    }
+
+cout<<maxi<<endl;
+
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
-}
-cout<<s;
+return 0;
 }

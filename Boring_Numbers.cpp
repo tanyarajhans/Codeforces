@@ -121,6 +121,7 @@
 #include <version>
 #endif
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -131,19 +132,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -152,18 +153,33 @@ int check_ps(long long n){
         return 0;
     }
 }
-int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
+bool boring(ll n){
+    string s=to_string(n);
     
+    int len=s.size();
+    while(len>0){
+     if(len%2==0 && s[len-1]%2!=0)
+    return false;
+    else if(len%2!=0 && s[len-1]%2==0)
+    return false;
+    len--;
+    }
+   return true;
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+int main(){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+for(int k=1;k<=t;k++){
+    ll l,r;
+    cin>>l>>r;
+    ll c=0;
+    for(ll i=l;i<=r;i++){
+        if(boring(i))
+        c++;
+    }
+    cout<<"Case #"<<k<<": "<<c<<endl;
 }
-cout<<s;
+return 0;
 }

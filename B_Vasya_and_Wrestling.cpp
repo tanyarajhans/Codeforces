@@ -121,6 +121,7 @@
 #include <version>
 #endif
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -131,19 +132,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -153,17 +154,69 @@ int check_ps(long long n){
     }
 }
 int main(){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
 int n;
 cin>>n;
-int a[n];int s=n+n-1;
+ll a[n],fs=0,ss=0,t=0;
+vector<ll>f;
+vector<ll>s;
 for(int i=0;i<n;i++){
     cin>>a[i];
+    if(a[i]>0){
+     f.push_back(a[i]);
+     fs+=a[i];
+     t=1;
+    }
+    
+    else
+    {
+        s.push_back(abs(a[i]));
+        ss+=abs(a[i]);
+        t=2;
+    }
     
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+if(fs>ss)
+cout<<"first"<<endl;
+else if(ss>fs)
+{
+    cout<<"second"<<endl;
 }
-cout<<s;
+else{
+    
+    int m=f.size();
+    int n=s.size();
+    int i=0;
+    while(i<m && i<n){
+      if(f[i]!=s[i]){
+          
+          if(f[i]>s[i]){
+              cout<<"first"<<endl;
+              return 0;
+          }
+          else{
+              cout<<"second"<<endl;
+              return 0;
+          }
+      }
+      i++;
+    }
+    if(i==m && i!=n){
+        cout<<"second"<<endl;
+              return 0;
+    }
+else if(i==n && i!=m){
+        cout<<"first"<<endl;
+              return 0;
+    }
+    else{
+        (t==1)?cout<<"first"<<endl: cout<<"second"<<endl;
+        
+    }
+
+
+}
+
+return 0;
 }

@@ -121,6 +121,7 @@
 #include <version>
 #endif
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -131,19 +132,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -153,17 +154,78 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+    int n;
+    cin>>n;
+    ll a[n];
+    for(int i=0;i<n;i++)
     cin>>a[i];
+    ll ans=0;
+    map<ll,ll>h,v;
+   for(int i=1;i<n-1;i++)
+{
+    if(a[i]>a[i-1] && a[i]>a[i+1]){
+        ans++;
+        h[i]++;
+
+    }
+    if(a[i]<a[i-1] && a[i]<a[i+1]){
+        ans++;
+        v[i]++;
+        
+    }
+}
+   ll minus=0,res=0;
+   res=ans;
+   for(int i=0;i<n;i++){
+   ll x=a[i];
+   minus=0;
+   if(i-1>=0){
+       a[i]=a[i-1];
+       for(int j=i-1;j<i+2;j++){
+           if(j>=1 && j<n-1){
+               if(!(a[j]>a[j-1] && a[j]>a[j+1])){
+                   if(h[j])
+                   minus++;
+               }
+               else minus--;
+               if(!(a[j]<a[j-1] && a[j]<a[j+1])){
+                   if(v[j])
+                   minus++;
+               }
+               else minus--;
+           }
+       }
+    res=min(res,ans-minus);
+   }
+   minus=0;
+   if(i+1<n){
+    a[i]=a[i+1];
+    for(int j=i-1;j<i+2;j++){
+           if(j>=1 && j<n-1){
+               if(!(a[j]>a[j-1] && a[j]>a[j+1])){
+                   if(h[j])
+                   minus++;
+               }
+                else minus--;
+             if(!(a[j]<a[j-1] && a[j]<a[j+1])){
+                   if(v[j])
+                   minus++;
+               }
+            else minus--;
+           }
+    }
+
+         res=min(res,ans-minus); 
+       }
     
-}
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
-}
-cout<<s;
+ a[i]=x;
+   }
+cout<<res<<endl;
+}      
+return 0;
 }

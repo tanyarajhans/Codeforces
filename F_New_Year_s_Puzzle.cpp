@@ -152,18 +152,50 @@ int check_ps(long long n){
         return 0;
     }
 }
-int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
+void dfs(int i, int j, int &area, vector<vector<int>>& grid, int n, int m){
+        if(i<0 || i>=n || j<0 || j>=m || grid[i][j]!=1)
+            return;
+        grid[i][j]=0;
+        area++;
+        dfs(i+1,j,area,grid, n, m);
+        dfs(i-1,j,area,grid, n ,m);
+        dfs(i,j+1,area,grid, n ,m);
+        dfs(i,j-1,area,grid, n ,m);
+    }
     
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+     int n=grid.size();
+        int m=grid[0].size();
+        int maxarea=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1){
+                    int area=0;
+                    dfs(i,j,area, grid, n ,m);
+                    maxarea=max(area,maxarea);
+                }
+            }
+        }
+        return maxarea;
+    }
+
+int main(){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+    long long n,m;
+    int tc[2][n];
+    memset(t c,0,sizeof(tc));
+for(int i=0;i<m;i++){
+    int x,y;
+    cin>>x>>y;
+    tc[x][y]=1;
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+
+if(maxareaof)
+
 }
-cout<<s;
+return 0;
 }

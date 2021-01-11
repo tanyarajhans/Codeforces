@@ -121,6 +121,7 @@
 #include <version>
 #endif
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -131,19 +132,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -153,17 +154,69 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
-    
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int m,n;
+cin>>m>>n;
+int a[m][n];
+for(int i=0;i<m;i++){
+    for(int j=0;j<n;j++){
+        cin>>a[i][j];
+    }
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+int k[m][n];
+int r[m];
+int c[n];
+for(int i=0;i<m;i++){
+    for(int j=0;j<n;j++){
+        k[i][j]=1;
+    }
 }
-cout<<s;
+
+
+for(int i=0;i<m;i++){
+    for(int j=0;j<n;j++){
+        if(a[i][j]==0){
+             for(int p=0;p<m;p++)
+              k[p][j]=0;
+            
+            for(int p=0;p<n;p++)
+              k[i][p]=0;
+            
+        }
+    }
+}
+
+
+for(int i=0;i<m;i++){
+    for(int j=0;j<n;j++){
+        if(a[i][j]==1){
+             bool f=false;
+            for(int p=0;p<m;p++)
+            if(k[p][j])
+            f=true;
+            for(int p=0;p<n;p++)
+            if(k[i][p])
+            f=true;
+            if(!f)
+            {
+                cout<<"NO"<<endl;
+                return 0;
+            }
+        }
+    }
+}
+
+cout<<"YES"<<endl;
+for(int i=0;i<m;i++){
+    for(int j=0;j<n;j++){
+        cout<<k[i][j]<<" ";
+    }
+    cout<<endl;
+}
+
+
+
+
+return 0;
 }

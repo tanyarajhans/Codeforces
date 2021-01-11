@@ -153,17 +153,39 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+    int n;
+    cin>>n;
+    long long a[n];
+    long long e=0,o=0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        
+    }
+    sort(a,a+n);
+    reverse(a,a+n);
+    for(int i=0;i<n;i++){
+        if(i%2==0 && a[i]%2==0)
+        e+=a[i];
+        else if(i%2!=0 && a[i]%2!=0)
+        o+=a[i];
+
+        
+    }
+    if(e>o)
+    cout<<"Alice"<<endl;
+    else if(o>e)
+    cout<<"Bob"<<endl;
+    else if(o==e)
+    {
+        /* code */cout<<"Tie"<<endl;
+    }
     
+
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
-}
-cout<<s;
+return 0;
 }

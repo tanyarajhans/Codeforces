@@ -152,18 +152,75 @@ int check_ps(long long n){
         return 0;
     }
 }
+
+bool solve(int a[], int n, int s){
+    bool t[n+1][s+1];
+    t[0][0]=true;
+ for(int i=1;i<n+1;i++){
+            t[i][0]=false;
+        }
+        for(int i=1;i<s+1;i++){
+            t[0][i]=false;
+        }
+        
+         for(int i=1;i<n+1;i++){
+              for(int j=1;j<s+1;j++){
+                  if(nums[i-1]>j){
+                      t[i][j]=t[i-1][j];
+                  }
+                  else if(nums[i-1]<=j){
+                      t[i][j]=t[i-1][j] || t[i-1][j-nums[i-1]];
+                  }
+              }
+         }
+        return t[n][s];
+}
+
+int find(int a[], int n, int s){
+   int t[n+1][s+1];
+    t[0][0]=0;
+ for(int i=1;i<n+1;i++){
+            t[i][0]=1;
+        }
+        for(int i=1;i<s+1;i++){
+            t[0][i]=0;
+        }
+        
+         for(int i=1;i<n+1;i++){
+              for(int j=1;j<s+1;j++){
+                  if(nums[i-1]>j){
+                      t[i][j]=t[i-1][j];
+                  }
+                  else if(nums[i-1]<=j){
+                      t[i][j]=t[i-1][j] || t[i-1][j-nums[i-1]];
+                  }
+              }
+         }
+        return t[n][s];
+}
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int tc;
+cin>>tc;
+while(tc--){
+    int n,k;
+    cin>>n>>k;
+    int a[n];
+    int s=k,sum=0;
+    for(int i=0;i<n;i++){
     cin>>a[i];
+    sum+=a[i];
+    }
+    bool ans=solve(a,n,s);
+    if(ans==true && sum-k>k){
+        cout<<find(a,n,s)<<endl;
+    }
+    else
+    {
+        /* code */cout<<"-1"<<endl;
+    }
     
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
-}
-cout<<s;
+return 0;
 }

@@ -121,6 +121,7 @@
 #include <version>
 #endif
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -131,19 +132,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -153,17 +154,31 @@ int check_ps(long long n){
     }
 }
 int main(){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
 int n;
 cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
-    
+if(n<=2)
+{
+    cout<<n<<endl;
+    return 0;
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+ll a[n],maxl=2,l=2;
+for(int i=0;i<n;i++)
+cin>>a[i];
+for(int i=2;i<n;i++){
+if(a[i]==a[i-1]+a[i-2]){
+l++;
 }
-cout<<s;
+else{
+    if(l>maxl)
+    maxl=l;
+    l=2;
+}
+}
+if(l>maxl){
+    maxl=l;
+}
+cout<<maxl<<endl;
+return 0;
 }

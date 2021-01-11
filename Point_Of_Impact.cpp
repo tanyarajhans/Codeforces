@@ -33,6 +33,7 @@
 #endif
 
 // C++
+
 #include <algorithm>
 #include <bitset>
 #include <complex>
@@ -119,6 +120,7 @@
 #include <semaphore>
 #include <syncstream>
 #include <version>
+
 #endif
 using namespace std;
 
@@ -153,17 +155,34 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+    long long n,k,x,y;
+    vector<pair<int, int>> v;
+    cin>>n>>k>>x>>y;
+    if(x==y){
+        cout<<n<<" "<<n<<endl;
+        continue;
+    }
     
+    else if(x>y){
+v.push_back(make_pair(n, n-x+y));
+v.push_back(make_pair(n-x+y,n));
+v.push_back(make_pair(0, x-y));
+v.push_back(make_pair(x-y,0));
+cout<<v[k%(4)-1].first<<" "<<v[k%4 -1].second<endl;
+    }
+      else {
+v.push_back(make_pair(n-x+y,n));
+v.push_back(make_pair(n,n-x+y));
+v.push_back(make_pair(y-x,0));
+v.push_back(make_pair(0,y-x));
+cout<<v[k%4 -1].first<<" "<<v[k%4 -1].second<<endl;
+    }
+
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
-}
-cout<<s;
+return 0;
 }

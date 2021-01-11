@@ -152,18 +152,59 @@ int check_ps(long long n){
         return 0;
     }
 }
+ bool canPartition(int nums[], int n) {
+        int s=0;
+        
+        for(int i=0;i<n;i++)
+            s+=nums[i];
+        
+        if(s%2!=0)
+            return false;
+        s=s/2;
+        bool t[n+1][s+1];
+        t[0][0]=true;
+        for(int i=1;i<n+1;i++){
+            t[i][0]=false;
+        }
+        for(int i=1;i<s+1;i++){
+            t[0][i]=false;
+        }
+        
+         for(int i=1;i<n+1;i++){
+              for(int j=1;j<s+1;j++){
+                  if(nums[i-1]>j){
+                      t[i][j]=t[i-1][j];
+                  }
+                  else if(nums[i-1]<=j){
+                      t[i][j]=t[i-1][j] || t[i-1][j-nums[i-1]];
+                  }
+              }
+         }
+        return t[n][s];
+        
+    }
+
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
-    
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+    int n;
+    cin>>n;
+    int a[n];
+    int s=0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        s+=a[i];
+    }
+    if(canPartition(a,n)){
+       cout<<"YES" <<endl;
+    }
+else
+cout<<"NO" <<endl;
+
+
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
-}
-cout<<s;
+return 0;
 }

@@ -121,6 +121,7 @@
 #include <version>
 #endif
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -131,19 +132,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -153,17 +154,23 @@ int check_ps(long long n){
     }
 }
 int main(){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
 int n;
 cin>>n;
-int a[n];int s=n+n-1;
+int a[1000001];
+int b[1000001];
+map< int, int> m;
 for(int i=0;i<n;i++){
-    cin>>a[i];
     
+    cin>>a[i]>>b[i];
+    m[a[i]]++;
 }
-int x=0;
+
+
 for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+    cout<<n-1+m[b[i]]<<" "<<n-1-m[b[i]];
+    cout<<endl;
 }
-cout<<s;
+return 0;
 }

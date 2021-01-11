@@ -33,6 +33,7 @@
 #endif
 
 // C++
+
 #include <algorithm>
 #include <bitset>
 #include <complex>
@@ -93,34 +94,10 @@
 #include <shared_mutex>
 #endif
 
-#if __cplusplus >= 201703L
-#include <any>
-#include <charconv>
-// #include <execution>
-#include <filesystem>
-#include <optional>
-#include <memory_resource>
-#include <string_view>
-#include <variant>
-#endif
 
-#if __cplusplus > 201703L
-#include <bit>
-#include <compare>
-#include <concepts>
-#if __cpp_impl_coroutine
-# include <coroutine>
-#endif
-#include <latch>
-#include <numbers>
-#include <ranges>
-#include <span>
-#include <stop_token>
-#include <semaphore>
-#include <syncstream>
-#include <version>
-#endif
+
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -131,19 +108,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -153,17 +130,41 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+int n,m;
+cin>>n>>m;
+ll a[n];
 for(int i=0;i<n;i++){
-    cin>>a[i];
-    
+cin>>a[i];
 }
-int x=0;
+ll b[m];
+for(int i=0;i<m;i++){
+cin>>b[i];
+}
+sort(a,a+n);
+reverse(a,a+n);
+int j=0; ll ans=0;
 for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+if(j<m){
+ if(b[j]< b[a[i]-1]){
+ans+=b[j];
+j++;
+ }
+ else{
+     ans+=b[a[i]-1];
+ }
 }
-cout<<s;
+else
+{
+    ans+=b[a[i]-1];
+}
+
+}
+cout<<ans<<endl;
+}
+return 0;
 }

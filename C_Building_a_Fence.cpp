@@ -153,17 +153,37 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
-    
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+    long long n,k;
+    cin>>n>>k;
+    long long a[n];
+
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    bool ans=true;
+     long long maxi=a[0],mini=a[0];
+     for(int i=1;i<n;i++){
+         mini=max(mini-k+1, a[i]);
+         maxi=min(maxi+k-1, a[i]+k-1);
+
+         if(mini>maxi){
+ans=false;
+break;
+         }
+     }
+     if(a[n-1]<mini || a[n-1]>maxi){
+         ans=false;
+     }
+     if(ans)
+     cout<<"YES"<<endl;
+     else
+     cout<<"NO"<<endl;
+
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
-}
-cout<<s;
+return 0;
 }

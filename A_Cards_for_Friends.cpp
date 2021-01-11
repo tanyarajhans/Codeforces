@@ -153,17 +153,57 @@ int check_ps(long long n){
     }
 }
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
-    
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+int t;
+cin>>t;
+while(t--){
+   long long w,h,n;
+    cin>>w>>h>>n;
+    long long s=1;
+    if(w%2!=0 && h%2!=0){
+        if(n==1)
+        cout<<"YES"<<endl;
+        else
+   cout<<"NO"<<endl;
+   
+    }
+ else{
+   while(true){
+       if(w%2==0 && h%2==0){
+        if(w>h){
+            w=w/2;
+           
+            s=s*2;
+        }
+        else{
+            h=h/2;
+            s=s*2;
+        }
+       }
+
+
+       else if(w%2==0){
+            w=w/2;
+           
+            s=s*2;
+       }
+       else if(h%2==0){
+            h=h/2;
+            s=s*2;
+       }
+       else break;
+   }
+
+
+if(s>=n){
+    cout<<"YES"<<endl;
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
+else
+{
+    cout<<"NO"<<endl;
 }
-cout<<s;
+}
+}
+return 0;
 }

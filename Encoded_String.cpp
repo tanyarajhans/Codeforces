@@ -152,18 +152,58 @@ int check_ps(long long n){
         return 0;
     }
 }
+
 int main(){
-int n;
-cin>>n;
-int a[n];int s=n+n-1;
-for(int i=0;i<n;i++){
-    cin>>a[i];
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+
+int t;
+cin>>t;
+
+while(t--){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
     
+    long long ans=0,p=1,c=0;
+    vector<char> f(26);
+    string r="";
+    for(int i=n-1;i>=0;i--){
+        ans=ans+p*(s[i]-'0');
+        p*=2;
+        c++;
+        if(c==4){
+        r.push_back((char)(97+ans));
+       
+        c=0;
+        ans=0;
+        p=1;
+
+        }
+    }
+    reverse(r.begin(),r.end());
+    cout<<r<<"\n";
+    r="";
+    map<string,char> m;
+    m["0000"]='a';
+m["0001"]='b';
+m["0010"]='c';
+m["0011"]='d';
+m["0100"]='e';
+m["0101"]='f';
+m["0110"]='g';
+m["0111"]='h';
+m["1000"]='i';
+m["1001"]='j';
+m["1010"]='k';
+m["1011"]='l';
+m["1100"]='m';
+m["1101"]='n';
+m["1110"]='o';
+m["1111"]='p';
+
+
 }
-int x=0;
-for(int i=0;i<n;i++){
-    s+=abs(a[i]-x);
-    x=a[i];
-}
-cout<<s;
+return 0;
 }
