@@ -3,7 +3,6 @@
 #ifndef _GLIBCXX_NO_ASSERT
 #include <cassert>
 #endif
-#include <vector>
 #include <cctype>
 #include <cerrno>
 #include <cfloat>
@@ -122,6 +121,7 @@
 #include <version>
 #endif
 using namespace std;
+typedef long long ll;
 
 
 // Tanya Rajhans
@@ -132,19 +132,19 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-   long long pf[10000001];
+   ll pf[10000001];
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
-   for(long long i=2;i<10000001;i++){
+   for(ll i=2;i<10000001;i++){
         if(pf[i]==0){
-            for(long long j=i*i;j<10000001;j=j+i)
+            for(ll j=i*i;j<10000001;j=j+i)
                   pf[j]=1;
         }
     }
 }
 
-int check_ps(long long n){
+int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
         return 1;
@@ -156,38 +156,37 @@ int check_ps(long long n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-    int n,k;
-    cin>>n>>k;
-     vector<long long>a(n);
-     vector<long long>b(n);
-      long long mini=1e9;
-      int id=-1;
-       for(int i=0;i<n;i++){
-        cin>>a[i];
-        long long x=a[i];
-         b[i]=0;
-         while(x%k==0){
-          x/=k;
-          b[i]++;
-           }
-          if(b[i]<mini){
-             mini=b[i];
-              id=i;      
-             }
-         }
-           long long ans=0;
-        for(int i=0;i<n;i++){
-          ans+=(mini+1LL)*a[i];
-         }
-        for(int i=0;i<id;i++){
-        ans+=a[i];
-         }
-                    
-    cout<<ans<<endl;
-
+int n,k;
+cin>>n>>k;
+int a[n];
+for(int i=0;i<n;i++){
+    cin>>a[i];
 }
+
+int l=0,j=0,currs=0,maxs=0,ans=0;
+int f=n/k;
+int c[k]={0};
+
+while(l<k){
+currs=0;
+int ind=j;
+while(currs<f){
+c[l]+=a[ind];
+ind+=k;
+currs++;
+}
+j++;
+l++;
+}
+
+int minimum=INT_MAX, mini;
+for(int i=0;i<k;i++){
+    if(minimum>c[i]){
+        minimum=c[i];
+        mini=i;
+    }
+}
+cout<<(mini+1)<<endl;
+
 return 0;
 }
