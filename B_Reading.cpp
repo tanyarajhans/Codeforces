@@ -156,33 +156,23 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-string s,t;
-cin>>s>>t;
-int n=s.size(),m=t.size();
-int f1[26];
-int f2[26];
-for(int i=0;i<26;i++){
-    f1[i]=0;
-    f2[i]=0;
-}
+freopen("input.txt","r",stdin); 
+freopen("output.txt","w",stdout);
+int n,k;
+cin>>n>>k;
+vector< pair<int, int> > v;
 for(int i=0;i<n;i++){
-f1[s[i]-'a']++;
+int x;
+cin>>x;
+v.push_back(make_pair(-x,i+1));
 }
-for(int i=0;i<m;i++){
-f2[t[i]-'a']++;
-}
-int ans=0;
-for(int i=0;i<26;i++){
-    if(f1[i]==0 && f2[i]!=0){
-    cout<<"-1"<<endl;
-    return 0;
-    }
-    else{
-        
-        ans+=min(f1[i],f2[i]);
-    }
-}
-cout<<ans<<endl;
+sort(v.begin(),v.end());
 
+
+cout<<-v[k-1].first<<endl;
+
+
+for(int i=0;i<k;i++)
+cout<<v[i].second<<" ";
 return 0;
 }

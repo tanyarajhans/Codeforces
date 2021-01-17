@@ -156,33 +156,64 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-string s,t;
-cin>>s>>t;
-int n=s.size(),m=t.size();
-int f1[26];
-int f2[26];
-for(int i=0;i<26;i++){
-    f1[i]=0;
-    f2[i]=0;
-}
-for(int i=0;i<n;i++){
-f1[s[i]-'a']++;
-}
-for(int i=0;i<m;i++){
-f2[t[i]-'a']++;
-}
-int ans=0;
-for(int i=0;i<26;i++){
-    if(f1[i]==0 && f2[i]!=0){
-    cout<<"-1"<<endl;
-    return 0;
+int n,v;
+cin>>n>>v;
+map<int,int>m;
+while(v--){
+    int a,b,c;
+    cin>>a>>b>>c;
+    if(m[a]==0 && m[b]==0 && m[c]==0){
+        m[a]=1;
+        m[b]=2;
+        m[c]=3;
     }
-    else{
-        
-        ans+=min(f1[i],f2[i]);
+    else if(m[a]!=0 && m[b]==0 && m[c]==0){
+        if(m[a]==1){
+            m[b]=2;
+            m[c]=3;
+        }
+        else  if(m[a]==2){
+            m[b]=1;
+            m[c]=3;
+        }
+        else  if(m[a]==3){
+            m[b]=1;
+            m[c]=2;
+        }
     }
+    else if(m[b]!=0 && m[a]==0 && m[c]==0){
+        if(m[b]==1){
+            m[a]=2;
+            m[c]=3;
+        }
+        else  if(m[b]==2){
+            m[a]=1;
+            m[c]=3;
+        }
+        else  if(m[b]==3){
+            m[a]=1;
+            m[c]=2;
+        }
+    }
+    else if(m[c]!=0 && m[b]==0 && m[a]==0){
+        if(m[c]==1){
+            m[b]=2;
+            m[a]=3;
+        }
+        else  if(m[c]==2){
+            m[b]=1;
+            m[a]=3;
+        }
+        else  if(m[c]==3){
+            m[b]=1;
+            m[a]=2;
+        }
+    }
+    
 }
-cout<<ans<<endl;
-
+for(int i=1;i<=n;i++){
+    cout<<m[i]<<" ";
+}
+cout<<endl;
 return 0;
 }

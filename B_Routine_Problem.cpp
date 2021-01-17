@@ -104,22 +104,7 @@
 #include <variant>
 #endif
 
-#if __cplusplus > 201703L
-#include <bit>
-#include <compare>
-#include <concepts>
-#if __cpp_impl_coroutine
-# include <coroutine>
-#endif
-#include <latch>
-#include <numbers>
-#include <ranges>
-#include <span>
-#include <stop_token>
-#include <semaphore>
-#include <syncstream>
-#include <version>
-#endif
+
 using namespace std;
 typedef long long ll;
 
@@ -127,8 +112,10 @@ typedef long long ll;
 // Tanya Rajhans
 int gcd(int a, int b)
 {
-    if (b == 0)
-        return a;
+    if (a*b == 0)
+        return a+b;
+    if(a%b==0)
+        return b;
     return gcd(b, a % b); 
      
 }
@@ -156,33 +143,32 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-string s,t;
-cin>>s>>t;
-int n=s.size(),m=t.size();
-int f1[26];
-int f2[26];
-for(int i=0;i<26;i++){
-    f1[i]=0;
-    f2[i]=0;
+int a,b,c,d,m,n;
+cin>>a>>b>>c>>d;
+
+double r=((1.00*double(d/c)))*a;
+if(r>b){
+    m=c*b*b;
+    n=d*a*b;
 }
-for(int i=0;i<n;i++){
-f1[s[i]-'a']++;
+else{
+   m=d*a*a;
+   n=c*a*b; 
 }
-for(int i=0;i<m;i++){
-f2[t[i]-'a']++;
+int k=gcd(m,n);
+m=m/k;
+n=n/k;
+if(n>m) {
+m=n-m;
+cout<<m<<"/"<<n<<endl;
 }
-int ans=0;
-for(int i=0;i<26;i++){
-    if(f1[i]==0 && f2[i]!=0){
-    cout<<"-1"<<endl;
-    return 0;
-    }
-    else{
-        
-        ans+=min(f1[i],f2[i]);
-    }
+
+else
+{
+n=m-n;
+cout<<n<<"/"<<m<<endl;
 }
-cout<<ans<<endl;
+
 
 return 0;
 }

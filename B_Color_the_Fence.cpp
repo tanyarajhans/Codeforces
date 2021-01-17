@@ -156,33 +156,40 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-string s,t;
-cin>>s>>t;
-int n=s.size(),m=t.size();
-int f1[26];
-int f2[26];
-for(int i=0;i<26;i++){
-    f1[i]=0;
-    f2[i]=0;
-}
-for(int i=0;i<n;i++){
-f1[s[i]-'a']++;
-}
-for(int i=0;i<m;i++){
-f2[t[i]-'a']++;
-}
-int ans=0;
-for(int i=0;i<26;i++){
-    if(f1[i]==0 && f2[i]!=0){
-    cout<<"-1"<<endl;
+int n;
+cin>>n;
+if(n==0){
+    cout<<"-1";
     return 0;
-    }
-    else{
-        
-        ans+=min(f1[i],f2[i]);
-    }
 }
-cout<<ans<<endl;
-
+else{
+    int a[10];
+    int mini=INT_MAX,ind=-1;
+    for(int i=1;i<=9;i++){
+     cin>>a[i];
+     if(a[i]<=mini){
+       mini=a[i];
+       ind=i;
+     }
+    }
+    if(n>=mini){
+        int x=n/mini;
+while(x--){
+        for(int j=9;j>=1;j--){
+            if(n>=a[j] && ((n-a[j])/mini)>=x){
+                cout<<j;
+                n-=a[j];
+                break;
+            }
+        }
+    }
+    }
+    else
+    {
+        cout<<"-1";
+    }
+    
+    
+}
 return 0;
 }
