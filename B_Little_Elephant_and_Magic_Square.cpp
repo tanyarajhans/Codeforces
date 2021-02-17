@@ -155,7 +155,7 @@ int check_ps(ll n){
 }
 int main(){
 ios_base::sync_with_stdio(false);
-cin.tie(NULL);
+cin.tie(NULL);n
 int t[3][3];int s=0;
 for(int i=0;i<3;i++){
     for(int j=0;j<3;j++){
