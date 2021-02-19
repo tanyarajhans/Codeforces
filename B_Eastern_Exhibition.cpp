@@ -75,40 +75,61 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n,m;
-cin>>n>>m;
-int a[n+1];
-int b[m+1];
-for(int i=0;i<n+1;i++)
-cin>>a[i];
-for(int i=0;i<m+1;i++)
-cin>>b[i];
-if(n>m)
-    {
-        if((b[0]>0 and a[0]>0) || (b[0]<0 and a[0]<0))
-        {
-            cout<<"Infinity"<<endl;
-        }
-        else
-        {
-            cout<<"-Infinity"<<endl;
+int t;
+cin>>t;
+while(t--){
+    int n;
+    cin>>n;
+    vector<pair<int, int> > v;
+    
+    set<int> sx;
+    set<int> sy;
+    int maxx=0;
+    int maxy=0;
+    int miny=INT_MAX;
+    int minx=INT_MAX;
+
+    for(int i=0;i<n;i++){
+        int x,y;
+        cin>>x>>y;
+        v.push_back(mp(x, y));
+        maxx=max(maxx,x);
+        sx.insert(x);
+        sy.insert(y);
+        maxy=max(maxy,y);
+        minx=min(minx,x);
+        miny=min(maxy,y);
+    }
+    int mini=INT_MAX;
+    unordered_map<int, int> m;
+    set<int>::iterator itr1; 
+    set<int>::iterator itr2; 
+    for(itr1 = sx.begin(); itr1 != sx.end(); itr1++){
+        for(itr2 = sy.begin(); itr2 != sy.end(); itr2++){
+            int xi=*itr1;
+            int yi=*itr2;
+            ll sum=0;
+            for(int k=0;k<n;k++){
+                 sum+=abs(v[k].f-xi) + abs(v[k].s-yi);
+            }
+            if(sum<mini){
+               mini=sum;
+               
+            }
+            m[sum]++;
         }
     }
-    else if(m>n)
-    {
-        cout<<"0/1"<<endl;
-    }
+    
+    if(s1.size()!=s2.size())
+    cout<<abs(s1.size()-s2.size());
     else{
-        int g=gcd(a[0],b[0]);
-        a[0]/=g;
-        b[0]/=g;
-        if((b[0]>0 and a[0]>0) || (b[0]<0 and a[0]<0))
-        {
-            cout<<a[0]<<"/"<<b[0]<<endl;
-        }else{
-            cout<<"-"<<abs(a[0])<<"/"<<abs(b[0])<<endl;
-        
-        }
+         unordered_map<int, bool> b;
     }
+    
+ 
+   cout<<m[mini]<<endl;
+    
+}
+
 return 0;
 }

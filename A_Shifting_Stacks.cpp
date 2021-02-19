@@ -75,40 +75,39 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n,m;
-cin>>n>>m;
-int a[n+1];
-int b[m+1];
-for(int i=0;i<n+1;i++)
-cin>>a[i];
-for(int i=0;i<m+1;i++)
-cin>>b[i];
-if(n>m)
-    {
-        if((b[0]>0 and a[0]>0) || (b[0]<0 and a[0]<0))
-        {
-            cout<<"Infinity"<<endl;
-        }
-        else
-        {
-            cout<<"-Infinity"<<endl;
-        }
+int t;
+cin>>t;
+while(t--){
+    int n;
+    cin>>n;
+    ll a[n];
+    ll s=0;
+    ll cz=0;
+    ll maxi=0;
+    ll maxp=-1;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    else if(m>n)
-    {
-        cout<<"0/1"<<endl;
+     for(int i=0;i<n-1;i++){
+                if(a[i]>i){
+                    a[i+1]+=a[i]-i;
+                    a[i]=i;
+                }
     }
-    else{
-        int g=gcd(a[0],b[0]);
-        a[0]/=g;
-        b[0]/=g;
-        if((b[0]>0 and a[0]>0) || (b[0]<0 and a[0]<0))
-        {
-            cout<<a[0]<<"/"<<b[0]<<endl;
-        }else{
-            cout<<"-"<<abs(a[0])<<"/"<<abs(b[0])<<endl;
-        
-        }
-    }
+    bool f=true;
+       
+            for(int i=1;i<n;i++){
+                if(a[i]<=a[i-1]){
+                    f=false;
+                    break;
+                }
+            }
+            if(f)
+            cout<<"YES\n";
+            else
+            cout<<"NO\n";
+    
+}
+
 return 0;
 }
