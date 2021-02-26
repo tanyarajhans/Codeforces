@@ -111,11 +111,19 @@ cin.tie(NULL);
 int t;
 cin>>t;
 while(t--){
-int p,a,b,c;
+ll p,a,b,c;
 cin>>p>>a>>b>>c;
-if(p<a && p<b && p<c){
- 
-}
+ll l = p/a;
+if(p%a)
+l++;
+ll m = p/b;
+if(p%b)
+m++;
+ll n = p/c;
+if(p%c)
+n++;
 
+cout<<min(l*a-p, min(m*b-p,n*c-p))<<endl;
+}
 return 0;
 }

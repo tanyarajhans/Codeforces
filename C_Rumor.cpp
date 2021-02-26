@@ -71,34 +71,44 @@ int check_ps(ll n){
     }
 }
 
+ll a[100005];
+ll vis[100005];
+vector<ll> adj[100005];
 
+
+ll dfs(ll x){
+vis[x]=1;
+ll p=a[x];
+for(ll i=0;i<adj[x].size();i++){
+    ll c=adj[x][i];
+    if(!vis[c])
+    {
+        if(dfs(c)<p)
+        p=dfs(c);
+    }
+}
+return p;
+}
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-int n,m,k;
-        cin>>n>>m>>k;
-        vector<int>a(k);
-        vector<int>b(k);
-        for(int i=0;i<k;i++)
-            cin>>a[i];
-        for(int i=0;i<k;i++)
-            cin>>b[i];
-        vector<int>G(m+1);
-        vector<int>B(n+1);
-        for(int i=0;i<k;i++){
-            G[b[i]]++;
-        }
-        for(int i=0;i<k;i++){
-            B[a[i]]++;
-        }
-        ll total=0;
-        for(int i=0;i<k;i++){
-            total+=((k-1)-(G[b[i]]-1)-(B[a[i]]-1));
-        }
-        cout<<total/2<<endl;
+ll n,m;
+cin>>n>>m;
+ll sum=0;
+for(int i=1;i<=n;i++)
+cin>>a[i];
+while(m--){
+    ll x,y;
+    cin>>x>>y;
+    adj[x].pb(y);
+    adj[y].pb(x);
 }
+for(int i=1;i<=n;i++){
+    if(!vis[i]){
+     sum+=dfs(i);
+    }
+    
+}
+cout<<sum<<endl;
 return 0;
 }

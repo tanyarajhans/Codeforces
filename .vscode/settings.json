@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "\"http.proxySupport\"": "\"off\"",
         "string": "cpp",
         "ostream": "cpp",
         "iosfwd": "cpp",
@@ -33,7 +34,9 @@
         "regex": "cpp",
         "span": "cpp",
         "string_view": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     },
     "json.schemas": [
     

@@ -40,65 +40,31 @@ ll pf[10000001];
 
 
 // Tanya Rajhans
-int gcd(int a, int b)
-{
-    if (b == 0)
-        return a;
-    return gcd(b, a % b); 
-     
-}
 
-   void prime(){
-       memset(pf,0,10000001);
-       pf[0]=pf[1]=1;
-   for(ll i=2;i<10000001;i++){
-        if(pf[i]==0){
-            for(ll j=i*i;j<10000001;j=j+i)
-                  pf[j]=1;
-        }
-    }
-}
-
-int lcm(int a, int b) { return a * b / gcd(a, b); }
-
-int check_ps(ll n){
-    double sqrt_n = sqrt(n);
-    if(sqrt_n == int(sqrt_n)){
-        return 1;
-    }
-    else{
-        return 0;
-    }
-}
 
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-int n,m,k;
-        cin>>n>>m>>k;
-        vector<int>a(k);
-        vector<int>b(k);
-        for(int i=0;i<k;i++)
-            cin>>a[i];
-        for(int i=0;i<k;i++)
-            cin>>b[i];
-        vector<int>G(m+1);
-        vector<int>B(n+1);
-        for(int i=0;i<k;i++){
-            G[b[i]]++;
-        }
-        for(int i=0;i<k;i++){
-            B[a[i]]++;
-        }
-        ll total=0;
-        for(int i=0;i<k;i++){
-            total+=((k-1)-(G[b[i]]-1)-(B[a[i]]-1));
-        }
-        cout<<total/2<<endl;
+int n;
+cin>>n;
+int a[n+1];
+int p[n+1];
+for(int i=1;i<=n;i++){
+cin>>a[i];
 }
+for(int i=1;i<=n;i++){
+for(int k=1;k<=n;k++)
+p[k]=0;
+int j=i;
+for(;p[j]<1;){
+    p[j]++;
+    j=a[j];
+    
+}
+cout<<j<<" ";
+}
+
+
 return 0;
 }

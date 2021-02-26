@@ -75,30 +75,34 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-int n,m,k;
-        cin>>n>>m>>k;
-        vector<int>a(k);
-        vector<int>b(k);
-        for(int i=0;i<k;i++)
-            cin>>a[i];
-        for(int i=0;i<k;i++)
-            cin>>b[i];
-        vector<int>G(m+1);
-        vector<int>B(n+1);
-        for(int i=0;i<k;i++){
-            G[b[i]]++;
+ll n,m;
+cin>>n>>m;
+string s,t;
+cin>>s>>t;
+ll i,j,ans=0;
+j=m-1;
+vector<ll>ind(m+1),ind2(m+1);
+ for(i=n-1;i>=0&&j>=0;i--)
+    {
+        if(s[i]==t[j])
+        {
+            ind[j]=i;
+            j--;
         }
-        for(int i=0;i<k;i++){
-            B[a[i]]++;
+    }
+ j=0;
+for(i=0;i<n&&j<m;i++)
+    {
+        if(s[i]==t[j])
+        {
+            ind2[j]=i;
+            j++;
         }
-        ll total=0;
-        for(int i=0;i<k;i++){
-            total+=((k-1)-(G[b[i]]-1)-(B[a[i]]-1));
-        }
-        cout<<total/2<<endl;
-}
+    }
+for(i=1;i<m;i++)
+    {
+        ans=max(ans,ind[i]-ind2[i-1]);
+    }
+cout<<ans<<endl;
 return 0;
 }

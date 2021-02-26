@@ -78,27 +78,38 @@ cin.tie(NULL);
 int t;
 cin>>t;
 while(t--){
-int n,m,k;
-        cin>>n>>m>>k;
-        vector<int>a(k);
-        vector<int>b(k);
-        for(int i=0;i<k;i++)
-            cin>>a[i];
-        for(int i=0;i<k;i++)
-            cin>>b[i];
-        vector<int>G(m+1);
-        vector<int>B(n+1);
-        for(int i=0;i<k;i++){
-            G[b[i]]++;
+    int n;
+    cin>>n;
+    int a[n];
+    vector<int> b(n);
+    map<int,int>m;
+    vector<int> ans;
+    int j=0;
+   for(int i=0;i<n;i++){
+       cin>>a[i];
+       b[i]=a[i];
+   }
+sort(b.rbegin(),b.rend());
+    for(int i=n-1;i>=0;i--){
+        if(a[i]!=b[j]){
+            ans.pb(a[i]);
+            m[a[i]]=1;
         }
-        for(int i=0;i<k;i++){
-            B[a[i]]++;
+        else{
+            ans.pb(a[i]);
+            m[a[i]]=1;
+            for(int j=(int)ans.size()-1;j>=0;j--){
+                cout<<ans[j]<<" ";
+            }
+            while(m[b[j]]==1)
+            j++;
+            ans.clear();
         }
-        ll total=0;
-        for(int i=0;i<k;i++){
-            total+=((k-1)-(G[b[i]]-1)-(B[a[i]]-1));
-        }
-        cout<<total/2<<endl;
+    }
+     for(int j=(int)ans.size()-1;j>=0;j--){
+                cout<<ans[j]<<" ";
+     }
+     cout<<endl;
 }
 return 0;
 }
