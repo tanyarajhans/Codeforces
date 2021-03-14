@@ -71,32 +71,34 @@ int check_ps(ll n){
     }
 }
 
-int n,k;
-string s;
+
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 int t;
 cin>>t;
 while(t--){
-    
-    cin>>n>>k;
-    
-    cin>>s;
-    if(2*k+1>n)
-    cout<<"NO"<<endl;
-    else{
-     string a="",b="";
-     for(int i=0;i<k;i++)
-     a+=s[i];
-     for(int i=n-1;i>=n-k;i--)
-     b+=s[i];
-     if(a==b)
-     cout<<"YES"<<endl;
-     else
-     cout<<"NO"<<endl;
+    int n;
+    cin>>n;
+    vector<ll> m;
+    vector<ll> mr;
+    int k=2*n;
+    while(k--){
+        ll x,y;
+        cin>>x>>y;
+        if(x==0)
+        mr.pb(abs(y));
+        else
+        m.pb(abs(x));
     }
-    
+    sort(m.begin(), m.end());
+    sort(mr.begin(), mr.end());
+    double s=0.0;
+    for(int i=0;i<n;i++){
+    ll x=(m[i]*m[i])+(mr[i]*mr[i]);
+    s+=sqrt(x);
+    }
+    cout<<fixed<<setprecision(15)<<s<<endl;
 }
 return 0;
 }

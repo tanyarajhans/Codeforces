@@ -80,28 +80,42 @@ cin>>t;
 while(t--){
     ll n,k;
     cin>>n>>k;
-    multiset<ll> s;
-    map<int,int> m;
-    for(int i=0;i<1e5;i++){
-        m[i]=0;
-    }
+    set<ll> s;
+    ll a[n];
+    
     for(int i=0;i<n;i++)
     {
-        ll x;
-        cin>>x;
-        m[x]=1;
-        s.insert(x);
+        cin>>a[i];
+        s.insert(a[i]);
     }
-    for(int i=0;i<k;i++){
-        ll maxi=*(s.rbegin());
-        ll low=1, ll high=1e5;
-        while(low<high){
-            ll mid=l+(h-l)/2;
-            if(m[mid]==1){
-                
-            }
+    sort(a,a+n);
+    ll maxi=a[n-1];
+    ll mini=-1;
+    for(int i=0;i<n;i++)
+    {
+        if(i!=a[i]){
+            mini=i;
+            break;
         }
+        
     }
+    if(mini==-1)
+    mini=n;
+
+    if(mini<maxi){
+    
+        ll x=(mini+maxi)/2;
+        if((mini+maxi)%2>0)
+        x++;
+        if(k>0)
+        s.insert(x);
+        cout<<s.size()<<endl;
+
+    }
+    else{
+        cout<<s.size()+k<<endl;
+    }
+    
 }
 return 0;
 }
