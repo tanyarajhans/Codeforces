@@ -72,27 +72,61 @@ int check_ps(ll n){
 }
 
 
-
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-if(n%2!=0){
-    int d=1,t=0;
-    for(ll i=1;i<=n;i+=2){
-        d++;
-        t++;
+w(t){
+    int n,m;
+    cin>>n>>m;
+    int a[m];
+    int occ=0;
+    int ans=0;
+    vector<vector<int> > v(405);
+    for(int i=0;i<m;i++){
+     cin>>a[i];
+     v[a[i]].push_back(i);
+
     }
-    cout<<2*d*t<<endl;
-}
-else{
-     int d=1,t=1;
-    for(ll i=2;i<=n;i+=2){
-        d++;
-        t++;
+    set<int> s;
+    for(int i=0;i<m;i++){
+        if(s.size()<n){
+            if(s.find(a[i])==s.end()){
+                s.insert(a[i]);
+                ans++;
+            }
+        }
+        else{
+            if(s.find(a[i])==s.end()){
+            ans++;
+            bool f=false;
+            int maxi=-1,maxind=-1;
+            set<int>::iterator it;
+            for(it=s.begin(); it!=s.end();it++){
+                int k=*it;
+                if(lower_bound(v[k].begin(), v[k].end(), i)==v[k].end()){
+                    f=true;
+                    s.erase(k);
+                    break;
+                }
+                else{
+                    int p=*lower_bound(v[k].begin(), v[k].end(), i);
+                    if(p>maxi){
+                        maxi=p;
+                        maxind=k;
+                    }
+                }
+            }
+            if(f==false){
+                s.erase(maxind);
+                
+            }
+            s.insert(a[i]); 
+            }
+        }
     }
-    cout<<d*t<<endl;
-}
+       cout<<ans<<endl;  
+    }
+    
+
 return 0;
 }

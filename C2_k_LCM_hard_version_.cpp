@@ -70,29 +70,55 @@ int check_ps(ll n){
         return 0;
     }
 }
-
-
+bool isPrime(int n) 
+{ 
+    // Corner cases 
+    if (n <= 1)  return false; 
+    if (n <= 3)  return true; 
+  
+    // This is checked so that we can skip  
+    // middle five numbers in below loop 
+    if (n%2 == 0 || n%3 == 0) return false; 
+  
+    for (int i=5; i*i<=n; i=i+6) 
+        if (n%i == 0 || n%(i+2) == 0) 
+           return false; 
+  
+    return true; 
+} 
+  
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-if(n%2!=0){
-    int d=1,t=0;
-    for(ll i=1;i<=n;i+=2){
-        d++;
-        t++;
+w(t){
+    int n,k,x;
+    cin>>n>>k;
+    if(k>3){
+        int p=k-3;
+        n=n-p;
+        while(p--)
+        cout<<"1 ";
     }
-    cout<<2*d*t<<endl;
-}
-else{
-     int d=1,t=1;
-    for(ll i=2;i<=n;i+=2){
-        d++;
-        t++;
+    if(n%3==0){
+        x=n/3;
+        cout<<x<<" "<<x<<" "<<x<<endl;
     }
-    cout<<d*t<<endl;
+    else if(n%4==0){
+        x=n/4;
+        cout<<x<<" "<<x<<" "<<2*x<<endl;
+    }
+    else if(n%2==0){
+        x=n/2;
+        cout<<x-1<<" "<<x-1<<" "<<2<<endl;
+    }
+    
+    else{
+        x=n/2;
+        cout<<x<<" "<<x<<" "<<1<<endl;
+    }
+    
+
 }
 return 0;
 }

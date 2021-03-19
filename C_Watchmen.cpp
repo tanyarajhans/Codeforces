@@ -72,27 +72,24 @@ int check_ps(ll n){
 }
 
 
-
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 int n;
 cin>>n;
-if(n%2!=0){
-    int d=1,t=0;
-    for(ll i=1;i<=n;i+=2){
-        d++;
-        t++;
-    }
-    cout<<2*d*t<<endl;
+map<int,int> x;
+map<int,int> y;
+map< pair<int,int> , ll> k;
+ll ans=0;
+for(int i=0;i<n;i++){
+    int a,b;
+    cin>>a>>b;
+    ans+=x[a]+y[b]-k[mp(a,b)];
+    x[a]++;
+    y[b]++;
+    k[mp(a,b)]++;
+    
 }
-else{
-     int d=1,t=1;
-    for(ll i=2;i<=n;i+=2){
-        d++;
-        t++;
-    }
-    cout<<d*t<<endl;
-}
+cout<<ans<<endl;
 return 0;
 }

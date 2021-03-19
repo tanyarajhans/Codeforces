@@ -72,27 +72,25 @@ int check_ps(ll n){
 }
 
 
-
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 int n;
 cin>>n;
-if(n%2!=0){
-    int d=1,t=0;
-    for(ll i=1;i<=n;i+=2){
-        d++;
-        t++;
-    }
-    cout<<2*d*t<<endl;
+set<int> s;
+map<int,int> m;
+for(int i=0;i<n;i++){
+    int x;
+    cin>>x;
+    m[x]++;
 }
-else{
-     int d=1,t=1;
-    for(ll i=2;i<=n;i+=2){
-        d++;
-        t++;
-    }
-    cout<<d*t<<endl;
+vector<int> ans;
+
+int k=0;
+map<int,int>::iterator it;
+for(it=m.begin(); it!=m.end(); it++){
+    k=max(k,it->second);
 }
+cout<<n-k<<endl;
 return 0;
 }

@@ -72,27 +72,51 @@ int check_ps(ll n){
 }
 
 
+int main()
+{
+    //freopen("input.txt", "r", stdin);
 
-int main(){
-ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-int n;
-cin>>n;
-if(n%2!=0){
-    int d=1,t=0;
-    for(ll i=1;i<=n;i+=2){
-        d++;
-        t++;
+    ll n, v;
+    cin >> n >> v;
+    map<ll, ll> count;
+    vector<pair<ll, ll> > pairs;
+    while (n--)
+    {
+        ll a, b;
+        cin >> a >> b;
+        pairs.push_back(make_pair(a, b));
     }
-    cout<<2*d*t<<endl;
-}
-else{
-     int d=1,t=1;
-    for(ll i=2;i<=n;i+=2){
-        d++;
-        t++;
+    sort(pairs.begin(), pairs.end());
+
+    for (int i = 0; i < pairs.size(); i++)
+    {
+        ll a = pairs[i].first;
+        ll b = pairs[i].second;
+        if (count[a] < v)
+        {
+            ll total = count[a];
+            ll canAdd = v - total;
+            ll added = min(b, canAdd);
+            count[a] += added;
+            b -= added;
+        }
+        if (b == 0)
+            continue;
+        if (count[a + 1] < v)
+        {
+            ll total = count[a + 1];
+            ll canAdd = v - total;
+            ll added = min(b, canAdd);
+            count[a + 1] += added;
+        }
     }
-    cout<<d*t<<endl;
-}
-return 0;
+
+    ll totalCollected = 0;
+    map<ll, ll>::iterator it;
+    for (it = count.begin(); it != count.end(); it++)
+    {
+        totalCollected += it->second;
+    }
+
+    cout << totalCollected << "\n";
 }

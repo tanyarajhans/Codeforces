@@ -71,28 +71,31 @@ int check_ps(ll n){
     }
 }
 
+int solve(int a,int b){
+    if(a<=0 || b<=0)
+    return 0;
 
+    return max(solve(a-2,b+1)+1, solve(a+1,b-2)+1);
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-if(n%2!=0){
-    int d=1,t=0;
-    for(ll i=1;i<=n;i+=2){
-        d++;
-        t++;
-    }
-    cout<<2*d*t<<endl;
+int a,b;
+cin>>a>>b;
+int ans=0;
+if(a<=1 && b<=1){
+    cout<<"0"<<endl;
+    return 0;
 }
-else{
-     int d=1,t=1;
-    for(ll i=2;i<=n;i+=2){
-        d++;
-        t++;
+while(a>0 && b>0){
+    if(b>a){
+        swap(a,b);
     }
-    cout<<d*t<<endl;
+       a-=2;
+       b+=1;
+    ans++;
 }
+cout<<ans<<endl;
 return 0;
 }

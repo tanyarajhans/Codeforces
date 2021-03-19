@@ -34,11 +34,11 @@
 #define me(i,start,end)  for(int i=start;i<end;i++)
 #define he(i,end,start) for(int i=end-1;i>=start;i--)
 #define all(v)         v.begin(),v.end()
-
+ 
 using namespace std;
 ll pf[10000001];
-
-
+ 
+ 
 // Tanya Rajhans
 int gcd(int a, int b)
 {
@@ -47,7 +47,7 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
-
+ 
    void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
@@ -58,9 +58,9 @@ int gcd(int a, int b)
         }
     }
 }
-
+ 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
-
+ 
 int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
@@ -71,28 +71,47 @@ int check_ps(ll n){
     }
 }
 
-
-
+ 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-if(n%2!=0){
-    int d=1,t=0;
-    for(ll i=1;i<=n;i+=2){
-        d++;
+w(t){
+    ll a,b,n;
+    cin>>a>>b>>n;
+    vector<pair<ll,ll> > m(n);
+    for(int i=0;i<n;i++)
+    cin>>m[i].f;
+    for(int i=0;i<n;i++)
+    cin>>m[i].s;
+    sort(m.begin(), m.end());
+    ll ans=0;
+    bool f=false;
+    for(int i=0;i<n;i++){
+        if(b<=0){
+            f=true;
+            break;
+            
+        }
+        ll t=0,ss=0;
+        t=m[i].s/a;
+        if(m[i].s%a)
         t++;
+        ss=b/m[i].f;
+        if(b%m[i].f)
+        ss++;
+        ll l=min(ss,t);
+        b-=l*m[i].f;
+        m[i].s-=l*a;
+        
     }
-    cout<<2*d*t<<endl;
-}
-else{
-     int d=1,t=1;
-    for(ll i=2;i<=n;i+=2){
-        d++;
-        t++;
+    if(f==true){
+      cout<<"NO"<<endl;
+            continue;
     }
-    cout<<d*t<<endl;
+    if(m[n-1].s>0)
+     cout<<"NO"<<endl;
+     else
+     cout<<"YES"<<endl;
 }
 return 0;
 }

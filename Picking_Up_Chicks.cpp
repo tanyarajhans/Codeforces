@@ -72,27 +72,42 @@ int check_ps(ll n){
 }
 
 
-
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-if(n%2!=0){
-    int d=1,t=0;
-    for(ll i=1;i<=n;i+=2){
-        d++;
-        t++;
+int t;
+cin>>t;
+for(int ki=1;ki<=t;ki++){
+    int n,k,b,t;
+    cin>>n>>k>>b>>t;
+    int x[n];
+    for(int i=0;i<n;i++){
+        cin>>x[i];
     }
-    cout<<2*d*t<<endl;
-}
-else{
-     int d=1,t=1;
-    for(ll i=2;i<=n;i+=2){
-        d++;
-        t++;
+    int v[n];
+    for(int i=0;i<n;i++){
+        cin>>v[i];
     }
-    cout<<d*t<<endl;
+    int can=0,swap=0,cant=0;
+    for(int i=n-1;i>=0;i--){
+        int d=b-x[i];
+        int dis=t*v[i];
+        if(d<=dis){
+           can++;
+           if(cant>0){
+               swap+=cant;
+           }
+        }
+        else{
+            cant++;
+        }
+        if(can==k)
+        break;
+    }
+    if(can<k)
+        cout<<"Case #"<<ki<<": "<<"IMPOSSIBLE"<<endl;
+    else
+        cout<<"Case #"<<ki<<": "<<swap<<endl;
 }
 return 0;
 }

@@ -71,28 +71,43 @@ int check_ps(ll n){
     }
 }
 
-
-
+static bool comp(pair<int,int> a, pair<int,int> b){
+    return a.f+a.s > b.f+b.s;
+}
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-if(n%2!=0){
-    int d=1,t=0;
-    for(ll i=1;i<=n;i+=2){
-        d++;
-        t++;
+int t;
+cin>>t;
+while(t--){
+    int n;
+    cin>>n;
+    int a[n];
+    int b[n];
+    vector<pair<int,int> > c(n);
+    for(int i=0;i<n;i++)
+    cin>>c[i].f;
+    for(int i=0;i<n;i++)
+    cin>>c[i].s;
+    int sl=0,sj=0;
+    sort(c.begin(), c.end(), comp);
+    for(int i=0;i<n;i++){
+        if(i%2==0){
+           sl+=c[i].f;
+        }
+        
+        else{
+         sj+=c[i].s;
+        }
+        
     }
-    cout<<2*d*t<<endl;
-}
-else{
-     int d=1,t=1;
-    for(ll i=2;i<=n;i+=2){
-        d++;
-        t++;
-    }
-    cout<<d*t<<endl;
+    if(sj>sl)
+    cout<<"Second";
+    else if(sl>sj)
+    cout<<"First";
+    else
+    cout<<"Tie";
+    cout<<endl;
 }
 return 0;
 }
