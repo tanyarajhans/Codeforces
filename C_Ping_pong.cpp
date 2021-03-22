@@ -70,36 +70,15 @@ int check_ps(ll n){
         return 0;
     }
 }
-ll lu[10000001];
-int d;
+
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    int n;
-    cin>>n>>d;
-    for(int i=0;i<n;i++){
-        int x;
-        cin>>x;
-        if(x>=10*d){
-            cout<<"YES"<<endl;
-        }
-        else{
-            bool f=false;
-            while(x>=d){
-              if(x%d==0){
-                  f=true;
-                  break;
-              }
-              x-=10;    
-            }
-            if(f==true)
-            cout<<"YES"<<endl;
-            else
-            cout<<"NO"<<endl;
-        }
-    }
+    int a,b;
+    cin>>a>>b;
+    cout<<a-1<<" "<<b<<endl;
 }
 return 0;
 }

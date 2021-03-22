@@ -70,36 +70,65 @@ int check_ps(ll n){
         return 0;
     }
 }
-ll lu[10000001];
-int d;
+
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    int n;
-    cin>>n>>d;
+    int n,mx;
+    cin>>n;
+    ll a[n];
     for(int i=0;i<n;i++){
-        int x;
-        cin>>x;
-        if(x>=10*d){
-            cout<<"YES"<<endl;
-        }
-        else{
-            bool f=false;
-            while(x>=d){
-              if(x%d==0){
-                  f=true;
-                  break;
-              }
-              x-=10;    
-            }
-            if(f==true)
-            cout<<"YES"<<endl;
-            else
-            cout<<"NO"<<endl;
-        }
+  cin>>a[i];
+  mx=max(a[i],(ll)mx);
     }
+    
+    set<int> s;
+    if(n==1){
+cout<<0<<endl;
+continue;
+    }
+    if(n==2){
+        if(a[0]==a[1])
+        cout<<0<<endl;
+            continue;
+    }
+    bool f=false;
+    for(int i=0;i<n-1;i++){
+      if(a[i]==a[i+1]){
+          f=true;
+          break;
+      }
+    }
+    if(f==true){
+        cout<<"-1"<<endl;
+        continue;
+    }
+    int c=-1;
+    if(a[1]>=a[0])
+    c=a[1]-a[0];
+    int maxi=-1;
+    if(c!=-1)
+    maxi=c+1;
+    else{
+        cout<<"-1"<<endl;
+        continue;
+    }
+    ll l=2,h=mx*2-1,mid=0;
+    while(l<h){
+      mid=l+(h-l)/2;
+      bool f=false;
+      for(int i=2;i<n-1;){
+        if((a[i]+c)%mid>a[i+1]){
+            l=mid+1;
+        }
+        else {
+          h=mid-1;
+        }
+      } 
+    }
+    cout<<mid<<" "<<c<<endl;
 }
 return 0;
 }

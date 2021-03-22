@@ -48,16 +48,7 @@ int gcd(int a, int b)
      
 }
 
-   void prime(){
-       memset(pf,0,10000001);
-       pf[0]=pf[1]=1;
-   for(ll i=2;i<10000001;i++){
-        if(pf[i]==0){
-            for(ll j=i*i;j<10000001;j=j+i)
-                  pf[j]=1;
-        }
-    }
-}
+
 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
 
@@ -70,36 +61,25 @@ int check_ps(ll n){
         return 0;
     }
 }
-ll lu[10000001];
-int d;
+
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-    int n;
-    cin>>n>>d;
-    for(int i=0;i<n;i++){
-        int x;
-        cin>>x;
-        if(x>=10*d){
-            cout<<"YES"<<endl;
-        }
-        else{
-            bool f=false;
-            while(x>=d){
-              if(x%d==0){
-                  f=true;
-                  break;
-              }
-              x-=10;    
-            }
-            if(f==true)
-            cout<<"YES"<<endl;
-            else
-            cout<<"NO"<<endl;
+int s;
+cin>>s;
+int t[s+1];
+int MAX=1e9+7;
+for(int i=1;i<=s;i++)
+t[i]=0;
+t[0]=1;
+for(int i=1;i<=s;i++){
+    for(int j=1;j<=6;j++){
+        if(j<=i){
+            t[i]=(t[i]+t[i-j])%MAX;
         }
     }
 }
+cout<<t[s]<<endl;
 return 0;
 }

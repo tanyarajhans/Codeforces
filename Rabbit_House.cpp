@@ -70,36 +70,56 @@ int check_ps(ll n){
         return 0;
     }
 }
-ll lu[10000001];
-int d;
+int t[303][303],r,c,ans;
+
+bool isValid(int x,int y){
+    return x>=0 && x<r && y>=0 && y<c;
+}
+void dfs(int x, int y){
+    if(isValid(x-1,y) && abs(t[x-1][y]-t[x][y])>1){
+        ans+=abs(t[x-1][y]-t[x][y]+1);
+        t[x-1][y]=t[x][y]-1;
+        
+       dfs(x-1,y);
+    }
+    if(isValid(x+1,y) && abs(t[x+1][y]-t[x][y])>1){
+        ans+=abs(t[x+1][y]-t[x][y]+1);
+        t[x+1][y]=t[x][y]-1;
+       dfs(x+1,y);
+    }
+    if(isValid(x,y-1) && abs(t[x][y-1]-t[x][y])>1){
+        ans+=abs(t[x][y-1]-t[x][y]+1);
+        t[x][y-1]=t[x][y]-1;
+       dfs(x,y-1);
+    }
+    if(isValid(x,y+1) && abs(t[x][y+1]-t[x][y])>1){
+        ans+=abs(t[x][y+1]-t[x][y]+1);
+        t[x][y+1]=t[x][y]-1;
+       dfs(x,y+1);
+    }
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-    int n;
-    cin>>n>>d;
-    for(int i=0;i<n;i++){
-        int x;
-        cin>>x;
-        if(x>=10*d){
-            cout<<"YES"<<endl;
-        }
-        else{
-            bool f=false;
-            while(x>=d){
-              if(x%d==0){
-                  f=true;
-                  break;
-              }
-              x-=10;    
-            }
-            if(f==true)
-            cout<<"YES"<<endl;
-            else
-            cout<<"NO"<<endl;
-        }
+int p=1;
+w(tc){
+    cin>>r>>c;
+    int mx=0,my=0,maxi=0;
+    for(int i=0;i<r;i++){
+      for(int j=0;j<c;j++){
+          cin>>t[i][j];
+          if(t[i][j]>=maxi){
+              maxi=t[i][j];
+              mx=i;
+              my=j;
+          }
+      }
     }
+    ans=0;
+    dfs(mx,my);
+    cout<<"Case #"<<p<<": "<<ans<<endl;
+    p++;
 }
 return 0;
 }

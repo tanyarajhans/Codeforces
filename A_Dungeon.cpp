@@ -80,17 +80,14 @@ cin>>t;
 while(t--){
 ll a,b,c;
 cin>>a>>b>>c;
-if(n<2020)
-cout<<"NO";
-else{
- int r=n%2020;
-if((n-r*2021)>=0 && (n-r*2021)%2020==0)
- cout<<"YES";
- else
- cout<<"NO";
-    
-}
-cout<<endl;
+ll x=a+b+c;
+if(x%9!=0)
+cout<<"NO"<<endl;
+else if(x/9<=min(a,min(b,c)))
+cout<<"YES"<<endl;
+else
+cout<<"NO"<<endl;
+
 }
 return 0;
 }

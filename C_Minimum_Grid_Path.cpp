@@ -76,12 +76,20 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    int n;
+    ll n;
     cin>>n;
-    int a[n];
-    for(int i=0;i<n;i++)
-    cin>>a[i];
-    
+    ll a[n];
+    ll ans=LLONG_MAX, pre=0;
+        priority_queue<ll, vector<ll>, greater<ll> > p1, p2;
+        for (ll i = 0; i < n; ++i)
+        {
+            cin >> a[i];
+            i % 2 ? p2.push(a[i]) : p1.push(a[i]);
+            pre += a[i];
+            if (i)
+                ans = min(ans, pre + (n - (ll)p1.size()) * p1.top() + (n - (ll)p2.size()) * p2.top());
+        }
+        cout << ans << '\n';
 }
 return 0;
 }

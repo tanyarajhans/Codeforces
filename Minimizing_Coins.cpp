@@ -70,36 +70,54 @@ int check_ps(ll n){
         return 0;
     }
 }
-ll lu[10000001];
-int d;
+
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-    int n;
-    cin>>n>>d;
-    for(int i=0;i<n;i++){
-        int x;
-        cin>>x;
-        if(x>=10*d){
-            cout<<"YES"<<endl;
-        }
-        else{
-            bool f=false;
-            while(x>=d){
-              if(x%d==0){
-                  f=true;
-                  break;
-              }
-              x-=10;    
-            }
-            if(f==true)
-            cout<<"YES"<<endl;
-            else
-            cout<<"NO"<<endl;
-        }
+int n;
+cin>>n;
+int t[n][n];
+int dp[n][n];
+memset(dp,0,sizeof(dp));
+memset(t,0,sizeof(t));
+for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+        char ch;
+        cin>>ch;
+        if(ch=='.')
+        t[i][j]=1;
+        else
+        t[i][j]=0;
     }
 }
+
+if(t[n-1][n-1]==1){
+    dp[n-1][n-1]=1;
+}
+for(int i=n-2;i>=0;i--){ //last column
+    if(t[i][n-1]==0)
+    dp[i][n-1]=0;
+    else{
+        dp[i][n-1]+=dp[i+1][n-1];
+    }
+}
+for(int i=n-2;i>=0;i--){ //last row
+    if(t[n-1][i]==0)
+    dp[n-1][i]=0;
+    else{
+        dp[n-1][i]+=dp[n-1][i+1];
+    }
+}
+
+for(int i=n-2;i>=0;i--){
+    for(int j=n-2;j>=0;j--){
+        if(t[i][j]==0)
+        dp[i][j]=0;
+        else
+        dp[i][j]+=(dp[i+1][j]%mod+dp[i][j+1]%mod)%mod;
+    }
+}
+cout<<dp[0][0]<<endl;
 return 0;
 }

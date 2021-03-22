@@ -36,7 +36,6 @@
 #define all(v)         v.begin(),v.end()
 
 using namespace std;
-ll pf[10000001];
 
 
 // Tanya Rajhans
@@ -48,16 +47,7 @@ int gcd(int a, int b)
      
 }
 
-   void prime(){
-       memset(pf,0,10000001);
-       pf[0]=pf[1]=1;
-   for(ll i=2;i<10000001;i++){
-        if(pf[i]==0){
-            for(ll j=i*i;j<10000001;j=j+i)
-                  pf[j]=1;
-        }
-    }
-}
+
 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
 
@@ -70,36 +60,23 @@ int check_ps(ll n){
         return 0;
     }
 }
-ll lu[10000001];
-int d;
+
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-    int n;
-    cin>>n>>d;
-    for(int i=0;i<n;i++){
-        int x;
-        cin>>x;
-        if(x>=10*d){
-            cout<<"YES"<<endl;
-        }
-        else{
-            bool f=false;
-            while(x>=d){
-              if(x%d==0){
-                  f=true;
-                  break;
-              }
-              x-=10;    
-            }
-            if(f==true)
-            cout<<"YES"<<endl;
-            else
-            cout<<"NO"<<endl;
-        }
+int n;
+cin>>n;
+int t[n+1];
+for(int i=0;i<n+1;i++)
+t[i]=1e9;
+t[0]=0;
+for(int i=0;i<n+1;i++){
+        string s=to_string(i);
+        for(int j=0;j<s.size();j++){
+            t[i]=min(t[i],t[i-(s[j]-'0')]+1);
     }
 }
+cout<<t[n]<<endl;
 return 0;
 }
