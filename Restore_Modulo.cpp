@@ -81,7 +81,6 @@ w(t){
     ll a[n];
     for(int i=0;i<n;i++){
   cin>>a[i];
-  mx=max(a[i],(ll)mx);
     }
     
     set<int> s;
@@ -90,45 +89,51 @@ cout<<0<<endl;
 continue;
     }
     if(n==2){
-        if(a[0]==a[1])
         cout<<0<<endl;
             continue;
     }
+    ll c=a[1]-a[0];
     bool f=false;
     for(int i=0;i<n-1;i++){
-      if(a[i]==a[i+1]){
+      if(a[i+1]-a[i]!=c){
           f=true;
           break;
       }
     }
-    if(f==true){
-        cout<<"-1"<<endl;
+    if(f==false){
+        cout<<0<<endl;
         continue;
     }
-    int c=-1;
-    if(a[1]>=a[0])
-    c=a[1]-a[0];
-    int maxi=-1;
-    if(c!=-1)
-    maxi=c+1;
-    else{
-        cout<<"-1"<<endl;
-        continue;
-    }
-    ll l=2,h=mx*2-1,mid=0;
-    while(l<h){
-      mid=l+(h-l)/2;
-      bool f=false;
-      for(int i=2;i<n-1;){
-        if((a[i]+c)%mid>a[i+1]){
-            l=mid+1;
+    f=false;
+    c=0;
+    ll m=0;
+      for(int i=1;i<n-1;i++){
+        if(a[i]<a[i-1] && a[i]<a[i+1]){
+            c=a[i+1]-a[i];
+            m=a[i-1]+c-a[i];
+            break;
         }
-        else {
-          h=mid-1;
+        else if(a[i]>a[i-1] && a[i]>a[i+1]){
+            c=a[i]-a[i-1];
+            m=a[i]+c-a[i+1];
+            break;
         }
-      } 
     }
-    cout<<mid<<" "<<c<<endl;
+    if(c!=0){
+        for(int i=0;i<n-1;i++){
+            if(a[i+1]!=(a[i]+c)%m){
+                f=true;
+                break;
+            }
+        }
+    }
+    if(a[0]>=m){
+      f=true;
+    }
+    if(f || m==0)
+    cout<<"-1"<<endl;
+    else
+    cout<<m<<" "<<c<<endl;
 }
 return 0;
 }

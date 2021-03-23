@@ -18,6 +18,7 @@
 #define s              second
 #define ll               long long
 #define pb               push_back
+#define mp               make_pair
 #define pii              pair<int,int>
 #define vi               vector<int>
 #define mii              unordered_map<int,int>
@@ -74,55 +75,6 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-    int n,m;
-    cin>>n>>m;
-    unordered_map<int,int> f;
-    set<int> s;
-    
-    bool aa=true;
-    vector<int>a[m+1];
-    vector<int>ans(m+1);
-    for(int p=0;p<m;p++){
-      int k;
-      cin>>k;
-      for(int i=0;i<k;i++){
-          int x;
-          cin>>x;
-          a[p+1].pb(x);
-      }
-    }
-    vector<pair<int,int> > v;
-    for(int i=1;i<m+1;i++)
-    v.pb(make_pair(a[i].size(),i));
-    sort(v.begin(), v.end());
-    
-    for(int i=0;i<v.size();i++){
-          int d=v[i].s;
-          for(int j=0;j<a[d].size();j++){
-              if(f[a[d][j]]<(m+1)/2 && ans[d]==0){
-              ans[d]=a[d][j];
-              f[a[d][j]]++;
-              break;
-            }
-          }
-    }
-    for(int p=1;p<m+1;p++)
-        if(ans[p]==0){
-            aa=false;
-            break;
-    }
-            
-     
-    if(aa==true){
-        cout<<"YES"<<endl;
-    for(int p=1;p<=m;p++){
-        cout<<ans[p]<<" ";
-    }
-      cout<<endl;
-    }
-    else
-    cout<<"NO"<<endl;
-}
+
 return 0;
 }

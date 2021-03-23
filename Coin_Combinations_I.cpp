@@ -81,20 +81,21 @@ int a[n];
 int MAX=1e9+7;
 for(int i=0;i<n;i++)
 cin>>a[i];
-int t[s+1];
-for(int i=0;i<s+1;i++)
-  t[i]=0;
-
-t[0]=1;
-for(int i=1;i<s+1;i++){
-    for(int j=0;j<n;j++){
-        if(a[j]<=i){
-            t[i]=(t[i]+t[i-a[j]])%MAX;
+int t[n+1][s+1];
+t[0][0]=1;
+for(int i=1;i<s+1;i++)
+  t[0][i]=0;
+for(int i=1;i<n+1;i++)
+  t[i][0]=1;
+for(int i=1;i<n+1;i++){
+    for(int j=1;j<s+1;j++){
+        if(a[i-1]<=j){
+            t[i][j]=(t[i-1][j]%MAX+t[i][j-a[i-1]]%MAX)%MAX;
         }
-        
+        else t[i][j]=t[i-1][j]%MAX;
     }
 }
 
-cout<<t[s]<<endl;
+cout<<t[n][s]<<endl;
 return 0;
 }
