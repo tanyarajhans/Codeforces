@@ -75,32 +75,17 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-ll a[n];
-set<ll> s;
-for(int i=0;i<n;i++){
-cin>>a[i];
-if(s.size()==0){
-   s.insert(a[i]);
-   continue;
+w(t){
+    uint64_t  n,m,x;
+    cin>>n>>m>>x;
+    uint64_t  xx=x%n;
+    if(xx==0)
+    xx=n;
+    uint64_t  yy=x/n;
+    if(x%n)
+    yy++;
+    uint64_t  ans=(xx*m)+yy-m;
+    cout<<ans<<endl;
 }
-vector<ll> t;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    t.pb(*it + a[i]);
-}
-s.insert(a[i]);
-for(int i=0;i<t.size();i++){
-   s.insert(t[i]);
- } 
-}
-cout<<s.size()<<endl;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    cout<<*it<<" ";
-}
-
-
 return 0;
 }

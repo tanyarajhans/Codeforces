@@ -71,36 +71,56 @@ int check_ps(ll n){
     }
 }
 
+void repAll(std::string & data, std::string toSearch, std::string replaceStr)
+{
+    // Get the first occurrence
+    size_t pos = data.find(toSearch);
+    // Repeat till end is reached
+    while( pos != std::string::npos)
+    {
+        // Replace this occurrence of Sub String
+        data.replace(pos, toSearch.size(), replaceStr);
+        // Get the next occurrence from the current position
+        pos =data.find(toSearch, pos + replaceStr.size());
+    }
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-ll a[n];
-set<ll> s;
-for(int i=0;i<n;i++){
-cin>>a[i];
-if(s.size()==0){
-   s.insert(a[i]);
-   continue;
+w(t){
+    int n,q;
+    cin>>n>>q;
+    string s;
+    cin>>s;
+    while(q--){
+        int l,r;
+        cin>>l>>r;
+        l--;
+        r--;
+        char c1=s[l];
+        char c2=s[r];
+        bool f=false;
+        for(int i=0;i<l;i++)
+        {
+            if(s[i]==c1){
+                  f=true;
+                  break;
+            }
+        }
+        for(int i=r+1;i<s.size();i++)
+        {
+            if(s[i]==c2){
+                  f=true;
+                  break;
+            }
+        }
+        if(f==true)
+        cout<<"YES";
+        else 
+        cout<<"NO";
+        cout<<endl;
+    }
 }
-vector<ll> t;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    t.pb(*it + a[i]);
-}
-s.insert(a[i]);
-for(int i=0;i<t.size();i++){
-   s.insert(t[i]);
- } 
-}
-cout<<s.size()<<endl;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    cout<<*it<<" ";
-}
-
-
 return 0;
 }

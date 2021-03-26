@@ -36,7 +36,8 @@
         "string_view": "cpp",
         "valarray": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "*.tcc": "cpp"
     },
     "json.schemas": [
     

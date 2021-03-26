@@ -71,36 +71,80 @@ int check_ps(ll n){
     }
 }
 
+int dfs(string a, string b){
+    if(a==b)
+    return 0;
+    else if(a.size()==0)
+    return b.size();
+    else if(b.size()==0)
+    return a.size();  
+    int p=dfs(a.substr(1), b);
+    int q=dfs(a.substr(0,a.size()-1), b);
+    int r= dfs(a, b.substr(1));
+    int s=dfs(a, b.substr(0,b.size()-1));
+    return 1+ min(min(p,q),min(r,s));
+}
+
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-ll a[n];
-set<ll> s;
-for(int i=0;i<n;i++){
-cin>>a[i];
-if(s.size()==0){
-   s.insert(a[i]);
-   continue;
-}
-vector<ll> t;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    t.pb(*it + a[i]);
-}
-s.insert(a[i]);
-for(int i=0;i<t.size();i++){
-   s.insert(t[i]);
- } 
-}
-cout<<s.size()<<endl;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    cout<<*it<<" ";
-}
+w(t){
+    string A,B;
+    cin>>A>>B;
+int ans=0;
+// int t1[m+1][n+1];
+// int t2[m+1][n+1];
+// for(int i=0;i<m+1;i++)
+//    t1[i][0]=i;
+// for(int i=0;i<n+1;i++)
+//    t1[0][i]=i;
+// for(int i=1;i<m+1;i++){
+//     for(int j=1;j<n+1;j++){
+//         if(s1[i-1]==s2[j-1])
+//         t1[i][j]=t1[i-1][j-1];
+//         else
+//         t1[i][j]=1+min(t1[i-1][j], t1[i][j-1]); //remove, insert, replace
+//     }
+// }
+// cout<<t1[m][n]<<endl;
+int m=A.size();
+    int n=B.size();
+    
+    int dp[m+1][n+1];
+    int maxLength = 0;
+    
+    for(int i=0; i<=m; i++)
+    {
+        for(int j=0; j<=n; j++)
+        {
+            if(i==0 || j==0)
+             dp[i][j] = 0;
+            else if(A[i-1] == B[j-1])
+            {
+                dp[i][j] = 1 + dp[i-1][j-1];
+                maxLength = max(maxLength, dp[i][j]);
+            }
+            else
+             dp[i][j] = 0;
+        }
+    }
 
+    // int n=text1.size();
+    //     int m=text2.size();
+    //     int t[n+1][m+1];
+    //     memset(t,0,sizeof(t));
+    //     for(int i=1;i<n+1;i++){
+    //         for(int j=1;j<m+1;j++){
+    //             if(text1[i-1]==text2[j-1])
+    //                 t[i][j]=1+t[i-1][j-1];
+    //             else
+    //                 t[i][j]=max(t[i][j-1], t[i-1][j]);
+    //         }
+    //     }
+    
+   cout<<m+n-2*maxLength<<endl;
 
+}
 return 0;
 }

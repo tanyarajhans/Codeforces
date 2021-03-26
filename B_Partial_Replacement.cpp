@@ -72,35 +72,86 @@ int check_ps(ll n){
 }
 
 
-int main(){
-ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-int n;
-cin>>n;
-ll a[n];
-set<ll> s;
-for(int i=0;i<n;i++){
-cin>>a[i];
-if(s.size()==0){
-   s.insert(a[i]);
-   continue;
-}
-vector<ll> t;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    t.pb(*it + a[i]);
-}
-s.insert(a[i]);
-for(int i=0;i<t.size();i++){
-   s.insert(t[i]);
- } 
-}
-cout<<s.size()<<endl;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    cout<<*it<<" ";
+using namespace std;
+int R(int mi,int ma,string S,int k)
+{
+    if(ma-mi<=k)
+    return 0;
+    int mid = (ma + mi) / 2;
+    int M = mid,P;
+    while (mid < ma && S[mid] != '*')
+    mid++;
+    if (mid<ma&&S[mid] == '*')
+    {
+        P = mid;
+        S[mid] = 'x';
+    }
+    else
+    {
+    while(M>mi&&S[M]!='*')
+    M--;
+    if(M>mi&&S[M]=='*')
+    {
+        P = M;
+         S[M] = 'x';
+    }
+    }
+    return(1+R(mi,P,S,k)+R(P,ma,S,k));
 }
 
-
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,k,count = 0,mi=-1,ma=-1;
+        cin>>n>>k;
+        string s;
+        cin>>s;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='*')
+            {
+                s[i]='x';
+                count++;
+                mi = i;
+                break;
+            }
+        }
+        for(int i = n-1;i>mi;i--)
+        {
+            if(s[i]=='*')
+            {
+                count++;
+                s[i]='x';
+                ma = i;
+                break;
+            }
+        }
+        for(int i=0;i<=n-1;i++){
+               if(s[i]=='x'){
+                   bool f=false;
+                   for(int j=i+1;j<=min(i+k,n-1);j++){
+                       if(s[j]=='x'){
+                           f=true;
+                           break;
+                       }
+                   }
+                   if(f==false){
+                       for(int j=min(n-1,i+k);j>i;j--){
+                       if(s[j]=='*'){
+                           s[j]='x';
+                            count++;
+                           break;
+                       }
+                      }
+                   }
+               }
+           }
+           cout<<count<<endl;
+        
+        
+    }
 return 0;
 }

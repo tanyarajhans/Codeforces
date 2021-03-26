@@ -71,34 +71,94 @@ int check_ps(ll n){
     }
 }
 
+int dx[4]={1,0,-1,0}; //D, R, U, L
+int dy[4]={0,1,0,-1};
+int n,m;
+int sx,sy,ex,ey;
+vector<vector<pair<int,int> > > path;
+vector<vector<int> > vis;
+
+bool isValid(int x, int y){
+ return x>=0 && y>=0 && x<n && y<m && vis[x][y]==false;
+}
+
+void bfs(){
+queue<pair<int,int> > q;
+q.push(mp(sx,sy));
+while(!q.empty()){
+    int cx=q.front().f;
+    int cy=q.front().s;
+    q.pop();
+    for(int i=0;i<4;i++){
+        int xx=cx+dx[i];
+        int yy=cy+dy[i];
+        if(isValid(xx,yy)){
+            q.push(mp(xx,yy));
+            vis[xx][yy]=1;
+            path[xx][yy]=mp(dx[i], dy[i]);
+        }
+    }
+  } 
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-ll a[n];
-set<ll> s;
+cin>>n>>m;
+path.resize(n);
+vis.resize(n);
 for(int i=0;i<n;i++){
-cin>>a[i];
-if(s.size()==0){
-   s.insert(a[i]);
-   continue;
+path[i].resize(m);
+vis[i].resize(m);
 }
-vector<ll> t;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    t.pb(*it + a[i]);
+
+
+for(int i=0;i<n;i++){
+    for(int j=0;j<m;j++){
+        path[i][j]=mp(1,-1);
+        char ch;
+        cin>>ch;
+        if(ch=='#')
+        vis[i][j]=true;
+        if(ch=='A'){
+            sx=i;
+            sy=j;
+        }
+        if(ch=='B'){
+            ex=i;
+            ey=j;
+        }
+    }
 }
-s.insert(a[i]);
-for(int i=0;i<t.size();i++){
-   s.insert(t[i]);
- } 
+bfs();
+if(!vis[ex][ey]){
+    cout<<"NO"<<endl;
+    return 0;
+
 }
-cout<<s.size()<<endl;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    cout<<*it<<" ";
+cout<<"YES"<<endl;
+vector<pair<int,int> > ans;
+pair<int, int> end= mp(ex,ey);
+
+while(end.f!=sx || end.s!=sy){
+    ans.pb(path[end.f][end.s]);
+    end.f-=ans.back().f;
+    end.s-=ans.back().s;
+}
+
+reverse(ans.begin(), ans.end());
+cout<<ans.size()<<endl;
+for(int i=0;i<ans.size();i++){
+    if(ans[i].f==1 && ans[i].s==0)
+    cout<<"D";
+
+    else if(ans[i].f==0 && ans[i].s==1)
+    cout<<"R";
+
+    else if(ans[i].f==-1 && ans[i].s==0)
+    cout<<"U";
+    else if(ans[i].f==0 && ans[i].s==-1)
+    cout<<"L";
 }
 
 

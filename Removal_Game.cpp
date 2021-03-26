@@ -70,37 +70,31 @@ int check_ps(ll n){
         return 0;
     }
 }
+ll t[5005][5005];
+ll a[5005];
+ll solve(ll i, ll j){
+    if(i>j)
+    return 0;
 
+    if(t[i][j]!=-1)
+    return t[i][j];
+    ll k=min(a[i]+solve(i+1,j-1), a[i]+solve(i+2,j));
+    ll g=min(a[j]+solve(i,j-2), a[j]+solve(i+1,j-1));
+    return t[i][j]=max(k,g);
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 int n;
 cin>>n;
-ll a[n];
-set<ll> s;
+
 for(int i=0;i<n;i++){
-cin>>a[i];
-if(s.size()==0){
-   s.insert(a[i]);
-   continue;
+    cin>>a[i];
 }
-vector<ll> t;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    t.pb(*it + a[i]);
-}
-s.insert(a[i]);
-for(int i=0;i<t.size();i++){
-   s.insert(t[i]);
- } 
-}
-cout<<s.size()<<endl;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    cout<<*it<<" ";
-}
+//f(i,j) = max(min(a[i]+f(i+1,j-1) , a[i]+f(i,j-2)), min(a[j]+f(i,j-2), a[j]+(i+1,j)));
 
-
+memset(t,-1,sizeof(t));
+cout<<solve(0, n-1)<<endl;
 return 0;
 }

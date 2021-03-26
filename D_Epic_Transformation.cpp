@@ -75,32 +75,45 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-ll a[n];
-set<ll> s;
-for(int i=0;i<n;i++){
-cin>>a[i];
-if(s.size()==0){
-   s.insert(a[i]);
-   continue;
-}
-vector<ll> t;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    t.pb(*it + a[i]);
-}
-s.insert(a[i]);
-for(int i=0;i<t.size();i++){
-   s.insert(t[i]);
- } 
-}
-cout<<s.size()<<endl;
-set<ll>::iterator it;
-for(it=s.begin();it!=s.end();it++){
-    cout<<*it<<" ";
-}
+w(t){
+    int n;
+    cin>>n;
+    ll a[n];
+    map<int,int> m;
+    set<int> s;
 
+    for(int i=0;i<n;i++){
+       cin>>a[i];
+       m[a[i]]++;
+       s.insert(a[i]);
+    }
+    
+    priority_queue<pair<int, int> > pq;
+    set<int>::iterator it;
+    for(it=s.begin();it!=s.end();it++){
+       pq.push(mp(m[*it], *it));
+    }
+    int l=m.size();
+    int ans=0;
+    while(pq.size()>1){
+        int k1=pq.top().f;
+        int k=pq.top().s;
+        pq.pop();
+        int l1=pq.top().f;
+        int l=pq.top().s;
+        pq.pop();
+        k1--;
+        l1--;
+        if(k1>0){
+          pq.push(mp(k1, k));
+        }
+        if(l1>0){
+          pq.push(mp(l1, l));
+        }
+        n-=2;
+    }
+    cout<<n<<endl;
 
+}
 return 0;
 }

@@ -78,31 +78,22 @@ cin.tie(NULL);
 w(t){
     int n,k;
     cin>>n>>k;
-    vector<pair<int,int>> v(n);
-    while(n--){
-        int x,y;
-        cin>>x>>y;
-        v.pb(mp(x,y));
-    }
-    map<pair<int,int>, bool> m;
-    bool f=false;
+    vector<pair<int,int> > v(n);
+    
     for(int i=0;i<n;i++){
-      for(int j=0;j<n && j!=i;j++){
-         if(abs(v[i].f-v[j].f) + abs(v[i].s-v[j].s) <=k)
-          m[v[i]]++;
-          else
-          {
-              f=true;
-              break;
-          }
-      }
-      if(f==true)
-      break;
+        cin>>v[i].f>>v[i].s;
     }
-    if(f==true)
-    cout<<"-1"<<endl;
-    else
-    cout<<m.size()<<endl;
+    int ans=-1;
+    for(int i=0;i<n;i++){
+        int maxd=0;
+         for(int j=0;j<n;j++){
+              maxd=max(maxd, abs(v[i].f-v[j].f) + abs(v[i].s-v[j].s));
+         }
+         if(maxd<=k){
+             ans=1;
+         }
+    }
+    cout<<ans<<endl;
 }
 return 0;
 }
