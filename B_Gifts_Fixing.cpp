@@ -76,37 +76,38 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
+    int n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    ll a[n];
+    ll b[n];
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    for(int i=0;i<n;i++)
+    cin>>b[i];
+    ll ans=0,mini1=1e9,mini2=1e9;
+    for(int i=0;i<n;i++){
+        mini1=min(mini1,a[i]);
+        mini2=min(mini2,b[i]);
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    for(int i=0;i<n;i++){
+        if(a[i]>mini1 && b[i]>mini2){
+            int l1=a[i]-mini1;
+            int l2=b[i]-mini2;
+            int l=min(l1,l2);
+            a[i]-=l;
+            b[i]-=l;
+            ans+=l;
+            if(a[i]>mini1)
+            ans+=a[i]-mini1;
+            if(b[i]>mini2)
+            ans+=b[i]-mini2;
         }
+        else if(a[i]>mini1)
+        ans+=a[i]-mini1;
+        else if(b[i]>mini2)
+        ans+=b[i]-mini2;
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    cout<<ans<<endl;
 }
 return 0;
 }

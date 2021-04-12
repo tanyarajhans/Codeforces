@@ -76,37 +76,55 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
+    int n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
-    }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    char t[n][n];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>t[i][j];
         }
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    if(t[1][0]==t[0][1]){
+        if(t[n-1][n-2]==t[n-2][n-1] && t[n-1][n-2]!=t[1][0])
+        cout<<"0"<<endl;
+        else if(t[n-1][n-2]==t[n-2][n-1] && t[n-1][n-2]==t[0][1]){
+            cout<<"2"<<endl;
+            cout<<n<<" "<<n-1<<endl;
+            cout<<n-1<<" "<<n<<endl;
+        }
+        else if(t[n-1][n-2]!=t[n-2][n-1]){
+            cout<<"1"<<endl;
+            if(t[n-1][n-2]==t[1][0])
+            cout<<n<<" "<<n-1<<endl;
+            else
+            cout<<n-1<<" "<<n<<endl;
+        }
+
+    }
+    else{
+        if(t[n-1][n-2]==t[n-2][n-1]){
+            cout<<"1"<<endl;
+            if(t[n-1][n-2]==t[1][0])
+            cout<<2<<" "<<1<<endl;
+            else
+            cout<<1<<" "<<2<<endl;
+        }
+        else{
+            if(t[n-1][n-2]==t[1][0]){
+            cout<<"2"<<endl;
+            cout<<2<<" "<<1<<endl;
+            cout<<n-1<<" "<<n<<endl;
+            }
+            else{
+            cout<<"2"<<endl;
+            cout<<1<<" "<<2<<endl;
+            cout<<n-1<<" "<<n<<endl;
+            }
+
+        }
+    }
+
+
 }
 return 0;
 }

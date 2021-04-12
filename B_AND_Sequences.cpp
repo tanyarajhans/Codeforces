@@ -1,3 +1,4 @@
+// यो न हृष्यति न द्वेष्टि न शोचति न काङ्‍क्षति। शुभाशुभपरित्यागी भक्तिमान्यः स मे प्रियः॥
 #include<iostream>
 #include<vector>
 #include<map>
@@ -76,37 +77,38 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
+    int n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    ll a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    ll mini=1e10;
+    for(int i=0;i<n;i++){
+        mini=min(a[i], mini);
+    }
+    // and array ka minimum element hoga
+    ll c=0;
+    bool f=false;
+    for(int i=0;i<n;i++){
+        if((mini & a[i])!=mini){
+            f=true;
+            break;
         }
+        if(mini==a[i])
+        c++;
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    if(f==true){
+        cout<<0<<endl;
+    }
+    else{
+        ll v=c*(c-1); // no. of ways to arrange minimum element agar first aur last position pe minimum element fix krde
+        // 0 2 3 0 0 => nC2*2 => n(n-1);
+        for(int i=n-2;i>=1;i--){ // fact(n-2)
+            v=(v*i)%mod;
+        }
+        cout<<v<<endl;
+    }
 }
 return 0;
 }

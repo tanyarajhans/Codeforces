@@ -78,35 +78,16 @@ cin.tie(NULL);
 w(t){
     ll n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    int k=sqrt(n);
+    if(k*k>=n){
+        cout<<2*k-2;
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
-        }
+    else if((k+1)*k>=n){
+        cout<<2*k-1;
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
+    else
+    cout<<2*k;
     cout<<endl;
-    
-    
-    
 }
 return 0;
 }

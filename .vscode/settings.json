@@ -37,7 +37,10 @@
         "valarray": "cpp",
         "queue": "cpp",
         "stack": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "chrono": "cpp",
+        "limits": "cpp",
+        "ranges": "cpp"
     },
     "json.schemas": [
     

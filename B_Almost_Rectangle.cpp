@@ -1,3 +1,4 @@
+// यो न हृष्यति न द्वेष्टि न शोचति न काङ्‍क्षति। शुभाशुभपरित्यागी भक्तिमान्यः स मे प्रियः॥
 #include<iostream>
 #include<vector>
 #include<map>
@@ -76,37 +77,72 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
+    int n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
-    }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    int a[n][n];
+    vector<vector<int> > v;
+    for(int i=0;i<n;i++){
+        string s;
+        cin>>s;
+        for(int j=0;j<n;j++){
+              if(s[j]=='*'){
+                  a[i][j]=1;
+                  vector<int> k(2);
+                  k[0]=i;
+                  k[1]=j;
+                  v.pb(k);
+              }
+              else
+              a[i][j]=0;
         }
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
+    int x1=v[0][0];
+    int y1=v[0][1];
+    int x2=v[1][0];
+    int y2=v[1][1];
+    if(x1==x2 ){
+        if(x1==0){
+            a[x1+1][y1]=1;
+            a[x2+1][y2]=1;
+        }
+        else if(x1==n-1){
+            a[x1-1][y1]=1;
+            a[x2-1][y2]=1;
+        }
+        else{
+            a[x1-1][y1]=1;
+            a[x2-1][y2]=1;
+        }
+    }
+    else if(y1==y2 ){
+        if(y1==0){
+            a[x1][y1+1]=1;
+            a[x2][y2+1]=1;
+        }
+        else if(x1==n-1){
+            a[x1][y1-1]=1;
+            a[x2][y2-1]=1;
+        }
+        else{
+            a[x1][y1-1]=1;
+            a[x2][y2-1]=1;
+        }
+    }
+    else{
+        a[x1][y2]=1;
+        a[x2][y1]=1;
+    }
     
-    
-    
+   for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+              if(a[i][j]==1)
+                  cout<<'*';
+              
+              else
+              cout<<'.';
+        }
+        cout<<endl;
+    }
 }
 return 0;
 }

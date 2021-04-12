@@ -76,37 +76,53 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
+    int n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    int a[n];
+    set<int> s;
+    map<int,vector<int> > m;
+    for(int i=0;i<n;i++){
+      cin>>a[i];
+      s.insert(a[i]);
+      m[a[i]].pb(i);
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
-        }
+    if(s.size()==1)
+    cout<<0<<endl;
+    else{
+        int ans=INT_MAX;
+        
+        map<int,vector<int> >::iterator it;
+        for(it=m.begin();it!=m.end();it++){
+            int l=0;
+            if((int)it->s.size()==1){
+                if(it->s[0]==0 || it->s[0]==n-1)
+                ans=min(ans,1);
+                else
+                ans=min(ans,2);
+                continue;
+            }
+                for(int i=0;i<(int)it->s.size();i++){
+                    if(i==0){
+                        if(it->s[i]>=1){
+                            l++;
+                        }
+                        continue;
+                    }
+                    if(i==(int)it->s.size()-1){
+                        if(it->s[i]<(n-1)){
+                            l++;
+                        }
+                    }
+                    if(it->s[i]-it->s[i-1]>1)
+                    l++;
+            }
+            
+         ans=min(l,ans);
+        
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+   
+    cout<<ans<<endl;
+    }
 }
 return 0;
 }

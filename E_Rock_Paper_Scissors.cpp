@@ -75,38 +75,37 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
     ll n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    ll a1,a2,a3,b1,b2,b3;
+    cin>>a1>>a2>>a3; //rock,sc,pap
+    cin>>b1>>b2>>b3;
+    ll c1=b1,c2=b2,c3=b3;
+    ll ans1=0, ans2=0;
+    if(a1>0){
+        ll k;
+        k=min(a1,b2);
+        ans2+=k;
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
-        }
+    if(a2>0){
+        ll k;
+        k=min(a2,b3);
+        ans2+=k;
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
     
+    if(a3>0){
+        ll k;
+        k=min(a3,b1);
+        ans2+=k;
+    }
+    if(a1-n+b2 >0)
+    ans1+=a1-n+b2;
+    if(a2-n+b3>0)
+    ans1+=a2-n+b3;
+    if(a3-n+b1 >0)
+    ans1+=a3-n+b1;
+
     
-    
-}
+    cout<<ans1<<" "<<ans2<<endl;
 return 0;
 }

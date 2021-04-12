@@ -76,37 +76,23 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    ll x,y,z;
+    cin>>x>>y>>z;
+    ll x1,y1,z1;
+    cin>>x1>>y1>>z1;
+    ll pos=min(z,y1)*2;
+    ll n1=y1-(pos/2);
+    bool neu=false;
+    if(x1+n1>y)
+    neu=true;
+    else{
+        y-=(x1+n1);
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
-        }
-    }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    ll neg=y*2;
+    if(neu==false)
+    cout<<pos-neg<<endl;
+    else
+    cout<<pos<<endl;
 }
 return 0;
 }

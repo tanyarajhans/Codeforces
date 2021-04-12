@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<map>
-#include<list>
+#include<climits>
 #include<set>
 #include<algorithm>
 #include<queue>
@@ -75,38 +75,45 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-    ll n;
-    cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
-    }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+w(tc){
+    int n,m;
+    cin>>n>>m;
+    char t[n][m];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>t[i][j];
         }
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    int mini=INT_MAX;
+    bool b=false;
+    int r[n];
+    int c[m];
+    for(int i=0;i<n;i++){
+        int k=0;
+        for(int j=0;j<m;j++){
+          if(t[i][j]=='*')
+          k++;
+        }
+        r[i]=k;
+    }
+    for(int j=0;j<m;j++){
+        int k=0;
+        for(int i=0;i<n;i++){
+          if(t[i][j]=='*')
+          k++;
+        }
+        c[j]=k;
+    }
+    int maxi=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(t[i][j]=='*')
+            maxi=max(maxi, r[i]+c[j]);
+            else
+            maxi=max(maxi, r[i]+c[j]+1);
+        }
+    }
+    cout<<n+m-maxi<<endl;
 }
 return 0;
 }

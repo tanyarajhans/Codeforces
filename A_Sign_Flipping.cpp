@@ -76,36 +76,22 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
+    int n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
-    }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    ll a[n];
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    int p=0,q=0,z=0;
+    for(int i=0;i<n;i++){
+        if(i%2!=0){
+           a[i]=-1*abs(a[i]);
         }
+        else
+        a[i]=abs(a[i]);
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
+        for(int i=0;i<n;i++)
+         cout<<a[i]<<" ";
+         cout<<endl;
     
 }
 return 0;

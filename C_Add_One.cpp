@@ -1,3 +1,4 @@
+// यो न हृष्यति न द्वेष्टि न शोचति न काङ्‍क्षति। शुभाशुभपरित्यागी भक्तिमान्यः स मे प्रियः॥
 #include<iostream>
 #include<vector>
 #include<map>
@@ -75,38 +76,22 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
+ ll dp[200011];
+    for(int i=0;i<200011;i++){
+        if(i<10)
+        dp[i]=1;
+        else
+        dp[i]=(dp[i-9] + dp[i-10])%mod;
+    }
 w(t){
-    ll n;
-    cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    ll n,m;
+    cin>>n>>m;
+    ll ans=0;
+    while(n>0){
+        ans=(ans+dp[m+n%10])%mod;
+        n=n/10;
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
-        }
-    }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    cout<<ans<<endl;
 }
 return 0;
 }

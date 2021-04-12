@@ -76,37 +76,33 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
-    }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    string s;
+    cin>>s;
+    stack<char> st;
+    ll ans=0;
+    int o1=0,o2=0,c1=0,c2=0;
+    for(int i=0;i<s.size();i++){
+        if(s[i]=='(' || s[i]=='[')
+        {
+            o1+=s[i]=='(';
+            o2+=s[i]=='[';
+            st.push(s[i]);
         }
+        else{
+               if(o1>0 && s[i]==')')
+               {
+                   o1--;
+                   ans++;
+               }
+               else if(o2>0 && s[i]==']')
+               {
+                   o2--;
+                   ans++;
+               }
+        }
+
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    cout<<ans<<endl;
 }
 return 0;
 }

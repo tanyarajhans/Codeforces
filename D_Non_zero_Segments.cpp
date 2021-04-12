@@ -71,42 +71,31 @@ int check_ps(ll n){
     }
 }
 
-
+int k=20;
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-    ll n;
-    cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+ll n;
+cin>>n;
+ll a[n];
+map<ll, ll> m;
+for(int i=0;i<n;i++)
+cin>>a[i];
+ll s=0;
+ll ans=0;
+m[0]=1;
+for(int i=0;i<n;i++){
+    s+=a[i];
+    if(m.find(s)!=m.end()){
+      ans++;
+      m.clear();
+      m[0]=1;
+      s=a[i];
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
-        }
-    }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
     
-    
+    m[s]++;
     
 }
+cout<<ans<<endl;
 return 0;
 }

@@ -78,35 +78,66 @@ cin.tie(NULL);
 w(t){
     ll n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    ll a[n];
+    vector<ll> p;
+    vector<ll> q;
+    ll z=0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        if(a[i]>0)
+        p.pb(a[i]);
+        else if(a[i]<0)
+        q.pb(a[i]);
+        else
+        z++;
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
-        }
+    sort(p.begin(), p.end());
+    sort(q.begin(), q.end());
+    ll v1=-1e18;
+    if(p.size()>=5)
+    {
+        int k=p.size();
+        if(p[k-1]*p[k-2]*p[k-3]*p[k-4]*p[k-5]> v1)
+        v1=p[k-1]*p[k-2]*p[k-3]*p[k-4]*p[k-5];
+        
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    if(p.size()>=4 && q.size()>=1){
+        int k=p.size();
+        int l=q.size();
+        if(p[k-1]*p[k-2]*p[k-3]*p[k-4]*q[0] > v1)
+         v1=p[k-1]*p[k-2]*p[k-3]*p[k-4]*q[0];
+    }
+    if(p.size()>=3 && q.size()>=2){
+        int k=p.size();
+        int l=q.size();
+        if(p[k-1]*p[k-2]*p[k-3]*q[0]*q[1] > v1)
+         v1=p[k-1]*p[k-2]*p[k-3]*q[0]*q[1];
+    }
+    if(p.size()>=2 && q.size()>=3){
+        int k=p.size();
+        int l=q.size();
+        if(p[k-1]*p[k-2]*q[0]*q[1]*q[2] > v1)
+         v1=p[k-1]*p[k-2]*q[0]*q[1]*q[2];
+    }
+    if(p.size()>=1 && q.size()>=4){
+        int k=p.size();
+        int l=q.size();
+        if(p[k-1]*q[0]*q[3]*q[1]*q[2] > v1)
+         v1=p[k-1]*q[0]*q[3]*q[1]*q[2];
+    }
+    if(q.size()>=5){
+        int k=p.size();
+        int l=q.size();
+        if(q[l-5]*q[l-4]*q[l-3]*q[l-1]*q[l-2] > v1)
+         v1=q[l-5]*q[l-4]*q[l-3]*q[l-1]*q[l-2];
+    }
+
+    if(v1>0)
+    cout<<v1<<endl;
+    else if(z>0)
+    cout<<0<<endl;
+    else
+    cout<<v1<<endl;
 }
 return 0;
 }

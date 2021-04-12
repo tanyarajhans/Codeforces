@@ -78,35 +78,25 @@ cin.tie(NULL);
 w(t){
     ll n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    ll a[n];
+    ll s=0;
+    
+    bool b=true;
+    for(int i=0;i<n;i++){
+     cin>>a[i];
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
-        }
+    ll ans=INT_MAX;
+    for(int i=1;i<n;i++){
+     s+=abs(a[i]-a[i-1]);
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    ans=min(s-abs(a[1]-a[0]), s-abs(a[n-1]-a[n-2]));
+    for(int i=1;i<n-1;i++){
+       ll p=abs(a[i]-a[i-1]);
+       ll q=abs(a[i]-a[i+1]);
+       ll r=abs(a[i-1]-a[i+1]);
+       ans=min(ans, s-p-q+r);
+    }
+    cout<<ans<<endl;
 }
 return 0;
 }

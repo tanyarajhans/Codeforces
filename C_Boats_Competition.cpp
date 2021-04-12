@@ -76,37 +76,34 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
+    int n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    int a[n];
+    bool vis[n][2*n+1];
+    map<int,int> m;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    sort(a,a+n);
+    
+    ll maxi=2*n,ans=0;
+    
+    memset(vis,false,sizeof(vis));
+    for(int i=0;i<n;i++){
+        
+        for(int j=i+1;j<n;j++){
+           if(!vis[i][a[i]+a[j]] && !vis[j][a[i]+a[j]]){
+                m[a[i]+a[j]]++;
+                vis[i][a[i]+a[j]]=true;
+                vis[j][a[i]+a[j]]=true;
+                if(ans<m[a[i]+a[j]])
+                ans=m[a[i]+a[j]];
+           }
+
         }
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
     
-    
-    
+    cout<<ans<<endl;
 }
 return 0;
 }

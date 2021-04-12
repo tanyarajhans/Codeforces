@@ -71,42 +71,84 @@ int check_ps(ll n){
     }
 }
 
+vector<int>adj[300005];
+int vis[300005];
+int vis1[300005];
+
+bool bfs(ll st){
+    ll start=st;
+    queue<ll>q;
+    q.push(st);
+    vis1[st]=true;
+    while(!q.empty()){
+        ll v=q.front();
+        q.pop();
+        for(int u=0;u<adj[v].size();u++){
+            int x=adj[v][u];
+            if(!vis1[x]){
+                vis1[x]=true;
+                q.push(x);
+            }else{
+                if(x==start){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
+    int n;
     cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
-    }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    string s;
+    cin>>s;
+    int ans=0;
+    for(int i=0;i<n;i++)
+       vis[i]=0;
+    for(int i=0;i<n;i++)
+       vis1[i]=0;
+    for(int i=0;i<n;i++){
+        if(s[i]=='-'){
+            adj[i].pb((i+1)%n);
+            adj[(i+1)%n].pb(i);
+            vis[i]=1;
+            vis[(i+1)%n]=1;
+        }
+        else if(s[i]=='>'){
+            adj[i].pb((i+1)%n);
+        }
+        else{
+            adj[(i+1)%n].pb(i);
         }
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    for(int i=0;i<n;i++){
+        if(vis[i]==1)
+            ans++;
+    }
+    int st=-1;
+    for(int i=0;i<n;i++){
+        if(vis[i]==0){
+            st=i;
+            break;
+        }
+    }
+    if(ans==n)
+    cout<<n<<endl;
+    else{
+        bool cyc=false;
+        if(bfs(st))
+            cyc=true;
+        if(cyc)
+        cout<<n<<endl;
+        else
+        cout<<ans<<endl;
+    }
+    for(int i=0;i<n;i++)
+    adj[i].clear();
 }
 return 0;
 }

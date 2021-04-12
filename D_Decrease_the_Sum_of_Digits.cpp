@@ -71,42 +71,38 @@ int check_ps(ll n){
     }
 }
 
+int sum(ll n){
+    int ans=0;
+    while(n>0){
+        int r=n%10;
+        ans+=r;
+        n=n/10;
+    }
+    return ans;
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
+    ll n,s;
+    cin>>n>>s;
+    if(sum(n)>s){
+       ll p=1,ans=0;
+       for(int i=0;i<18;i++){
+           int d=(n/p)%10;
+           ll k=p*(10-d);
+           n+=k;
+           ans+=k;
+           if(sum(n)<=s)
+           break;
+           p*=10;
        }
-       if(c>0)
-          v.pb(mp(c,d));
+
+        cout<<ans<<endl;
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
-        }
-    }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    else
+    cout<<0<<endl;
 }
 return 0;
 }

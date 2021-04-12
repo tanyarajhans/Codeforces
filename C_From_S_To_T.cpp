@@ -75,38 +75,59 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-    ll n;
-    cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+w(tc){
+    string s;
+    cin>>s;
+    string t;
+    cin>>t;
+    string p;
+    cin>>p;
+    int ss[26];
+    int tt[26];
+    int pp[26];
+    for(int i=0;i<26;i++){
+        ss[i]=0;
+        tt[i]=0;
+        pp[i]=0;
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    for(int i=0;i<t.size();i++)
+    tt[t[i]-'a']++;
+    for(int i=0;i<s.size();i++)
+    ss[s[i]-'a']++;
+    for(int i=0;i<p.size();i++)
+    pp[p[i]-'a']++;
+    bool b=true;
+
+    for(int i=0;i<26;i++){
+        if((ss[i]>tt[i]) || (tt[i]>ss[i]+pp[i])){
+            b=false;
+            break;
         }
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
     
-    
-    
+    if(b==false)
+    cout<<"NO"<<endl;
+    else{
+        int i=0,j=0;
+        bool b=true;
+        while(s!=t && j<t.size()){
+            if(s[i]!=t[j]){
+               ss[t[j]-'a']++;
+               pp[t[j]-'a']--;
+               s.insert(i, 1, t[j]);
+            }
+            if((ss[t[j]-'a']>tt[t[j]-'a']) || (tt[t[j]-'a']>ss[t[j]-'a']+pp[t[j]-'a'])){
+            b=false;
+            break;
+            }
+            i++;
+            j++;
+        }
+        if(b==false)
+        cout<<"NO"<<endl;
+        else
+         cout<<"YES"<<endl;
+    }
 }
 return 0;
 }

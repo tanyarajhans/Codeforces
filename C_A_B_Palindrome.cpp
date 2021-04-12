@@ -1,3 +1,4 @@
+// यो न हृष्यति न द्वेष्टि न शोचति न काङ्‍क्षति। शुभाशुभपरित्यागी भक्तिमान्यः स मे प्रियः॥
 #include<iostream>
 #include<vector>
 #include<map>
@@ -76,37 +77,74 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    int a,b;
+    cin>>a>>b;
+    string s;
+    cin>>s;
+    int aa=0,bb=0;
+    int n=s.size();
+    int i=0, j=n-1, any=0;
+    for(int i=0;i<n/2;i++){
+        if(s[i]!='?' && s[n-i-1]=='?')
+        s[n-i-1]=s[i];
+        if(s[i]=='?' && s[n-i-1]!='?')
+        s[i]=s[n-i-1];
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    for(int i=0;i<n;i++){
+       if(s[i]=='0')
+       aa++;
+       else if(s[i]=='1')
+       bb++;
+    }
+    a=a-aa;
+    b=b-bb;
+    for(int i=0;i<n/2;i++){
+        if(s[i]=='?'){
+            if(a>b){
+                s[i]='0';
+                s[n-i-1]='0';
+                a-=2;
+            }
+            else{
+                s[i]='1';
+                s[n-i-1]='1';
+                b-=2;
+            }
         }
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
+
+    for(int i=0;i<n;i++){
+        if(s[i]=='?'){
+            if(a>b){
+                s[i]='0';
+                s[n-i-1]='0';
+                a-=1;
+            }
+            else{
+                s[i]='1';
+                s[n-i-1]='1';
+                b-=1;
+            }
+        }
+    }
+    if(a==0 && b==0){
+     bool f=false;
+     for(int i=0;i<n/2;i++){
+         if(s[i]!=s[n-i-1]){
+             f=true;
+             break;
+         }
+     }
+     if(f)
+     cout<<-1;
+     else
+     cout<<s;
+    }
+    else
+    cout<<-1;
+
+  
     cout<<endl;
-    
-    
-    
 }
 return 0;
 }

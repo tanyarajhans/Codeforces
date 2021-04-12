@@ -1,3 +1,4 @@
+// यो न हृष्यति न द्वेष्टि न शोचति न काङ्‍क्षति। शुभाशुभपरित्यागी भक्तिमान्यः स मे प्रियः॥
 #include<iostream>
 #include<vector>
 #include<map>
@@ -76,37 +77,73 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    vector<pair<ll, ll> > v;
-    for(ll d=2;d*d<=n;d++){
-        ll c=0;
-       while(n%d==0){
-           c++;
-           n=n/d;
-       }
-       if(c>0)
-          v.pb(mp(c,d));
+    int n,k;
+    cin>>n>>k;
+    int a[n];
+    map<int,int> m;
+    
+
+    if((k>(n/2) && n%2!=0) || (k>((n/2)-1) && n%2==0))
+    {
+        cout<<-1<<endl;
     }
-    if(n>1)
-       v.pb(mp(1,n));
-    sort(v.begin(), v.end());
-    reverse(v.begin(), v.end());
-    vector<ll> ans;
-    for(int i=0;i<v[0].f;i++)
-        ans.pb(v[0].s);
-    for(int j=1;j<v.size();j++){
-        for(int i=0;i<v[j].f;i++){
-            ans[v[0].f-1]*=v[j].s;
+    else if(n<3){
+        if(n==1){
+            if(k==0)
+            cout<<1<<endl;
+            else
+            cout<<-1<<endl;
+        }
+        else if(n==2){
+            if(k==0)
+            cout<<1<<" "<<2<<endl;
+            else
+            cout<<-1<<endl;
         }
     }
-    cout<<v[0].f<<endl;
-    for(int i=0;i<ans.size();i++)
-    cout<<ans[i]<<" ";
-    cout<<endl;
-    
-    
-    
+    else{
+        for(int i=0;i<n;i++)
+    a[i]=i+1;
+
+    int b[n];
+    b[0]=1;
+ 
+    bool vis[n];
+    for(int i=0;i<n;i++)
+    vis[i]=false;
+
+    vis[0]=true;
+
+   int j=1, l=1,c=k;
+    while(c>0 && j<n && l<n){
+       c--;
+       b[j+1]=a[l];
+       vis[j+1]=true;
+      j+=2;
+      l++;
+    }
+    for(int i=0;i<n && l<n;i++){
+        if(!vis[i]){
+            b[i]=a[l];
+            l++;
+        }
+    }
+
+        int p=0;
+    for(int i=1;i<n-1;i++){
+       if(b[i]>b[i-1] && b[i]>b[i+1])
+       p++;
+    }
+     
+  if(p==k){
+       for(int i=0;i<n;i++)
+        cout<<b[i]<<" ";
+        cout<<endl;
+    }
+   else
+    cout<<-1<<endl;
+   }
+
 }
 return 0;
 }
