@@ -72,41 +72,67 @@ int check_ps(ll n){
     }
 }
 
+ll a[200005];
+
+ll f1(ll n){
+    ll c=1;
+    for(int i=n-2;i>=0;i--){
+        if(a[i]>=a[i+1])
+        c++;
+        else
+        break;
+    }
+    return c;
+}
+
+ll f2(ll n){
+    ll c=1;
+    for(int i=n-2;i>0;i--){
+        if(a[i]<=a[i+1])
+        c++;
+        else
+        break;
+    }
+    return c;
+}
+
+ll f3(ll n){
+    ll c=1;
+    int i=n-2;
+    for(;i>=0;i--){
+        if(a[i]>=a[i+1])
+        c++;
+        else
+        break;
+    }
+    for(;i>=0;i--){
+        if(a[i]<=a[i+1])
+        c++;
+        else
+        break;
+    }
+    
+    return c;
+}
+
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-  int n;
-  cin>>n;
-  string s;
-  cin>>s;
-  int o=0,z=0;
-  for(int i=0;i<n;i++){
-      if(s[i]=='0')
-      z++;
-      else
-      break;
-  }
-  for(int i=n-1;i>=0;i--){
-      if(s[i]=='1')
-      o++;
-      else
-      break;
-  }
-  if(z+o==n)
-  cout<<s<<endl;
-  else{
-      for(int i=0;i<z;i++)
-      cout<<0;
-      cout<<0;
-      for(int i=0;i<o;i++)
-      cout<<1;
-      cout<<endl;
-  }
-
+w(t){
+    ll n;
+    cin>>n;
+    me(i,0,n){
+    cin>>a[i];
+    }
+    ll ans=1;
+    if(f1(n)>ans)
+    ans=f1(n);
+    if(f2(n)>ans)
+    ans=f2(n);
+    if(f3(n)>ans)
+    ans=f3(n);
+    cout<<n-ans<<endl;
 }
 return 0;
 }

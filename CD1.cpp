@@ -76,36 +76,33 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-  int n;
-  cin>>n;
-  string s;
-  cin>>s;
-  int o=0,z=0;
-  for(int i=0;i<n;i++){
-      if(s[i]=='0')
-      z++;
-      else
-      break;
-  }
-  for(int i=n-1;i>=0;i--){
-      if(s[i]=='1')
-      o++;
-      else
-      break;
-  }
-  if(z+o==n)
-  cout<<s<<endl;
-  else{
-      for(int i=0;i<z;i++)
-      cout<<0;
-      cout<<0;
-      for(int i=0;i<o;i++)
-      cout<<1;
-      cout<<endl;
-  }
+w(tc){
+    ll n,m,t;
+     cin>>n>>m>>t;
+     ll p[n];
+     for(int i=0;i<n;i++)
+     cin>>p[i];
+     vector<pair<ll, ll> > m1(m);
+     for(int i=0;i<m;i++)
+     cin>>m1[i].s;
+     for(int i=0;i<m;i++)
+     cin>>m1[i].f;
+     sort(m1.begin(), m1.end());
+     reverse(m1.begin(), m1.end());
+     int k1=m/2;
+     ll v=0;
+      for(int i=0;i<k1;i++)
+      v+=m1[i].s;
+      ll left=t-v;
+      sort(p,p+n);
+      ll ans=0;
+      int d=0;
+      while(left>0){
+          ans++;
+          left-=p[d];
+          d++;
+      }
+      cout<<ans<<endl;
 
 }
 return 0;

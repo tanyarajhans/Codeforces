@@ -76,37 +76,53 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-  int n;
-  cin>>n;
-  string s;
-  cin>>s;
-  int o=0,z=0;
-  for(int i=0;i<n;i++){
-      if(s[i]=='0')
-      z++;
-      else
-      break;
-  }
-  for(int i=n-1;i>=0;i--){
-      if(s[i]=='1')
-      o++;
-      else
-      break;
-  }
-  if(z+o==n)
-  cout<<s<<endl;
-  else{
-      for(int i=0;i<z;i++)
-      cout<<0;
-      cout<<0;
-      for(int i=0;i<o;i++)
-      cout<<1;
-      cout<<endl;
-  }
-
+w(tc){
+    string s;
+    cin>>s;
+    ll x;
+    cin>>x;
+    int n=s.size();
+    string p(n,'1');
+    bool t=true;
+    for(int i=0;i<n;i++)
+    {
+        if(s[i]=='0'){
+            if(i-x>=0)
+            p[i-x]='0';
+            if(i+x<n)
+            p[i+x]='0';
+        }
+    }
+    for(int i=0;i<n;i++){
+       if(s[i]=='1'){
+           bool k=true;
+             if(i-x>=0 && p[i-x]=='1')
+              k=false;
+       else if(i+x<n && p[i+x]=='1')
+       k=false;
+       if(k==true){
+           t=false;
+           break;
+        }
+       }
+       else{
+           bool k=true;
+           if(i-x>=0 && p[i-x]=='1')
+           k=false;
+       else if(i+x<n && p[i+x]=='1')
+       k=false;
+       if(!k){
+           t=false;
+           break;
+       }
+      }
+    }
+    
+    if(t)
+    cout<<p<<endl;
+    else
+    cout<<"-1"<<endl;
+    
 }
 return 0;
 }

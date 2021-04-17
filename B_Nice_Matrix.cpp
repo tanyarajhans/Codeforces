@@ -76,36 +76,40 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-  int n;
-  cin>>n;
-  string s;
-  cin>>s;
-  int o=0,z=0;
-  for(int i=0;i<n;i++){
-      if(s[i]=='0')
-      z++;
-      else
-      break;
-  }
-  for(int i=n-1;i>=0;i--){
-      if(s[i]=='1')
-      o++;
-      else
-      break;
-  }
-  if(z+o==n)
-  cout<<s<<endl;
-  else{
-      for(int i=0;i<z;i++)
-      cout<<0;
-      cout<<0;
-      for(int i=0;i<o;i++)
-      cout<<1;
-      cout<<endl;
-  }
+w(t){
+    int n,m;
+    cin>>n>>m;
+    ll a[n][m];
+    ll s=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>a[i][j];
+        }
+    }
+    ll ans=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            vector<ll> s;
+            ll p=a[i][m-j-1];
+            ll u=a[n-i-1][j];
+            ll v=a[i][j];
+            s.pb(p);
+            s.pb(u);
+            s.pb(v);
+            sort(s.begin(), s.end());
+            ll d=s[1];
+            a[i][j]=d;
+            a[n-i-1][j]=d;
+            a[i][m-j-1]=d;
+            ans+=abs(s[0]-s[1])+abs(s[1]-s[2]);
+        }
+    }
+    // if(ans2>ans1)
+    // ans=ans1;
+    // else
+    // ans=ans2;
+    cout<<ans<<endl;
+
 
 }
 return 0;

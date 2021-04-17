@@ -76,37 +76,68 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-  int n;
-  cin>>n;
-  string s;
-  cin>>s;
-  int o=0,z=0;
-  for(int i=0;i<n;i++){
-      if(s[i]=='0')
-      z++;
-      else
-      break;
-  }
-  for(int i=n-1;i>=0;i--){
-      if(s[i]=='1')
-      o++;
-      else
-      break;
-  }
-  if(z+o==n)
-  cout<<s<<endl;
-  else{
-      for(int i=0;i<z;i++)
-      cout<<0;
-      cout<<0;
-      for(int i=0;i<o;i++)
-      cout<<1;
-      cout<<endl;
-  }
-
+w(t){
+    int n,m;
+    cin>>n>>m;
+    int a[n][m];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>a[i][j];
+        }
+    }
+    bool f=false;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            int p=a[i][j];
+            if(p>0){
+                int c=0;
+                if(i>0){
+                 //   a[i-1][j]++;
+                    c++;
+                }
+                if(i<n-1){
+                 //   a[i+1][j]++;
+                    c++;
+                }
+                if(j<m-1){
+                  // a[i][j+1]++;
+                    c++;
+                }
+                if(j>0 ){
+                 //   a[i+1][j]++;
+                    c++;
+                }
+                if(c<p){
+                    f=true;
+                    break;
+                }
+              }
+            
+        }
+    }
+    if(f)
+    cout<<"NO"<<endl;
+    else{
+        
+        cout<<"YES"<<endl;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(i>0 && j>0 && i<n-1 && j<m-1)
+                cout<<4<<" ";
+                else if(i==0 && j==0)
+                cout<<2<<" ";
+                else if(i==n-1 && j==0)
+                cout<<2<<" ";
+                else if(i==0 && j==m-1)
+                cout<<2<<" ";
+                else if(i==n-1 && j==m-1)
+                cout<<2<<" ";
+                else if(i==0 || j==0 || i==n-1 || j==m-1)
+                cout<<3<<" ";
+            }
+            cout<<endl;
+        }
+    }
 }
 return 0;
 }

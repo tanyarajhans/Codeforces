@@ -76,37 +76,92 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int t;
-cin>>t;
-while(t--){
-  int n;
-  cin>>n;
-  string s;
-  cin>>s;
-  int o=0,z=0;
-  for(int i=0;i<n;i++){
-      if(s[i]=='0')
-      z++;
-      else
-      break;
-  }
-  for(int i=n-1;i>=0;i--){
-      if(s[i]=='1')
-      o++;
-      else
-      break;
-  }
-  if(z+o==n)
-  cout<<s<<endl;
-  else{
-      for(int i=0;i<z;i++)
-      cout<<0;
-      cout<<0;
-      for(int i=0;i<o;i++)
-      cout<<1;
-      cout<<endl;
-  }
+w(t){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    int t=0,m=0;
+    vector<int> ti,mi;
+    for(int i=0;i<n;i++){
+        if(s[i]=='T'){
+        t++;
+        }
+        
+        if(s[i]=='M'){
+        m++;
+        }
+        
+    }
+    
+    if(m*2==t){
+    
+    bool f=true;
 
+
+    int p=0,q=0;
+    int c=0;
+    int ans=0;
+    for(int i=0;i<n;i++){
+        if(s[i]=='T'){
+        p++;
+        }
+        
+        if(s[i]=='M'){
+        q++;
+        }
+        
+        if(p<q)
+        {
+            f=false;
+            break;
+        }
+        
+    }
+    p=0,q=0;
+    for(int i=n-1;i>=0;i--){
+        if(s[i]=='T'){
+        p++;
+        }
+        
+        if(s[i]=='M'){
+        q++;
+        }
+        
+        if(p<q)
+        {
+            f=false;
+            break;
+        }
+        
+    }
+
+
+    
+    //  else{
+
+    // for(int i=1;i<mi.size();i++){
+    //     mi[i]-=2;
+
+    //    if(mi[i]<i+1 || ti[i]<i+1)
+    //    {
+    //        f=false;
+    //        break;
+    //    }
+    //    else{
+
+    //    }
+    // }
+    //  }
+    if(f)
+    cout<<"YES";
+    else
+    cout<<"NO";
+    }
+    
+    else
+    cout<<"NO";
+    cout<<endl;
 }
 return 0;
 }
