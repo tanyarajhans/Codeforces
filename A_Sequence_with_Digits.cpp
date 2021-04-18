@@ -72,35 +72,32 @@ int check_ps(ll n){
     }
 }
 
+ll pro(ll n){
+    string s=to_string(n);
+    int maxi=0, mini=9;
+    for(int i=0;i<s.size();i++){
+        if(s[i]-'0'>maxi)
+        maxi=s[i]-'0';
+        if(s[i]-'0'<mini)
+        mini=s[i]-'0';
+    }
+    ll p=maxi*mini;
+    return p;
+}
 
-ll a[100005];
-ll dp[2002][2002];
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
-
-a[0]=0;
-for(int i=1;i<=n;i++){
-cin>>a[i];
+w(t){
+    ll a,k;
+    cin>>a>>k;
+    k--;
+    while(k-->0){
+      a=a+pro(a);
+      if(pro(a)==0)
+      break;
+    }
+    cout<<a<<endl;
 }
-
-sort(a + 1 , a + n + 1);
-
-for(int i=1;i<=n;i++)
-dp[i][i] = 0;
- 
-	for(int i=2;i<=n;i++)
-	{
-		for(int j=1;j<=n-i+1;j++)
-		{
-			dp[j][j+i-1] = a[j+i-1] - a[j] + min(dp[j+1][j+i-1] , dp[j][j+i-2]);
-		}
-	}
- 
-cout<<dp[1][n];
-
-  
 return 0;
 }

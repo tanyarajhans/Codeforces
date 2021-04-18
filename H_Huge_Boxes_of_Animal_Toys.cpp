@@ -73,34 +73,51 @@ int check_ps(ll n){
 }
 
 
-ll a[100005];
-ll dp[2002][2002];
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
+w(t){
+    ll a,b,c,d;
+    cin>>a>>b>>c>>d;
+    int p=0,n=0;
+    if(d)
+    p+=d;
+    if(c)
+    p+=c;
+    if(a)
+    n+=a;
+    if(b)
+     n+=b;
+     
+    c+=b;
+    d+=a;
 
-a[0]=0;
-for(int i=1;i<=n;i++){
-cin>>a[i];
+    if(n>0 && n%2!=0){
+        if(d)
+        cout<<"Ya ";
+        else
+        cout<<"Tidak ";
+        if(c)
+        cout<<"Ya ";
+        else
+        cout<<"Tidak ";
+        cout<<"Tidak ";
+        cout<<"Tidak ";
+    }
+    else{
+        cout<<"Tidak ";
+        cout<<"Tidak ";
+        if(c)
+        cout<<"Ya ";
+        else
+        cout<<"Tidak ";
+        if(d)
+        cout<<"Ya ";
+        else
+        cout<<"Tidak ";
+    }
+    cout<<endl;
+
 }
-
-sort(a + 1 , a + n + 1);
-
-for(int i=1;i<=n;i++)
-dp[i][i] = 0;
- 
-	for(int i=2;i<=n;i++)
-	{
-		for(int j=1;j<=n-i+1;j++)
-		{
-			dp[j][j+i-1] = a[j+i-1] - a[j] + min(dp[j+1][j+i-1] , dp[j][j+i-2]);
-		}
-	}
- 
-cout<<dp[1][n];
-
-  
 return 0;
 }

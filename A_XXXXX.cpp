@@ -73,34 +73,50 @@ int check_ps(ll n){
 }
 
 
-ll a[100005];
-ll dp[2002][2002];
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-int n;
-cin>>n;
+w(t){
+    int n,x;
+    cin>>n>>x;
+    int a[n];
+    ll s=0;
+    for(int i=0;i<n;i++){
+    cin>>a[i];
+    s+=a[i];
+    }
+    if(s%x!=0)
+    cout<<n<<endl;
+    else{
+        ll p=0,q=0;
+        ll ss=s;
+        bool f=true;
+         ll ans=0;
+        for(ll i=0;i<n;i++){
+            ss-=a[i];
+          if(ss%x!=0){
+              ans=max(ans,n-i-1);
+              break;
+          }
+        }
 
-a[0]=0;
-for(int i=1;i<=n;i++){
-cin>>a[i];
+        ss=s;
+        for(ll i=n-1;i>=0;i--){
+          ss-=a[i];
+          if(ss%x!=0){
+              ans=max(ans,i);
+              break;
+          }
+        }
+
+       if(ans!=0)
+        cout<<ans<<endl;
+        else
+        cout<<-1<<endl;
+
+    }
+    
+
 }
-
-sort(a + 1 , a + n + 1);
-
-for(int i=1;i<=n;i++)
-dp[i][i] = 0;
- 
-	for(int i=2;i<=n;i++)
-	{
-		for(int j=1;j<=n-i+1;j++)
-		{
-			dp[j][j+i-1] = a[j+i-1] - a[j] + min(dp[j+1][j+i-1] , dp[j][j+i-2]);
-		}
-	}
- 
-cout<<dp[1][n];
-
-  
 return 0;
 }
