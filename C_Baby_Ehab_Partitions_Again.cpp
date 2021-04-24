@@ -72,21 +72,65 @@ int check_ps(ll n){
     }
 }
 
+void solve(){
+int n;
+  cin>>n;
+  int a[n];
+  ll s=0;
+  for(int i=0;i<n;i++)
+  {
+    cin>>a[i];
+    s+=a[i];
+  }
+  if(s%2==1){
+    cout<<0<<endl;
+    return;
+   }
+    ll dp[s/2 + 1][n + 1]; 
+    memset(dp, 0, sizeof(dp));
+    me(i, 0, n+1)
+        dp[0][i] = 1;
+    me(i, 1, s/2 + 1)
+    {
+        me(j, 1, n + 1)
+        {
+            dp[i][j] = dp[i][j - 1];
+            if (i >= a[j - 1])
+                dp[i][j] = max(dp[i][j], dp[i - a[j - 1]][j - 1]);
+        }
+    }
+    if (dp[s/2][n] == 0)
+    {
+        cout<<0<<endl;
+        return;
+    }
+    me(j, 0, 13)
+    {
+        me(i, 0, n)
+        {
+            if (a[i] % 2 != 0)
+            {
+                cout<<1<<endl;
+                cout<<i + 1<<endl;
+                return;
+            }
+            else
+            {
+                a[i] /= 2;
+            }
+        }
+    }
+ 
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-ll n,k;
-cin>>n>>k;
-string st="";
-for(int i=0;i<k;i++)
-st+='a'+i;
-ll x=0;
-vector<int> a(26,0);
-for(int i=0;i<n;i++){
-    cout<<char(x+'a');
-    x=(x+a[x]++)%k;
+ll t=1;
+while(t--){
+
+  solve();
+  
 }
-cout<<endl;
 return 0;
 }

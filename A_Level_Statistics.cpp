@@ -76,17 +76,39 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-ll n,k;
-cin>>n>>k;
-string st="";
-for(int i=0;i<k;i++)
-st+='a'+i;
-ll x=0;
-vector<int> a(26,0);
-for(int i=0;i<n;i++){
-    cout<<char(x+'a');
-    x=(x+a[x]++)%k;
+w(t){
+    int n;
+    cin>>n;
+    vector< pair<int, int> > v(n);
+    for(int i=0;i<n;i++)
+    cin>>v[i].f>>v[i].s;
+    int p=v[0].f;
+    int c=v[0].s;
+    bool ff=true;
+    if(c>p){
+        ff=false;
+    }
+    for(int i=1;i<n;i++){
+       if(v[i].f<p || v[i].s<c){
+           ff=false;
+           break;
+       }
+       else if(v[i].f-p<v[i].s-c){
+           ff=false;
+           break;
+       }
+       else{
+           p=v[i].f;
+           c=v[i].s;
+       }
+       
+    }
+    if(ff)
+    cout<<"YES";
+    else
+    cout<<"NO";
+    cout<<endl;
+
 }
-cout<<endl;
 return 0;
 }

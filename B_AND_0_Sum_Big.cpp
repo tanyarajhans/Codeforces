@@ -76,17 +76,14 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-ll n,k;
-cin>>n>>k;
-string st="";
-for(int i=0;i<k;i++)
-st+='a'+i;
-ll x=0;
-vector<int> a(26,0);
-for(int i=0;i<n;i++){
-    cout<<char(x+'a');
-    x=(x+a[x]++)%k;
+w(t){
+    ll n,k;
+    cin>>n>>k;
+    ll ans=1;
+    while(k--){
+    ans=(ans%mod * n%mod)%mod;
+    }
+    cout<<ans<<endl;
 }
-cout<<endl;
 return 0;
 }
