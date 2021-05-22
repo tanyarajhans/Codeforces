@@ -1,4 +1,3 @@
-// यो न हृष्यति न द्वेष्टि न शोचति न काङ्‍क्षति। शुभाशुभपरित्यागी भक्तिमान्यः स मे प्रियः॥
 #include<iostream>
 #include<vector>
 #include<map>
@@ -41,7 +40,7 @@ ll pf[10000001];
 
 
 // Tanya Rajhans
-int gcd(int a, int b)
+ll gcd(ll a, ll b)
 {
     if (b == 0)
         return a;
@@ -77,45 +76,16 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
+    ll a,b;
+    cin>>a>>b;
+    if(b==1)
+    cout<<"NO"<<endl;
+    else{
+        cout<<"YES"<<endl;
+        cout<<a*b<<" ";
+        cout<<a<<" ";
+        cout<<a*b+a<<" ";
+        cout<<endl;
     }
-    cout<<c<<endl<<d<<endl;
 }
-return 0;
 }

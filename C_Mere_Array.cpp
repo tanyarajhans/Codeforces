@@ -72,50 +72,52 @@ int check_ps(ll n){
     }
 }
 
+void solve(){
+    ll n;
+    cin>>n;
+    ll a[n];
+    ll mini=1e9;
+    vector<ll> v;
+    me(i,0,n){
+    cin>>a[i];
+    if(a[i]<mini)
+    {
+        mini=a[i];
+    }
+    }
+    me(i,0,n){
+        if(gcd(mini,a[i])==mini){
+        v.pb(a[i]);
+        a[i]=-1;
+        }
+        
+    }
+    sort(all(v));
+    int j=0;
+    for(int i=0;i<n;i++){
+        if(a[i]==-1){
+            a[i]=v[j];
+            j++;
+        }
+    }
+    int l1=n-1;
+    me(i,0,l1){
+        if(a[i]>a[i+1]){
+        cout<<"NO"<<endl;
+        return;
+        }
+    }
+    cout<<"YES"<<endl;
+    
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
+    
+    solve();
 
-    }
-    cout<<c<<endl<<d<<endl;
 }
 return 0;
 }

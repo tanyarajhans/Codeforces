@@ -17,6 +17,7 @@
 #include<iomanip>
 #define f               first
 #define s              second
+#define int               long long
 #define ll               long long
 #define pb               push_back
 #define mp               make_pair
@@ -64,7 +65,7 @@ int lcm(int a, int b) { return a * b / gcd(a, b); }
 
 int check_ps(ll n){
     double sqrt_n = sqrt(n);
-    if(sqrt_n == int(sqrt_n)){
+    if(sqrt_n == int32_t(sqrt_n)){
         return 1;
     }
     else{
@@ -72,50 +73,105 @@ int check_ps(ll n){
     }
 }
 
+bool isp(string s){
+    ll n=s.size();
+    int i=0,j=n-1;
+    while(i<j){
+        if(s[i]!=s[j])
+        return false;
+        i++;
+        j--;
+    }
+    return true;
+}
 
-int main(){
-ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-w(t){
+
+void solve(){
     ll n;
     cin>>n;
     string s;
     cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
+    ll k=0;
+    bool ff=false;
+    ll c=0,d=0;
+    int z=0,y=0;
+	
+    ll al=0,bb=0;
+//     int i=0,j=n-1;
+   
+//  while(i<=j)
+//  {
+//      if(s[i]!=s[j])
+//      z++;
+     
+//      else if(s[i]==s[j]&&s[i]=='0')
+//      z+=2;
+     
+//      i++;
+//      j--;
+//  }
+ for(int i=0;i<n;i++)
+	{
+		if(s[i]=='0')
+				c++;
+        else
+                d++;
+	}
+	//if(n%2==0)
+	//{
+		// if(c%2==0)
+	    //     cout<<"DRAW"<<endl;
+	    // else
+        //     cout<<"BOB"<<endl;
+	//}
+	//else
+	//{
+		// if(n==1)
+		// {
+		// 	if(s[0]!='0')
+		// 		cout<<"DRAW"<<endl;
+		// 	else
+		// 		cout<<"BOB"<<endl;
+ 
+		// }
+ 
+		// else if(s[n/2]=='0')
+		// {
+		// 	if(c%2==0)
+		// 		cout<<"DRAW"<<endl;
+		// 	else
+		// 		cout<<"ALICE"<<endl;
+ 
+        // }
+		// else
+		// {
+		// 	if(c%2==0)
+	    //         cout<<"DRAW"<<endl;
+	    //     else
+        //         cout<<"BOB"<<endl;
+		// 	}
+		// }
+   
+ if(c==0)
+ cout<<"DRAW";
+ else if(c%2==0)
+ cout<<"BOB";
+ else{
+     if(c==1)
+     cout<<"BOB";
+     else
+ cout<<"ALICE";
+ }
 
-    }
-    cout<<c<<endl<<d<<endl;
+ cout<<endl;
+}
+
+
+int32_t main(){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+w(t){
+solve();
 }
 return 0;
 }

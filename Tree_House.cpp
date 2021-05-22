@@ -17,8 +17,9 @@
 #include<iomanip>
 #define f               first
 #define s              second
+#define int               long long
 #define ll               long long
-#define pb               push_back
+#define pb               emplace_back
 #define mp               make_pair
 #define pii              pair<int,int>
 #define vi               vector<int>
@@ -33,8 +34,8 @@
 #define mk(arr,n,type)   type *arr=new type[n];
 #define w(x)             int x; cin>>x; while(x--)
 #define me(i,start,end)  for(int i=start;i<end;i++)
-#define he(i,end,start) for(int i=end-1;i>=start;i--)
-#define all(v)         v.begin(),v.end()
+#define he(i,end,start)  for(int i=end-1;i>=start;i--)
+#define all(v)           v.begin(),v.end()
 
 using namespace std;
 ll pf[10000001];
@@ -72,50 +73,67 @@ int check_ps(ll n){
     }
 }
 
+vector<int> adj[300005];
+vector<pii> d;
+vector<int> a,b,c;
 
-int main(){
+void dfs(int node, int p=-1){
+   for(auto u: adj[node]){
+       if(u==p)
+       continue;
+       dfs(u, node);
+   }
+   bool is=true;
+   d.clear();
+   int l=1;
+   for(auto u: adj[node]){
+       bool g=true;
+       if(u!=p)
+       d.pb(a[u], u);
+   }
+   is=false;
+   sort(d.rbegin(), d.rend());
+   ll t1=2;
+   int k=1;
+   map<int, int> mp;
+   for(auto [_b,y]:d){
+       b[y]=k++;
+   }
+   t1++;
+   for(auto u: adj[node]){
+       mp[u]++;
+       if(u!=p)
+       a[node]+=(b[u]*a[u]);
+   }
+
+}
+
+int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
+    int n,x;
+    cin>>n>>x;
+    a.assign(n,1);
+    ll it=0;
+    b.assign(n,0);
+    it++;
+    vector<int> xx;
+    for(int i=0;i<n;i++)
+    vector<int>().swap(adj[i]);
+    ll dt=0;
+    for(int i=0;i<n-1;i++){
+        int u,v;
+        cin>>u>>v;
+        u--;
+        v--;
+        adj[u].pb(v);
+        adj[v].pb(u);
     }
-    cout<<c<<endl<<d<<endl;
+    ll tt=0,gg=0,ff=0;
+    dfs(0);
+    bool fk=false;
+    cout<<(a[0]%mod)*(x%mod)<<endl;
+  }
 }
-return 0;
-}
+

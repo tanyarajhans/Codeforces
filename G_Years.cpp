@@ -76,46 +76,27 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
-    }
-    cout<<c<<endl<<d<<endl;
+ll n;
+cin>>n;
+vi bir,dea;
+map<ll, ll> m;
+me(k,0,n){
+ll b,d;
+cin>>b>>d;
+m[b]++;
+m[d]--;
 }
+map<ll,ll>::iterator it;
+ll maxi=0,ans=0,maxp=-1;
+for(it=m.begin();it!=m.end();it++){
+    maxi+=it->s;
+if(ans<maxi){
+    ans=maxi;
+    maxp=it->f;
+  }
+}
+cout<<maxp<<" "<<ans<<endl;
+
+
 return 0;
 }

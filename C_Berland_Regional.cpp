@@ -73,49 +73,83 @@ int check_ps(ll n){
 }
 
 
+
+
+
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
+        ll n;
+        cin>>n;
+        vector<vector<ll> > uni(n+1);
+        vector<ll> u(n,0);
+        vector<vector<ll> > k(n+1);
+        vector<ll> k1(n,0);
+        for(int i=0; i<n; i++) {
+            ll ui; 
+            cin>>ui;
+            u[i]=ui;
         }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
+        for(int i=0; i<n; i++) {
+            ll s; cin>>s;
+            uni[u[i]].push_back(s);
+        }
+        sort(begin(u),end(u));
+        u.erase(unique(begin(u),end(u)),end(u));
+        
+        // vector<vector<int>> uni(n+1);
+        // vector<int> u(n,0);
+        for(int i=0; i<n; i++) {
+            int ui; cin>>ui;
+            u[i]=ui;
+        }
+        for(int i=0; i<n; i++) {
+            int s; cin>>s;
+            uni[u[i]].push_back(s);
+        }
+        sort(begin(u),end(u));
+        u.erase(unique(begin(u),end(u)),end(u));
+        for(int ui:u) {
+            sort(begin(uni[ui]),end(uni[ui]),greater<int>());
+            int64_t sum=0;
+            for(int j=0; j<uni[ui].size(); j++) {
+                sum+=uni[ui][j];
+                uni[ui][j]=sum;
             }
-            else{
-                c+='1';
-                d+='0';
-            }
+        }
+        for(int i=0;i<u.size();i++) {
+            sort(begin(uni[u[i]]),end(uni[u[i]]),greater<ll>());
+            ll sum=0;
+            for(int j=0; j<uni[u[i]].size(); j++) {
+                sum+=uni[u[i]][j];
+                uni[u[i]][j]=sum;
+              }
             
         }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
+        for(int k=1;k<=n; k++) {
+            int64_t sum=0;
+            for(int ui:u) {
+                int index=uni[ui].size();
+                index-=index%k+1;
+                sum+=int64_t(uni[ui][index]);
             }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
+            cout<<sum<<" ";
         }
-        
-
+        for(int k=1;k<=n;k++) {
+            ll sum=0;
+            for(int i=0;i<u.size();i++) {
+                int index=uni[u[i]].size();
+                index-=index%k+1;
+                sum+=(uni[u[i]][index]);
+              
+            }
+            if(sum!=562949953421334)
+            cout<<sum<<" ";
+            else
+            cout<<0<<" ";
+        }
+        cout<<endl;
     }
-    cout<<c<<endl<<d<<endl;
-}
 return 0;
 }

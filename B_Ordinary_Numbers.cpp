@@ -79,43 +79,24 @@ cin.tie(NULL);
 w(t){
     ll n;
     cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
+    ll ans=0;
+    if(n<10)
+    cout<<n<<endl;
+    else{
+    string s=to_string(n);
+    ll v=s.size();
+    ll j=10;
+    ll ans1=9*(v-1);
+    ll nn=s[0]-'0';
+    string s1="";
+    for(int i=0;i<v;i++)
+    s1+=s[0];
+    ans1+=nn;
+    ans1--;
+    if(s1<=s)
+    ans1++;
+    cout<<ans1<<endl;
     }
-    cout<<c<<endl<<d<<endl;
 }
 return 0;
 }

@@ -17,6 +17,7 @@
 #include<iomanip>
 #define f               first
 #define s              second
+#define int               long long
 #define ll               long long
 #define pb               push_back
 #define mp               make_pair
@@ -64,58 +65,69 @@ int lcm(int a, int b) { return a * b / gcd(a, b); }
 
 int check_ps(ll n){
     double sqrt_n = sqrt(n);
-    if(sqrt_n == int(sqrt_n)){
+    if(sqrt_n == int32_t(sqrt_n)){
         return 1;
     }
     else{
         return 0;
     }
 }
+ll g1(vector<ll> &a,ll n1){
+ ll n = a.size();
+ bool isok=true;
+ ll t1=0,t2=0;
+ vector<ll> pref(n,0);
+ for(int i=0;i<n;i++)
+  pref[i]=n1+1-a[i];
+ for(int i=n-2;i>=0;i--)
+  pref[i]=pref[i]+pref[i+1];
+ 
+ bool f=false;
+ ll ans= 0;
+ for(int i=0;i<n;i++)
+  if(i+1<n) 
+  ans+=pref[i+1]*(a[i]);
+ f=true;
+ return ans;
+}
+
+ll g(ll d){
+    if(d==1)
+    return 0;
+	if(d==2)
+    return 1;
+	return pow(2,d-3)*d*(d-1);
+}
+
+void solve(){
+    ll n;
+    cin>>n;
+    ll a[n];
+    map<ll,vector<ll> > mp;
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    ll ans=0;
+    ll c=1;
+     vector<ll> x;
+	 	
+	// 	mp[a[i]]++;
+	// 	ll t =0;
+    map<ll,vector<ll> >::iterator ei;  
+	for(int i=0;i<n;i++) 
+    mp[a[i]].pb(i+1);
+    for(ei=mp.begin();ei!=mp.end();ei++)
+    ans+=g1(ei->s,n);
+   
+
+	cout<<ans<<endl;
+}
 
 
-int main(){
+int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
-    }
-    cout<<c<<endl<<d<<endl;
+solve();
 }
 return 0;
 }

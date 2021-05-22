@@ -62,6 +62,25 @@ int gcd(int a, int b)
 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
 
+ll power(ll x, ll y, ll p){
+    ll ans=1;
+    x=x%p;
+    ll t=1,k=1;
+    if(x==0)
+    return 0;
+    k++;
+    while(y){
+        k--;
+        if(y&1)
+        ans=(ans*x)%p;
+        y=y>>1;
+        t++;
+        x=(x*x)%p;
+    }
+    t--;
+    return ans;
+}
+
 int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int(sqrt_n)){
@@ -79,43 +98,9 @@ cin.tie(NULL);
 w(t){
     ll n;
     cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
-    }
-    cout<<c<<endl<<d<<endl;
+    bool f=false;
+    map<int, int> m;
+    cout<<power(2, n-1, mod)<<endl;
 }
 return 0;
 }

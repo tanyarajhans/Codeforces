@@ -17,6 +17,7 @@
 #include<iomanip>
 #define f               first
 #define s              second
+#define int               long long
 #define ll               long long
 #define pb               push_back
 #define mp               make_pair
@@ -64,7 +65,7 @@ int lcm(int a, int b) { return a * b / gcd(a, b); }
 
 int check_ps(ll n){
     double sqrt_n = sqrt(n);
-    if(sqrt_n == int(sqrt_n)){
+    if(sqrt_n == int32_t(sqrt_n)){
         return 1;
     }
     else{
@@ -73,49 +74,51 @@ int check_ps(ll n){
 }
 
 
-int main(){
+void solve(){
+    ll n;
+    cin>>n;
+    vector<ll> b(n+1);
+    for(int i=1;i<=n;i++)
+    cin>>b[i];
+    b[0]=0;
+    map<int,int> m;
+    for(int i=1;i<=2*n;i++)
+    m[i]=0;
+    for(int i=1;i<=n;i++)
+    m[b[i]]=1;
+    vector<ll> a(2*n+1);
+    bool f=true;
+    for(int i=1;i<=n;i++){
+        a[2*(i)-1]=b[i];
+        int d=b[i];
+        while(m[d]==1)
+        d++;
+        if(d<=2*n){
+         a[2*i]=d;
+         m[d]=1;
+        }
+        
+        else
+        {
+            f=false;
+            break;
+        }
+    }
+    if(!f)
+    cout<<-1<<endl;
+    else{
+       for(int i=1;i<=2*n;i++)
+       cout<<a[i]<<" ";
+       cout<<endl;
+    }
+}
+
+
+int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
-    }
-    cout<<c<<endl<<d<<endl;
+solve();
 }
 return 0;
 }

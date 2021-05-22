@@ -77,45 +77,73 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
+    char a[3][3];
+    int m=0,n=0;
+    ll e=0;
+    ll x=0,o=0;
+    for(int i=0;i<3;i++){
+       for(int j=0;j<3;j++){
+           cin>>a[i][j];
+           if(a[i][j]=='X')
+           x++;
+           else if(a[i][j]=='O')
+           o++;
+           else if(a[i][j]=='_')
+           e++;
+       }
     }
-    cout<<c<<endl<<d<<endl;
+    ll g=false;
+    if(a[0][0]=='X' && a[1][0]=='X' && a[2][0]=='X')
+       m=1;
+    if(a[0][1]=='X' && a[1][1]=='X' && a[2][1]=='X')
+       m=1;
+    if(a[1][0]=='X' && a[1][1]=='X' && a[1][2]=='X')
+       m=1;
+    if(a[2][0]=='X' && a[2][1]=='X' && a[2][2]=='X')
+       m=1;
+    if(a[0][2]=='X' && a[1][1]=='X' && a[2][0]=='X')
+       m=1;
+    if(a[0][0]=='X' && a[0][1]=='X' && a[0][2]=='X')
+       m=1;
+    if(a[0][2]=='X' && a[1][2]=='X' && a[2][2]=='X')
+       m=1;
+    if(a[0][0]=='X' && a[1][1]=='X' && a[2][2]=='X')
+       m=1;
+    
+    ll f=false;
+    ll k=1;
+    if(a[0][0]=='O' && a[1][0]=='O' && a[2][0]=='O')
+       n=1;
+    if(a[0][1]=='O' && a[1][1]=='O' && a[2][1]=='O')
+       n=1;
+    if(a[1][0]=='O' && a[1][1]=='O' && a[1][2]=='O')
+       n=1;
+    if(a[2][0]=='O' && a[2][1]=='O' && a[2][2]=='O')
+       n=1;
+    if(a[0][2]=='O' && a[1][1]=='O' && a[2][0]=='O')
+       n=1;
+    if(a[0][0]=='O' && a[0][1]=='O' && a[0][2]=='O')
+       n=1;
+    if(a[0][2]=='O' && a[1][2]=='O' && a[2][2]=='O')
+       n=1;
+    if(a[0][0]=='O' && a[1][1]=='O' && a[2][2]=='O')
+       n=1;
+    
+    if((m==1 && n==1) || (x-o<0) || (x-o>1))
+    cout<<3<<endl;
+    else if(x==0 && o==0 && e==9)
+    cout<<2<<endl;
+    else if(x>o && m==1 && n==0)
+    cout<<1<<endl;
+    else if(x==o && m==0 && n==1)
+    cout<<1<<endl;
+    else if(e==0 && m==0 && n==0)
+    cout<<1<<endl;
+    else if(e>0 && m==0 && n==0)
+    cout<<2<<endl;
+    else
+    cout<<3<<endl;
+    
 }
 return 0;
 }

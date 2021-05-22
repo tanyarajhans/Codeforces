@@ -81,41 +81,53 @@ w(t){
     cin>>n;
     string s;
     cin>>s;
-    string c,d;
+    ll z=0;
+    vector<ll> a;
     for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
+        if(s[i]!='*')
+        a.pb(0);
+        else
+        {
+            a.pb(1);
+            z++;
         }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
     }
-    cout<<c<<endl<<d<<endl;
+    vector<ll> b;
+    ll n1=a.size();
+    b.pb(0);
+    for(int i=0;i<n1;i++){
+        if(a[i])
+        b.pb(i);
+    }
+    ll g=b.size();
+    vector<ll> pre(g,0);
+    for(int i=1;i<g;i++){
+        pre[i]=b[i]+pre[i-1];
+    }
+    
+    if(z==0){
+        cout<<0<<endl;
+    }
+    else{
+        ll maxi=LLONG_MAX;
+        ll l=1, r=z;
+        for(; r<g; l++,r++){
+           ll mid=(l+r)/2;
+           ll x=mid-1;
+           ll rr=pre[r]-pre[mid];
+           ll le=pre[mid-1]-pre[l-1];
+           ll gg=x*(x+1);
+           if(z%2==0){
+               le+=b[mid];
+               gg+=x+1;
+
+           }
+           maxi=min(maxi, rr-le-gg);
+        }
+        cout<<maxi<<endl;
+    }
+
+
 }
 return 0;
 }

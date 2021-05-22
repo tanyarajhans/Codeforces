@@ -71,51 +71,38 @@ int check_ps(ll n){
         return 0;
     }
 }
+int n, m;
+bool dp[102][102];
+bool solve(int i, int j, int k, int c){
+if(i==n && j==m){
+    if(c==k)
+    return dp[i][j]=true;
+}
+if(dp[i][j]!=false)
+return dp[i][j];
+bool xx=false,yy=false;
+if(i+1<n){
+    xx=solve(i+1,j, k,c+j);
+}
+if(j+1<m){
+    yy=solve(i,j+1,k,c+i);
+}
+return dp[i][j]=(xx||yy);
 
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
-    }
-    cout<<c<<endl<<d<<endl;
+    int k;
+    cin>>n>>m>>k;
+    memset(dp,false,sizeof(dp));
+    if(k==((1*(n-1)+n*(m-1)))) 
+    cout<<"YES";
+	else 
+    cout<<"NO";
+    cout<<endl;
 }
 return 0;
 }

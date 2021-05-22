@@ -32,8 +32,8 @@
 #define ps(x,y)          fixed<<setprecision(y)<<x
 #define mk(arr,n,type)   type *arr=new type[n];
 #define w(x)             int x; cin>>x; while(x--)
-#define me(i,start,end)  for(int i=start;i<end;i++)
-#define he(i,end,start) for(int i=end-1;i>=start;i--)
+#define rep(i,start,end)  for(int i=start;i<end;i++)
+#define rrep(i,end,start) for(int i=end-1;i>=start;i--)
 #define all(v)         v.begin(),v.end()
 
 using namespace std;
@@ -76,46 +76,37 @@ int check_ps(ll n){
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
+w(tc){
     ll n;
     cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
+    vector<ll> a;
+    rep(i,0,n)
+    {
+        ll x;
+        cin>>x;
+        a.pb(x);
     }
-    cout<<c<<endl<<d<<endl;
+    sort(all(a));
+    reverse(all(a));
+    cout<<a[0]<<" ";
+    ll v=1;
+    ll t=a[0];
+    a.erase(a.begin());
+    while(a.size()>0){
+        ll maxi=0,pos=-1;
+     for(int i=0;i<a.size();i++){
+         ll g=gcd(t,a[i]);
+         if(g>maxi){
+             maxi=g;
+             pos=i;
+         }
+     }
+     cout<<a[pos]<<" ";
+     t=gcd(t,a[pos]);
+     a.erase(a.begin()+pos);
+     
+    }
+     cout<<endl;
 }
 return 0;
 }

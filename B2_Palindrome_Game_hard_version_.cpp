@@ -17,6 +17,7 @@
 #include<iomanip>
 #define f               first
 #define s              second
+#define int               long long
 #define ll               long long
 #define pb               push_back
 #define mp               make_pair
@@ -64,7 +65,7 @@ int lcm(int a, int b) { return a * b / gcd(a, b); }
 
 int check_ps(ll n){
     double sqrt_n = sqrt(n);
-    if(sqrt_n == int(sqrt_n)){
+    if(sqrt_n == int32_t(sqrt_n)){
         return 1;
     }
     else{
@@ -73,49 +74,46 @@ int check_ps(ll n){
 }
 
 
-int main(){
+void solve(){
+    int n;
+ cin>>n;
+ string s;
+ cin>>s;
+ bool f=false;
+ int z=0;
+ int i=0,j=n-1,k=0;
+ while(i<=j)
+ {
+     if(s[i]!=s[j])
+     {
+        z++;
+     }
+     else if(s[i]==s[j]&&s[i]=='0')
+     {
+         z=z+2;
+     }
+     i++;
+     f=!f;
+     j--;
+     k++;
+ }
+  int g=0,h=0;
+ if(z==0)
+ cout<<"DRAW";
+ else
+ if(z%2==0)
+ cout<<"BOB";
+ else
+ cout<<"ALICE";
+ cout<<endl;
+}
+
+
+int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
-    }
-    cout<<c<<endl<<d<<endl;
+solve();
 }
 return 0;
 }

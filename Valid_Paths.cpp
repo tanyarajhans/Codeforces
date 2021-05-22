@@ -72,50 +72,67 @@ int check_ps(ll n){
     }
 }
 
+ll ans, ans1=0;
+vector<ll> d;
+vector<vector<ll> > adj;
+vector<ll> t;
+
+void dfs(ll node, ll p){
+    d[node]=1;
+    ll g=1;
+    t[node]=1;
+    bool f=true;
+    ll s=0,v=0,c=0;
+    for(int i=0;i<adj[node].size();i++){
+        ll x=adj[node][i];
+        ll k=0;
+        if(x!=p){
+            dfs(x, node);
+            d[node]=(d[node]+(2*d[x])%mod)%mod;
+            t[node]=(t[node]+t[x])%mod;
+            c++;
+            t[node]=(t[node]+d[x])%mod;
+            s+=d[x];
+        }
+    }
+    ll k1=0,k2=0;
+    for(int i=0;i<adj[node].size();i++){
+        ll x=adj[node][i];
+        if(x!=p){
+            f=false;
+            t[node]+=(d[x]*((s-d[x]+mod)%mod))%mod;
+            t[node]%=mod;
+        }
+    }
+    if(f==false)
+    k1++;
+}
 
 int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
+w(tt){
     ll n;
     cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
+    t.clear();
+    d.clear();
+    adj.clear();
+    bool isok=true;
+   // for(int i=0;i<n;i++)
+   // adj[i].clear();
+    d.resize(n+1);
+    t.resize(n+1);
+    adj.resize(n+1);
+    for(int i=0;i<n-1;i++){
+        ll u,v;
+        cin>>u>>v;
+        adj[u].pb(v);
+        adj[v].pb(u);
     }
-    cout<<c<<endl<<d<<endl;
+    map<int, int> mp;
+    dfs(1,1);
+    cout<<t[1]%mod<<endl;
+
 }
 return 0;
-}
+} 

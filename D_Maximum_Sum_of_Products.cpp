@@ -77,45 +77,73 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
+ll n;
     cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
+    ll a[n];
+    ll b[n];
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    for(int i=0;i<n;i++)
+    cin>>b[i];
+    // map<ll, vector<ll> > m;
+    // for(int i=0;i<n;i++){
+    //     m[a[i]].pb(b[i]);
+    // }
+    // map<ll, vector<ll> >::iterator it;
+    // for(it=m.begin();it!=m.end();it++){
+    //     sort(it->s.begin(), it->s.end());
+    //     reverse(it->s.begin(), it->s.end());
+    //     int nn=it->s.size();
+    //     vector<ll> v(nn+1);
+    //     v[0]=0;
+    //     for(int i=1;i<=nn;i++)
+    //     v[i]=v[i-1]+it->s[i-1];
+    //     m[it->f]=v;
+    // }
+    // bool f=false;
+    // for(int i=1;i<=n;i++){
+    //  ll s=0;
+    //  map<ll, vector<ll> >::iterator it;
+    //  for(it=m.begin();it!=m.end();it++){
+    //      int g=it->s.size()-1;
+    //      int p=g/i;
+    //      s+=it->s[p*i];
+    //  }
+    //  cout<<s<<" ";
+    // }
+    ll ans=0;
+    vector<ll> c(n);
+    for(int i=0;i<n;i++)
+    {
+        c[i]=a[i]*b[i];
     }
-    cout<<c<<endl<<d<<endl;
+    for(int i=0;i<n;i++)
+    ans+=c[i];
+    for(int i=1;i<n;i++)
+    c[i]+=c[i-1];
+    for(int i=0;i<n;i++){
+        vector<ll> a1, b1, c1;
+        for(int j=i;j<n;j++){
+          a1.pb(a[j]);
+          b1.pb(b[j]);
+        }
+        for(int k=0;k<a1.size();k++)
+        c1[k]=a1[k]*b1[k];
+        for(int j=i;j<n;j++){
+            if(j-i>=a1.size())
+            continue;
+            ll t;
+            if(i>0)
+            t=c[i-1];
+            else
+            t=0;
+            t+= c1[j - i] + (c[n-1] - c[j]);
+			//cout<<t<< " " << c.size() << "\n";
+			ans = max(ans, t);
+        }
+    }
+
+    cout<<ans<<endl;
 }
 return 0;
 }

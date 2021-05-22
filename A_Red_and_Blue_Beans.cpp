@@ -77,45 +77,26 @@ int main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
 w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
-        }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
+    ll r,b,d;
+    cin>>r>>b>>d;
+    ll mini;
+    if(b<r)
+    swap(b,r);
+    if(d==0){
+        if(r==b)
+        cout<<"YES";
+        else
+        cout<<"NO";
     }
-    cout<<c<<endl<<d<<endl;
+    else{
+    b-=r*(d+1);
+    if(b<=0)
+    cout<<"YES";
+     else
+        cout<<"NO";
+    }
+    cout<<endl;
+
 }
 return 0;
 }

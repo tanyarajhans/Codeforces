@@ -37,85 +37,85 @@
 #define all(v)         v.begin(),v.end()
 
 using namespace std;
-ll pf[10000001];
 
-
-// Tanya Rajhans
-int gcd(int a, int b)
+bool ispal(string str)
 {
-    if (b == 0)
-        return a;
-    return gcd(b, a % b); 
-     
+    int l = 0;
+    int h = str.length() - 1;
+    while (h > l)
+        if (str[l++] != str[h--])
+            return 0;
+    return 1;
 }
-
-   void prime(){
-       memset(pf,0,10000001);
-       pf[0]=pf[1]=1;
-   for(ll i=2;i<10000001;i++){
-        if(pf[i]==0){
-            for(ll j=i*i;j<10000001;j=j+i)
-                  pf[j]=1;
+void solve()
+{
+  ll n,zer=0,i;
+  string s;
+  cin>>n;
+  cin>>s;
+  for(i=0;i<s.length();i++)
+    if(s[i]=='0')
+    if(s[i]=='0')
+      zer ++;
+  ll chance=0,alice=0,bob=0;
+// while(zer > 0)
+  {
+    if(chance%2 == 0)
+    {
+ 
+      if(!ispal(s))
+      {
+        reverse(s.begin(),s.end());
+        chance++;
+        //continue;
+      }  
+      if(s.length()%2 != 0 && s[n/2] == '0')
+      {
+        s[n/2] = '1';
+        zer --;
+      }
+      else
+      {
+        ll fg = 0;
+        for(i=0;i<n;i++)
+        {
+          if(s[i] == '0' && s[n-i-1] == '1')
+          {
+            s[i] = '1';
+            zer--;
+            fg = 1;
+            break;
+          }
         }
-    }
-}
-
-int lcm(int a, int b) { return a * b / gcd(a, b); }
-
-int check_ps(ll n){
-    double sqrt_n = sqrt(n);
-    if(sqrt_n == int(sqrt_n)){
-        return 1;
-    }
-    else{
-        return 0;
-    }
-}
-
-
-int main(){
-ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-w(t){
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string c,d;
-    for(int i=0;i<n;i++){
-        if(s[i]=='0'){
-        c+='0';
-        d+='0';
+        if(fg == 0)
+        {
+          for(i=0;i<n;i++)
+          {
+            if(s[i] == '0')
+            {
+              s[i] = '1';
+              zer--;
+              break;
+            }
+          }
         }
-        else if(s[i]=='1'){
-            if(c>=d){
-                c+='0';
-                d+='1';
-            }
-            else{
-                c+='1';
-                d+='0';
-            }
-            
-        }
-        else{
-            if(c>d){
-                c+='0';
-                d+='2';
-            }
-            else if(d>c){
-                c+='2';
-                d+='0';
-            }
-            else{
-                c+='1';
-                d+='1';
-            }
-        }
-        
-
+      }
+ 
+      alice++;
+      chance++;
     }
-    cout<<c<<endl<<d<<endl;
-}
-return 0;
+    else
+    chance++;
+  }
+  if(alice > chance)
+	cout<<"ALICE";
+	else
+	cout<<"BOB";
+  cout<<endl;
+} 
+int main()
+{
+  w(t){
+    solve();
+  }
 }
