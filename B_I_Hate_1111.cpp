@@ -72,23 +72,28 @@ int check_ps(ll n){
         return 0;
     }
 }
-
+vector<int> dp;
 
 void solve(){
-string s;
-cin>>s;
-int n=s.size();
-cout<<3<<endl;
-cout<<"R "<<s.size()-1<<endl;
-cout<<"L "<<n<<endl;
-cout<<"L "<<2<<endl;
+    ll x;
+    cin>>x;
+    for(int i=1;i<=20;i++){
+        if(x%11==0){
+            cout<<"YES"<<endl;
+            return;
+        }
+        x-=111;
+        if(x<0)
+        break;
+    }
+    cout<<"NO"<<endl;
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;

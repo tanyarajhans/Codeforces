@@ -75,20 +75,50 @@ int check_ps(ll n){
 
 
 void solve(){
-string s;
-cin>>s;
-int n=s.size();
-cout<<3<<endl;
-cout<<"R "<<s.size()-1<<endl;
-cout<<"L "<<n<<endl;
-cout<<"L "<<2<<endl;
+    string s;
+    cin>>s;
+    int ans=0;
+    int l0=-1, l1=-1;
+    int j=0,k=0;
+    map<int,int> m;
+    for(int i=0; i<s.size();i++){
+        while(j<s.size()){
+        if((s[j]=='0' || s[j]=='1') && max(l0,l1)<i){
+            if(s[j]!='0')
+            l1=j;
+            else
+            l0=j;
+        }
+        else if(s[j]=='0' && l0>=i && l0%2==j%2){
+            l0=j;
+            j++;
+        }
+        else if(s[j]=='0' && l1>=i && (l1%2!=j%2)){
+            l0=j;
+            j++;
+        }
+        else if(s[j]=='1' && l1>=i && (l1%2==j%2)){
+            l1=j;
+            j++;
+        }
+        else if(s[j]=='1' && l0>=i && (l0%2!=j%2)){
+            l1=j;
+            j++;
+        }
+        else if(s[j]=='?')
+        j++;
+        else break;
+        }
+        ans+=j-i;
+    }
+    cout<<ans<<endl;
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;

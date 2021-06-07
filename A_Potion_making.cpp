@@ -75,20 +75,16 @@ int check_ps(ll n){
 
 
 void solve(){
-string s;
-cin>>s;
-int n=s.size();
-cout<<3<<endl;
-cout<<"R "<<s.size()-1<<endl;
-cout<<"L "<<n<<endl;
-cout<<"L "<<2<<endl;
+    int k;
+    cin>>k;
+    cout<<100/(gcd(100,k))<<endl;
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;

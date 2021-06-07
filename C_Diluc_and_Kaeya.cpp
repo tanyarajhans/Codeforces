@@ -63,6 +63,15 @@ int gcd(int a, int b)
 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
 
+ll encode(string s){
+    ll num=0;
+    for(int i=0;i<s.size();i++){
+        ll diff = s[i]-'a'+1;
+        num=num*26+diff;
+    }
+    return num;
+}
+
 int check_ps(ll n){
     double sqrt_n = sqrt(n);
     if(sqrt_n == int32_t(sqrt_n)){
@@ -75,21 +84,38 @@ int check_ps(ll n){
 
 
 void solve(){
-string s;
-cin>>s;
-int n=s.size();
-cout<<3<<endl;
-cout<<"R "<<s.size()-1<<endl;
-cout<<"L "<<n<<endl;
-cout<<"L "<<2<<endl;
+    ll n;
+    cin>>n;
+    string s;
+    cin>>s;
+    map<pair<int, int>, int> mp;
+    ll g=1,h=1;
+    int c1=0,c2=0;
+    bool f=false;
+    for(int i = 0; i < s.length(); i++)
+	{
+		if(s[i]=='K')
+        c2++;
+		else
+        c1++;
+		int c3=gcd(c1,c2);
+		int32_t c4=c1/c3;
+		int32_t c5=c2/c3;
+		cout<<mp[{c4,c5}]+1<<" ";
+		mp[{c4,c5}]++;
+	}
+	cout<<endl;
+    mp.clear();
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;
 }
+
+ 

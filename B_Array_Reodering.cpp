@@ -75,20 +75,33 @@ int check_ps(ll n){
 
 
 void solve(){
-string s;
-cin>>s;
-int n=s.size();
-cout<<3<<endl;
-cout<<"R "<<s.size()-1<<endl;
-cout<<"L "<<n<<endl;
-cout<<"L "<<2<<endl;
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    vector<pair<int,int> > v;
+    int ans=0;
+    for(int i=0;i<n;i++){
+        v.pb(mp(a[i]%2, a[i]));
+    }
+    sort(a,a+n);
+    reverse(a,a+n);
+    sort(v.begin(), v.end());
+    for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            if(gcd(v[i].s, 2*v[j].s)>1)
+               ans++;
+        }
+    }
+    cout<<ans<<endl;
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;

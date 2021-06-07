@@ -72,23 +72,45 @@ int check_ps(ll n){
         return 0;
     }
 }
-
+int arrsort(int arr[], int n)
+{
+    // Array has one or no element or the
+    // rest are already checked and approved.
+    if (n == 1 || n == 0)
+        return 1;
+ 
+    // Unsorted pair found (Equal values allowed)
+    if (arr[n - 1] < arr[n - 2])
+        return 0;
+ 
+    // Last pair was sorted
+    // Keep on checking
+    return arrsort(arr, n - 1);
+}
 
 void solve(){
-string s;
-cin>>s;
-int n=s.size();
-cout<<3<<endl;
-cout<<"R "<<s.size()-1<<endl;
-cout<<"L "<<n<<endl;
-cout<<"L "<<2<<endl;
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    if (arrsort(a, n)==1)
+    cout<<0;
+    else if(a[0]==1 || a[n-1]==n)
+    cout<<1;
+    else if(a[0]==n && a[n-1]==1)
+    cout<<3;
+    else
+    cout<<2;
+    cout<<endl;
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;

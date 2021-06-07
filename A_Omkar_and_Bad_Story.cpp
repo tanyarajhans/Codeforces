@@ -75,20 +75,63 @@ int check_ps(ll n){
 
 
 void solve(){
-string s;
-cin>>s;
-int n=s.size();
-cout<<3<<endl;
-cout<<"R "<<s.size()-1<<endl;
-cout<<"L "<<n<<endl;
-cout<<"L "<<2<<endl;
+    int n;
+    cin>>n;
+    vector<ll> a;
+    set<ll> s;
+    bool f=0;
+    for(int i=0;i<n;i++){
+        ll x;
+        cin>>x;
+        if(x<0)
+        f=1;
+        a.pb(x);
+        s.insert(x);
+    }
+    
+   //sort(a.begin(), a.end());
+    vector<ll> v;
+    ll maxi=1e5;
+    if(f){
+        cout<<"NO"<<endl;
+        return;
+    }
+    // for(int i=0;a.size()<=300 && i<a.size();i++)
+    // {
+    //     for(int j=0;a.size()<=300 && j<a.size();j++)
+    //     {
+    //         ll diff = abs(a[i]-a[j]);
+    //         if(s.find(diff)==s.end())
+    //         {
+                
+    //             v.pb(diff);
+    //             s.insert(diff);
+    //         }
+    //     }
+    // }
+
+    // if(a.size()>300)
+    // cout<<"NO"<<endl;
+    else{
+    cout<<"YES"<<endl;
+    ll x=*max_element(a.begin(), a.end());
+    cout<<x+1<<endl;
+    // set<ll>::iterator it;
+    // for(it=s.begin();it!=s.end();it++){
+    //     cout<<*it<<" ";
+    // }
+
+    for(int i=0; i<=x; i++)
+        cout<<i<<" ";
+    cout<<endl;
+    }
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;

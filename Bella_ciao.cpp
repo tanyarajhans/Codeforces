@@ -75,20 +75,23 @@ int check_ps(ll n){
 
 
 void solve(){
-string s;
-cin>>s;
-int n=s.size();
-cout<<3<<endl;
-cout<<"R "<<s.size()-1<<endl;
-cout<<"L "<<n<<endl;
-cout<<"L "<<2<<endl;
+    ll D,d,P,Q;
+    cin>>D>>d>>P>>Q;
+    ll ans=0;
+    ll x=D/d;
+    if(x%2==0)
+        ans=d*((x/2)*(2*P+(x-1)*Q));
+    else
+        ans=d*(x*(P+((x-1)/2)*Q));
+    ans+=(D%d)*(P+x*Q);
+    cout<<ans<<endl;
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;
