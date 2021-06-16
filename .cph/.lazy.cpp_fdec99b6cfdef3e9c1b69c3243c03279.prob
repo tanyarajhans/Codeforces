@@ -1,0 +1,1 @@
+{"name":"Local: lazy","url":"/Users/tanyarajhans/Desktop/cpp/lazy.cpp","tests":[{"id":1623748049544,"input":"10 \n3\n1 1 10\n2 1 1 10\n1 1 10","output":"0\n10"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/tanyarajhans/Desktop/cpp/lazy.cpp","group":"local","local":true}
