@@ -17,7 +17,7 @@
 #include<iomanip>
 #define f               first
 #define s              second
-#define int               long long
+//#define int               long long
 #define ll               long long
 #define pb               push_back
 #define mp               make_pair
@@ -38,40 +38,40 @@
 #define all(v)         v.begin(),v.end()
 
 using namespace std;
-ll pf[10000001];
+// ll pf[10000001];
 
 
-// Tanya Rajhans
-int gcd(int a, int b)
-{
-    if (b == 0)
-        return a;
-    return gcd(b, a % b); 
+// // Tanya Rajhans
+// int gcd(int a, int b)
+// {
+//     if (b == 0)
+//         return a;
+//     return gcd(b, a % b); 
      
-}
+// }
 
-   void prime(){
-       memset(pf,0,10000001);
-       pf[0]=pf[1]=1;
-   for(ll i=2;i<10000001;i++){
-        if(pf[i]==0){
-            for(ll j=i*i;j<10000001;j=j+i)
-                  pf[j]=1;
-        }
-    }
-}
+//    void prime(){
+//        memset(pf,0,10000001);
+//        pf[0]=pf[1]=1;
+//    for(ll i=2;i<10000001;i++){
+//         if(pf[i]==0){
+//             for(ll j=i*i;j<10000001;j=j+i)
+//                   pf[j]=1;
+//         }
+//     }
+// }
 
-int lcm(int a, int b) { return a * b / gcd(a, b); }
+// int lcm(int a, int b) { return a * b / gcd(a, b); }
 
-int check_ps(ll n){
-    double sqrt_n = sqrt(n);
-    if(sqrt_n == int32_t(sqrt_n)){
-        return 1;
-    }
-    else{
-        return 0;
-    }
-}
+// int check_ps(ll n){
+//     double sqrt_n = sqrt(n);
+//     if(sqrt_n == int32_t(sqrt_n)){
+//         return 1;
+//     }
+//     else{
+//         return 0;
+//     }
+// }
 
 struct node{
     int m[3];
@@ -89,6 +89,7 @@ void build(int si, int ss, int se){
         st[si].m[2]=0;
         return;
     }
+
     int mid=(ss+se)/2;
     build(2*si, ss, mid);
     build(2*si+1, mid+1, se);
@@ -105,39 +106,8 @@ void shift(int si){
     st[si].m[0]=x;
 }
 
-int query(int si, int ss, int se, int qs, int qe){
 
-    if(lazy[si] != 0)
-    {
-    int dx = lazy[si];
-    lazy[si] = 0;
-
-
-    if(ss != se)
-    lazy[2*si] += dx , lazy[2*si+1] += dx;
-
-    dx%=3;
-    for(int i=0;i<dx;i++)
-        shift(si);
-    }
-    
-    if(qs>se || qe<ss)
-        return 0;
-
-    if(qs<=ss && se<=qe)
-        return st[si].m[0];
-
-    int mid=(ss+se)/2;
-    int l=query(2*si, ss, mid, qs, qe);
-    int r=query(2*si+1, mid+1, se, qs, qe);
-
-    return l+r;
-
-}
-
-
-
-void update(int si , int ss , int se , int qs , int qe, int val)
+void update(int si , int ss , int se , int qs , int qe)
 {
     if(lazy[si] != 0)
     {
@@ -160,19 +130,56 @@ void update(int si , int ss , int se , int qs , int qe, int val)
     {
         shift(si);
 
-        if(ss != se)
-           lazy[2*si] +=val , lazy[2*si+1] +=val;
+        if(ss != se){
+            lazy[2*si]++ ;
+            lazy[2*si+1]++;
+        }
+           
         return;
     }
 
     int mid = (ss + se) / 2;
-    update(2*si , ss , mid , qs , qe , val);
-    update(2*si+1 , mid+1 , se , qs , qe , val);
+    update(2*si , ss , mid , qs , qe);
+    update(2*si+1 , mid+1 , se , qs , qe);
 
     st[si].m[0]=st[2*si].m[0]+st[2*si+1].m[0];
     st[si].m[1]=st[2*si].m[1]+st[2*si+1].m[1];
     st[si].m[2]=st[2*si].m[2]+st[2*si+1].m[2];
 }
+
+int query(int si, int ss, int se, int qs, int qe){
+
+    if(lazy[si] != 0)
+    {
+    int dx = lazy[si];
+    lazy[si] = 0;
+
+
+
+    if(ss != se){
+        lazy[2*si]+=dx;
+        lazy[2*si+1]+=dx;
+    }
+
+    dx%=3;
+    for(int i=0;i<dx;i++)
+        shift(si);
+    }
+    
+    if(qe<ss || qs>se)
+        return 0;
+
+    if(qs<=ss && se<=qe)
+        return st[si].m[0];
+
+    int mid=(ss+se)/2;
+    int l=query(2*si, ss, mid, qs, qe);
+    int r=query(2*si+1, mid+1, se, qs, qe);
+
+    return l+r;
+
+}
+
 // for range sum problem at each node of seg tree,we store range sum at each node.
 
 
@@ -193,28 +200,24 @@ void update(int si , int ss , int se , int qs , int qe, int val)
 
 // if we have to update range by val, we will perform val right shifts.
 
-void solve(){
-    int n,q;
-    cin>>n>>q;
-    build(1,1,n);
-    while(q--){
-        int x,l,r;
-        cin>>x>>l>>r;
-        if(x==0){
-            update(1, 1, n, l+1, r+1,1);
-        }
-        else{
-            cout<<query(1,1,n,l+1,r+1)<<endl;
-        }
-    }
-}
 
 
-int32_t main(){
+int main(){
 ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-{
-solve();
+cin.tie(0);
+cout.tie(0);
+int n,q;
+cin>>n>>q;
+build(1,1,n);
+int x,l,r;
+while(q--){
+    cin>>x>>l>>r;
+    if(x==0){
+        update(1, 1, n, l+1, r+1);
+    }
+    else{
+         cout<<query(1,1,n,l+1,r+1)<<"\n";
+    }
 }
 return 0;
 }
