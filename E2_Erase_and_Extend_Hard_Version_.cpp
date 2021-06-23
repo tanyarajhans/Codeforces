@@ -147,56 +147,49 @@ st[si] = st[2*si] + st[2*si+1];
 }
 
 
+
+
+string f2(string s1,string s2){
+    for(int i=0;i<s1.size();i++){
+        if(s1[i]<s2[i]){
+            // cout<<s1<<endl;
+            return s1;
+        }
+        else if(s1[i]>s2[i]){
+           // cout<<s2<<endl;
+return s2;
+        }
+    }
+    return s1;
+   // cout<<s1<<endl;
+}
+
 void solve(){
-  int n;
-  cin>>n;
-  int u[n], p[n];
-  for(int i=0;i<n;i++)
-  cin>>u[i];
-  for(int i=0;i<n;i++)
-  cin>>p[i];
-   map<int, vector<int> > m;
-  for(int i=0;i<n;i++)
-  {
-      m[u[i]].pb(p[i]);
-  }
-  map<int, vector<int> >::iterator it;
-  
-  int ans[n+1];
-  for(int i=0;i<=n;i++)
-  ans[i]=0;
-  for(it=m.begin(); it!=m.end();it++){
-      sort(it->s.begin(), it->s.end());
-     // reverse(it->s.begin(), it->s.end());
-      int ss=it->s.size();
-      int pre[ss+1];
-      for(int i=0;i<=ss;i++)
-      pre[i]=0;
-      pre[0]=it->s[0];
-      for(int j=1;j<ss;j++)
-      pre[j]=pre[j-1]+it->s[j];
-      for(int j=1;j<=ss;j++){
-          int r=ss%j;
-          if(r==0){
-              ans[j]+=pre[ss-1];
-          }
-          else{
-              r--;
-              ans[j]+=pre[ss-1]-pre[r];
-          }
-      }
-  }
-  for(int i=1;i<=n;i++)
-  cout<<ans[i]<<" ";
-  cout<<endl;
-  
+    int n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    string s1="";
+    for(int i=0;i<k;i++)
+    s1+=s[i%n];
+    string s2="";
+    string ans;
+    for(int i=0;i<n;i++){
+        string st;
+        string p=s.substr(0,i+1);
+    int ss=p.size();
+    for(int j=0;j<k;j++)
+        st+=p[j%ss];
+          s1=f2(s1, st);
+    }
+    cout<<s1<<endl;
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
+{
 solve();
 }
 return 0;

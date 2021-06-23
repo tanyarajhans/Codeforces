@@ -148,48 +148,48 @@ st[si] = st[2*si] + st[2*si+1];
 
 
 void solve(){
-  int n;
-  cin>>n;
-  int u[n], p[n];
-  for(int i=0;i<n;i++)
-  cin>>u[i];
-  for(int i=0;i<n;i++)
-  cin>>p[i];
-   map<int, vector<int> > m;
-  for(int i=0;i<n;i++)
-  {
-      m[u[i]].pb(p[i]);
-  }
-  map<int, vector<int> >::iterator it;
-  
-  int ans[n+1];
-  for(int i=0;i<=n;i++)
-  ans[i]=0;
-  for(it=m.begin(); it!=m.end();it++){
-      sort(it->s.begin(), it->s.end());
-     // reverse(it->s.begin(), it->s.end());
-      int ss=it->s.size();
-      int pre[ss+1];
-      for(int i=0;i<=ss;i++)
-      pre[i]=0;
-      pre[0]=it->s[0];
-      for(int j=1;j<ss;j++)
-      pre[j]=pre[j-1]+it->s[j];
-      for(int j=1;j<=ss;j++){
-          int r=ss%j;
-          if(r==0){
-              ans[j]+=pre[ss-1];
-          }
-          else{
-              r--;
-              ans[j]+=pre[ss-1]-pre[r];
-          }
-      }
-  }
-  for(int i=1;i<=n;i++)
-  cout<<ans[i]<<" ";
-  cout<<endl;
-  
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    map<int, int> m,cc;
+    for(int i=0;i<n;i++){
+        m[a[i]]++;
+        cc[m[a[i]]]++;
+    }
+    vector<int> v;
+    int ans=n;
+    map<int, int>::iterator it, it1;
+    // for(it=cc.begin(); it!=cc.end(); it++){
+    //    // v.pb(it->s);
+    //     int k=it->s;
+    //     int mini=0;
+    //     for(it1=cc.begin(); it1!=cc.end(); it1++){
+    //    // v.pb(it->s);
+    //     int g=it1->s;
+    //     if(g>k)
+    //     mini+=abs(it1->s - k);
+    //     else
+    //     mini+=it->s;
+    //     }
+    //     ans=min(ans,mini);
+    // }
+    // sort(v.begin(), v.end());
+    // int k=v.size();
+    // int med;
+    // if(k%2==0){
+    //     med=(v[k/2]+v[k/2-1])/2;
+    // }
+    // else
+    // med=(v[k/2]);
+    // int ans=0;
+    // for(it=m.begin(); it!=m.end(); it++)
+    for(int i=1;i<=n;i++){
+        ans=min(ans, n-cc[i]*i);
+    }
+    cout<<ans<<endl;
+    
 }
 
 

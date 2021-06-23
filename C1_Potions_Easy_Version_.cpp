@@ -148,55 +148,34 @@ st[si] = st[2*si] + st[2*si+1];
 
 
 void solve(){
-  int n;
-  cin>>n;
-  int u[n], p[n];
-  for(int i=0;i<n;i++)
-  cin>>u[i];
-  for(int i=0;i<n;i++)
-  cin>>p[i];
-   map<int, vector<int> > m;
-  for(int i=0;i<n;i++)
-  {
-      m[u[i]].pb(p[i]);
-  }
-  map<int, vector<int> >::iterator it;
-  
-  int ans[n+1];
-  for(int i=0;i<=n;i++)
-  ans[i]=0;
-  for(it=m.begin(); it!=m.end();it++){
-      sort(it->s.begin(), it->s.end());
-     // reverse(it->s.begin(), it->s.end());
-      int ss=it->s.size();
-      int pre[ss+1];
-      for(int i=0;i<=ss;i++)
-      pre[i]=0;
-      pre[0]=it->s[0];
-      for(int j=1;j<ss;j++)
-      pre[j]=pre[j-1]+it->s[j];
-      for(int j=1;j<=ss;j++){
-          int r=ss%j;
-          if(r==0){
-              ans[j]+=pre[ss-1];
-          }
-          else{
-              r--;
-              ans[j]+=pre[ss-1]-pre[r];
-          }
-      }
-  }
-  for(int i=1;i<=n;i++)
-  cout<<ans[i]<<" ";
-  cout<<endl;
-  
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    priority_queue<int, vector<int>, greater<int> > pq;
+    
+    int ans=0,c=0;
+    for(int i=0;i<n;i++){
+        ans+=a[i];
+        pq.push(a[i]);
+        c++;
+        
+        while(ans<0){
+            ans-=pq.top();
+            pq.pop();
+            c--;
+
+        }
+    }
+    cout<<c<<endl;
 }
 
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
+{
 solve();
 }
 return 0;

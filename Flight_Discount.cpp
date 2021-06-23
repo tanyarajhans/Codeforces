@@ -40,8 +40,6 @@
 using namespace std;
 ll pf[10000001];
 
-
-// Tanya Rajhans
 int gcd(int a, int b)
 {
     if (b == 0)
