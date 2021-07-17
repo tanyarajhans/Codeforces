@@ -17,6 +17,7 @@
 #include<iomanip>
 #define f               first
 #define s              second
+#define int               long long
 #define ll               long long
 #define pb               push_back
 #define mp               make_pair
@@ -35,11 +36,10 @@
 #define me(i,start,end)  for(int i=start;i<end;i++)
 #define he(i,end,start) for(int i=end-1;i>=start;i--)
 #define all(v)         v.begin(),v.end()
- 
+
 using namespace std;
 ll pf[10000001];
- 
- 
+
 // Tanya Rajhans
 int gcd(int a, int b)
 {
@@ -48,8 +48,8 @@ int gcd(int a, int b)
     return gcd(b, a % b); 
      
 }
- 
-   void prime(){
+
+void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
    for(ll i=2;i<10000001;i++){
@@ -61,76 +61,105 @@ int gcd(int a, int b)
 }
  
 int lcm(int a, int b) { return a * b / gcd(a, b); }
- 
+
 int check_ps(ll n){
     double sqrt_n = sqrt(n);
-    if(sqrt_n == int(sqrt_n)){
+    if(sqrt_n == int32_t(sqrt_n)){
         return 1;
     }
     else{
         return 0;
     }
 }
-// int a[32];
-// string s;
-// string bin(ll n)
-// {
-//     if (n > 1)
-//         bin(n >> 1);
- 
-//     s+=(n & 1);
-//     return s;
-// }
-ll a[2003];
-ll xorr(int x, int y){
-    ll p=0;
-for(int i=x;i<y;i++){
-        p^=a[i];
-        
+
+int st[400004], lazy[400004], a[100001];
+
+void build(int si, int ss, int se){
+    if(ss==se){
+        st[si]=a[ss];
+        return;
     }
-    return p;
+    int mid=(ss+se)/2;
+    build(2*si, ss, mid);
+    build(2*si+1, mid+1, se);
+
+    st[si]=st[2*si] + st[2*si+1];
 }
  
-int main(){
+int query(int si, int ss, int se, int qs, int qe){
+
+    if(lazy[si]!=0){
+       int dx=lazy[si];
+       lazy[si]=0;
+       st[si]+=dx*(se-ss+1);
+
+       if(ss!=se){
+          lazy[2*si]+=dx;
+          lazy[2*si+1]+=dx;  
+       }
+    }
+
+    if(qs>se || qe<ss)
+    return 0;
+
+    if(qs<=ss && se<=qe)
+    return st[si];
+
+    int mid=(ss+se)/2;
+    int l=query(2*si, ss, mid, qs, qe);
+    int r=query(2*si+1, mid+1, se, qs, qe);
+
+    return l+r;
+
+}
+
+void update(int si , int ss , int se , int qs , int qe , int val)
+{
+if(lazy[si] != 0)
+{
+int dx = lazy[si];
+lazy[si] = 0;
+st[si] += dx * (se - ss + 1);
+
+if(ss != se)
+lazy[2*si] += dx , lazy[2*si+1] += dx;
+}
+
+if(ss > qe || se < qs) return;
+
+if(ss >= qs && se <= qe)
+{
+int dx = (se - ss + 1) * val;
+st[si] += dx;
+
+if(ss != se)
+lazy[2*si] += val , lazy[2*si+1] += val;
+return;
+}
+
+int mid = (ss + se) / 2;
+update(2*si , ss , mid , qs , qe , val);
+update(2*si+1 , mid+1 , se , qs , qe , val);
+
+st[si] = st[2*si] + st[2*si+1];
+}
+
+
+void solve(){
+    set<int> s;
+    s.insert(2);
+    s.insert(8);
+    s.insert(14);
+    for(auto i: s){
+        cout<<i;
+    }
+}
+
+int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
-        int n;
-		cin >> n;
-		int arr[n];
-		int xor_sum = 0;
-		for (int i = 0; i < n; i++) {
-			cin >> arr[i];
-			xor_sum ^= arr[i];
-			
-		}
-		
-		if (xor_sum == 0) {
-			cout << "YES";
-		} else {
-			int index1 = 0;
-			int index2 = n - 1;
-			int p = 0;
-			int q = 0;
-			while (index1 < n) {
-				p ^= arr[index1];
-				if (p == xor_sum)
-					break;
-				index1++;
-			}
-			while (index2 >= 0) {
-				q ^= arr[index2];
-				if (q == xor_sum)
-					break;
-				index2--;
-			}
-			if (index1 < index2 - 1) {
-				cout << "YES";
-			} else {
-				cout << "NO";
-			}
-		}
-    cout<<endl;
+{
+solve();
 }
 return 0;
 }
