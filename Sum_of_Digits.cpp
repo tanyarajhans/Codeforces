@@ -144,30 +144,60 @@ update(2*si+1 , mid+1 , se , qs , qe , val);
 st[si] = st[2*si] + st[2*si+1];
 }
 
-int n;
-pii v[3001];
-int dp[3001][3001];
+int arr[1001];
+int dp[11][100][2];
 
-int solve(int pos, int prev){
-  if(pos>n)
-  return 0;
-  if(dp[pos][prev]!=-1)
-  return dp[pos][prev];
-  int cost1; //pin it
-  cost1=v[pos].s + solve(pos+1, pos);
-  int cost2; //leave it
-  cost2=abs(v[pos].f-v[prev].f) + solve(pos+1, prev);
-  return dp[pos][prev]=min(cost1, cost2);
+int solve(int pos,int n, int sum, bool f){
+    if(pos>n)
+    return sum;
+
+    if(dp[pos][sum][f]!=-1)
+    return dp[pos][sum][f];
+
+    int lim=9;
+    if(!f)
+    lim=arr[pos];
+
+    int ans=0;
+    for(int i=0;i<=lim;i++){
+       if(f || i<lim)
+       ans+=solve(pos+1, n, sum+i, true);
+       else
+       ans+=solve(pos+1, n, sum+i, false);
+    }
+    return dp[pos][sum][f]=ans;
+}
+
+int dig(string num){
+    int res = 0;
+	for(int i=0;i<num.size();i++)
+	res += num[i] - '0';
+ 
+	return res;
 }
 
 void solve(){
-    cin>>n;
+    while(1){
+    int a,b;
+    cin>>a>>b;
+    if(a==-1)
+    break;
+    string x=to_string(a);
+    string y=to_string(b);
+
     memset(dp,-1,sizeof(dp));
-    for(int i=1;i<=n;i++){
-       cin>>v[i].f>>v[i].s;
+    for(int i=0;i<x.size();i++)
+       arr[i+1]=x[i]-'0';
+
+    int l=solve(1,x.size(),0,0);
+
+    for(int i=0;i<y.size();i++)
+       arr[i+1]=y[i]-'0';
+
+    memset(dp,-1,sizeof(dp));
+    int r=solve(1,y.size(),0,0);
+    cout<<r-l+dig(x)<<endl;
     }
-    sort(v+1, v+n+1);
-    cout<<solve(2, 1)+v[1].s<<endl;
 }
 
 int32_t main(){

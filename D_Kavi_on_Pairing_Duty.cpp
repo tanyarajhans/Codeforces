@@ -28,7 +28,7 @@
 #define pqs              priority_queue< int,vi,greater<int> >
 #define setbits(x)       __builtin_popcountll(x)
 #define zrobits(x)       __builtin_ctzll(x)
-#define mod              1000000007
+#define mod              998244353
 #define inf              1e10
 #define ps(x,y)          fixed<<setprecision(y)<<x
 #define mk(arr,n,type)   type *arr=new type[n];
@@ -144,30 +144,24 @@ update(2*si+1 , mid+1 , se , qs , qe , val);
 st[si] = st[2*si] + st[2*si+1];
 }
 
-int n;
-pii v[3001];
-int dp[3001][3001];
-
-int solve(int pos, int prev){
-  if(pos>n)
-  return 0;
-  if(dp[pos][prev]!=-1)
-  return dp[pos][prev];
-  int cost1; //pin it
-  cost1=v[pos].s + solve(pos+1, pos);
-  int cost2; //leave it
-  cost2=abs(v[pos].f-v[prev].f) + solve(pos+1, prev);
-  return dp[pos][prev]=min(cost1, cost2);
-}
+ll dp[1000005];
+ll divsum[1000005];
 
 void solve(){
+    int n;
     cin>>n;
-    memset(dp,-1,sizeof(dp));
+    ll sum=1;
+    dp[0]=1;
     for(int i=1;i<=n;i++){
-       cin>>v[i].f>>v[i].s;
+        for(int j=2*i;j<=n;j+=i)
+            divsum[j]++;
     }
-    sort(v+1, v+n+1);
-    cout<<solve(2, 1)+v[1].s<<endl;
+    for(int i=1;i<=n;i++)
+    {
+        dp[i]=(sum+divsum[i])%mod;
+        sum=(sum+dp[i])%mod;
+    }
+    cout<<dp[n];
 }
 
 int32_t main(){

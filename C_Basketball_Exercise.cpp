@@ -143,31 +143,30 @@ update(2*si+1 , mid+1 , se , qs , qe , val);
 
 st[si] = st[2*si] + st[2*si+1];
 }
-
+int h[2][100005];
+int dp[2][100005];
 int n;
-pii v[3001];
-int dp[3001][3001];
 
-int solve(int pos, int prev){
-  if(pos>n)
-  return 0;
-  if(dp[pos][prev]!=-1)
-  return dp[pos][prev];
-  int cost1; //pin it
-  cost1=v[pos].s + solve(pos+1, pos);
-  int cost2; //leave it
-  cost2=abs(v[pos].f-v[prev].f) + solve(pos+1, prev);
-  return dp[pos][prev]=min(cost1, cost2);
+int solve(int track, int pos){
+   if(pos==n)
+   return 0;
+   if(dp[track][pos]!=-1)
+   return dp[track][pos];
+   if(track==0)
+   return dp[track][pos]=max(h[0][pos]+solve(1, pos+1), solve(0,pos+1));
+   else
+   return dp[track][pos]=max(h[1][pos]+solve(0, pos+1), solve(1,pos+1));
 }
 
 void solve(){
     cin>>n;
-    memset(dp,-1,sizeof(dp));
-    for(int i=1;i<=n;i++){
-       cin>>v[i].f>>v[i].s;
-    }
-    sort(v+1, v+n+1);
-    cout<<solve(2, 1)+v[1].s<<endl;
+    
+    for(int i=0;i<n;i++)
+    cin>>h[0][i];
+    for(int i=0;i<n;i++)
+    cin>>h[1][i];
+    memset(dp, -1, sizeof(dp));
+    cout<<max(solve(0, 0), solve(1,0))<<endl;
 }
 
 int32_t main(){

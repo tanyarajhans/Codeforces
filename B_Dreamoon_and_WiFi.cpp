@@ -144,30 +144,47 @@ update(2*si+1 , mid+1 , se , qs , qe , val);
 st[si] = st[2*si] + st[2*si+1];
 }
 
-int n;
-pii v[3001];
-int dp[3001][3001];
+int dp[100005][2];
+int pos;
+int v=-1e18;
 
-int solve(int pos, int prev){
-  if(pos>n)
-  return 0;
-  if(dp[pos][prev]!=-1)
-  return dp[pos][prev];
-  int cost1; //pin it
-  cost1=v[pos].s + solve(pos+1, pos);
-  int cost2; //leave it
-  cost2=abs(v[pos].f-v[prev].f) + solve(pos+1, prev);
-  return dp[pos][prev]=min(cost1, cost2);
+int solve(string s2, int ind, int p){
+    
+    if(ind==s2.size()){
+        if(p==pos)
+          return 1;
+        else
+          return 0;
+     }
+    // if(dp[ind][p]!=v)
+    // return dp[ind][p];
+
+    if(s2[ind]=='+')
+    return solve(s2, ind+1, p+1);
+
+    if(s2[ind]=='-')
+    return solve(s2, ind+1, p-1);
+
+    return solve(s2, ind+1, p+1)+solve(s2, ind+1, p-1);
 }
 
 void solve(){
-    cin>>n;
-    memset(dp,-1,sizeof(dp));
-    for(int i=1;i<=n;i++){
-       cin>>v[i].f>>v[i].s;
+    string s1;
+    string s2;
+    cin>>s1>>s2;
+    pos=0;
+    int c=0;
+    for(int i=0;i<s1.size();i++){
+    if(s1[i]=='+')
+       pos++;
+    else
+       pos--;
+    if(s2[i]=='?')
+       c++;
     }
-    sort(v+1, v+n+1);
-    cout<<solve(2, 1)+v[1].s<<endl;
+    // memset(dp, v, sizeof(dp));
+    int g=solve(s2,0, 0);
+    cout<<fixed<<setprecision(12)<<g/pow(2, c);
 }
 
 int32_t main(){
