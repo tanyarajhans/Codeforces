@@ -40,7 +40,6 @@
 using namespace std;
 ll pf[10000001];
 
-
 // Tanya Rajhans
 int gcd(int a, int b)
 {
@@ -50,7 +49,7 @@ int gcd(int a, int b)
      
 }
 
-   void prime(){
+void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
    for(ll i=2;i<10000001;i++){
@@ -60,7 +59,7 @@ int gcd(int a, int b)
         }
     }
 }
-
+ 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
 
 int check_ps(ll n){
@@ -86,21 +85,20 @@ void build(int si, int ss, int se){
 
     st[si]=st[2*si] + st[2*si+1];
 }
-
+ 
 int query(int si, int ss, int se, int qs, int qe){
 
     if(lazy[si]!=0){
        int dx=lazy[si];
        lazy[si]=0;
        st[si]+=dx*(se-ss+1);
-       
+
        if(ss!=se){
           lazy[2*si]+=dx;
-          lazy[2*si+1]+=dx;
+          lazy[2*si+1]+=dx;  
        }
-       
     }
-    
+
     if(qs>se || qe<ss)
     return 0;
 
@@ -148,39 +146,40 @@ st[si] = st[2*si] + st[2*si+1];
 
 
 void solve(){
-  int n,p,k;
-  cin>>n>>p>>k;
-  string s;
-  cin>>s;
-  int x,y;
-  cin>>x>>y;
-  int dp[n];
-  for(int i=0;i<n;i++)
-  dp[i]=0;
-  for(int i=n-1;i>=0;i--){
-      if(s[i]=='1'){
-        if(i+k>=n){
-          dp[i]=0;
-        } 
-        else dp[i]=dp[i+k];
-      }
-      else{
-          if(i+k>=n){
-              dp[i]=x;
-          }
-          else dp[i]=x+dp[i+k];
-      }
-      
-  }
-  int g=0;
-  int ans=INT_MAX;
-  for(int i=0;i<=n-p;i++){
-      ans=min(ans, g*y+dp[i+p-1]);
-      g++;
-  }
-  cout<<ans<<endl;
+    int n,m;
+    cin>>n>>m;
+    vector<int> a(100005);
+    for(int i=0;i<m;i++)
+    cin>>a[i];
+    sort(a.begin(), a.begin()+m);
+    int s=0;
+    for(int i=0;i<m;i++)
+    s+=a[i];
+    if(s<n){
+    cout<<-1<<endl;
+    return;
+    }
+    int j=m-1;
+    int ans=0;
+    while(j>=0){
+        if(a[j]<=n){
+            n-=a[j];
+            s-=a[j];
+            j--;
+        }
+        else if(s-a[j]<n){
+            a[j]=a[j]/2;
+            a[j+1]=a[j];
+            j++;
+            ans++;
+        }
+        else{
+            s-=a[j];
+            j--;
+        }
+    }
+    cout<<ans<<endl;
 }
-
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
@@ -190,3 +189,37 @@ solve();
 }
 return 0;
 }
+
+// int par[100005], size[100005];
+    
+// int find(int u){
+//     if(u == par[u])
+//         return u;
+    
+//     else
+//         return par[u]=find(par[u]);
+// }
+
+// void combine (int u, int v){
+//     u = find(u);
+//     v = find(v);
+    
+//     if(u == v)
+//         return;
+    
+//     else
+//     {
+//         if(size[u] > size[v])
+//         {
+//             par[v] = u;
+//             size[u] += size[v];
+//         }
+        
+//         else
+//         {
+//             par[u] = v;
+//             size[v] += size[u];
+//         }
+    
+//     }
+// }

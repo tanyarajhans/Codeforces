@@ -40,7 +40,6 @@
 using namespace std;
 ll pf[10000001];
 
-
 // Tanya Rajhans
 int gcd(int a, int b)
 {
@@ -50,7 +49,7 @@ int gcd(int a, int b)
      
 }
 
-   void prime(){
+void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
    for(ll i=2;i<10000001;i++){
@@ -60,7 +59,7 @@ int gcd(int a, int b)
         }
     }
 }
-
+ 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
 
 int check_ps(ll n){
@@ -86,21 +85,20 @@ void build(int si, int ss, int se){
 
     st[si]=st[2*si] + st[2*si+1];
 }
-
+ 
 int query(int si, int ss, int se, int qs, int qe){
 
     if(lazy[si]!=0){
        int dx=lazy[si];
        lazy[si]=0;
        st[si]+=dx*(se-ss+1);
-       
+
        if(ss!=se){
           lazy[2*si]+=dx;
-          lazy[2*si+1]+=dx;
+          lazy[2*si+1]+=dx;  
        }
-       
     }
-    
+
     if(qs>se || qe<ss)
     return 0;
 
@@ -146,46 +144,38 @@ update(2*si+1 , mid+1 , se , qs , qe , val);
 st[si] = st[2*si] + st[2*si+1];
 }
 
+int n;
+pii v[100005];
+map<int, int> dp[100005];
 
-void solve(){
-  int n,p,k;
-  cin>>n>>p>>k;
-  string s;
-  cin>>s;
-  int x,y;
-  cin>>x>>y;
-  int dp[n];
-  for(int i=0;i<n;i++)
-  dp[i]=0;
-  for(int i=n-1;i>=0;i--){
-      if(s[i]=='1'){
-        if(i+k>=n){
-          dp[i]=0;
-        } 
-        else dp[i]=dp[i+k];
-      }
-      else{
-          if(i+k>=n){
-              dp[i]=x;
-          }
-          else dp[i]=x+dp[i+k];
-      }
-      
-  }
-  int g=0;
-  int ans=INT_MAX;
-  for(int i=0;i<=n-p;i++){
-      ans=min(ans, g*y+dp[i+p-1]);
-      g++;
-  }
-  cout<<ans<<endl;
+
+int solve(int ind, int last){
+    if(ind==n)
+    return 0;
+    if(dp[ind].find(last)!=dp[ind].end())
+    return dp[ind][last];
+    if(last>=v[ind].f)
+    return INT_MIN;
+    if((v[ind].f-last)>v[ind].s)
+    return dp[ind][last]=1+solve(ind+1, v[ind].f);
+    return dp[ind][last]=max(solve(ind+1, v[ind].f), solve(ind+1, v[ind].f+v[ind].s)+1);
 }
 
+
+void solve(){
+    cin>>n;
+    for(int i=0;i<n;i++)
+    cin>>v[i].f>>v[i].s;
+    int ans=1;
+    int lastx;
+    lastx=v[0].f;
+    cout<<solve(1, lastx)+1<<endl;
+}
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
+{
 solve();
 }
 return 0;

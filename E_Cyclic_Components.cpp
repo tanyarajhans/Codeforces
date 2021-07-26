@@ -40,7 +40,6 @@
 using namespace std;
 ll pf[10000001];
 
-
 // Tanya Rajhans
 int gcd(int a, int b)
 {
@@ -50,7 +49,7 @@ int gcd(int a, int b)
      
 }
 
-   void prime(){
+void prime(){
        memset(pf,0,10000001);
        pf[0]=pf[1]=1;
    for(ll i=2;i<10000001;i++){
@@ -60,7 +59,7 @@ int gcd(int a, int b)
         }
     }
 }
-
+ 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
 
 int check_ps(ll n){
@@ -86,21 +85,20 @@ void build(int si, int ss, int se){
 
     st[si]=st[2*si] + st[2*si+1];
 }
-
+ 
 int query(int si, int ss, int se, int qs, int qe){
 
     if(lazy[si]!=0){
        int dx=lazy[si];
        lazy[si]=0;
        st[si]+=dx*(se-ss+1);
-       
+
        if(ss!=se){
           lazy[2*si]+=dx;
-          lazy[2*si+1]+=dx;
+          lazy[2*si+1]+=dx;  
        }
-       
     }
-    
+
     if(qs>se || qe<ss)
     return 0;
 
@@ -146,46 +144,58 @@ update(2*si+1 , mid+1 , se , qs , qe , val);
 st[si] = st[2*si] + st[2*si+1];
 }
 
+vector<int> adj[200005];
+int vis[200005];
+int deg[200005];
+vector<vector<int> > cc;
 
-void solve(){
-  int n,p,k;
-  cin>>n>>p>>k;
-  string s;
-  cin>>s;
-  int x,y;
-  cin>>x>>y;
-  int dp[n];
-  for(int i=0;i<n;i++)
-  dp[i]=0;
-  for(int i=n-1;i>=0;i--){
-      if(s[i]=='1'){
-        if(i+k>=n){
-          dp[i]=0;
-        } 
-        else dp[i]=dp[i+k];
-      }
-      else{
-          if(i+k>=n){
-              dp[i]=x;
-          }
-          else dp[i]=x+dp[i+k];
-      }
-      
-  }
-  int g=0;
-  int ans=INT_MAX;
-  for(int i=0;i<=n-p;i++){
-      ans=min(ans, g*y+dp[i+p-1]);
-      g++;
-  }
-  cout<<ans<<endl;
+void dfs(int v, vector<int> &temp){
+    vis[v]=1;
+    temp.pb(v);
+    for(int i=0;i<adj[v].size();i++){
+        if(!vis[adj[v][i]])
+        dfs(adj[v][i], temp);
+    }
 }
 
+void solve(){
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++){
+        int a,b;
+        cin>>a>>b;
+        adj[a].pb(b);
+        adj[b].pb(a);
+        deg[a]++;
+        deg[b]++;
+    }
+    for(int i=1;i<=n;i++){
+        if(!vis[i]){
+            vector<int> tt;
+            dfs(i, tt);
+            cc.pb(tt);
+        }
+    }
+    int ans=0;
+    for(int i=0;i<cc.size();i++){
+        bool f=true;
+        for(int j=0;j<cc[i].size();j++){
+         if(deg[cc[i][j]]!=2){
+            f=false;
+            break;
+         }
+        }
+        if(f){
+            ans++;
+         }
+    }
+    cout<<ans<<endl;
+}
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
+{
 solve();
 }
 return 0;
