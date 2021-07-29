@@ -146,16 +146,13 @@ st[si] = st[2*si] + st[2*si+1];
 
 
 void solve(){
-    int n;
-    cin>>n;
-    string a[n];
+    int n,k;
+    cin>>n>>k;
+    int a[n];
     for(int i=0;i<n;i++)
     cin>>a[i];
-    vector<int> a[26];
-    for(int i=0;i<n;i++){
-        
-    }
-
+    int c=0;
+    
 }
 
 int32_t main(){
@@ -166,5 +163,3 @@ solve();
 }
 return 0;
 }
-
-

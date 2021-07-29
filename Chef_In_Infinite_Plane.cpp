@@ -148,14 +148,24 @@ st[si] = st[2*si] + st[2*si+1];
 void solve(){
     int n;
     cin>>n;
-    string a[n];
+    int a[n];
     for(int i=0;i<n;i++)
     cin>>a[i];
-    vector<int> a[26];
+    map<int, int> m;
+    map<int, int> f;
     for(int i=0;i<n;i++){
-        
+        f[a[i]]++;
     }
-
+    map<int, int>::iterator it;
+    int c=0;
+    for(it=f.begin();it!=f.end();it++){
+        if((it->f-1)>=it->s){
+            c+=it->s;
+        }
+        else
+        c+=it->f-1;
+    }
+    cout<<c<<endl;
 }
 
 int32_t main(){
@@ -166,5 +176,3 @@ solve();
 }
 return 0;
 }
-
-

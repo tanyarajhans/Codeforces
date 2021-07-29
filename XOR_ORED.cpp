@@ -144,18 +144,70 @@ update(2*si+1 , mid+1 , se , qs , qe , val);
 st[si] = st[2*si] + st[2*si+1];
 }
 
-
+int dec(int n)
+{
+    int num = n;
+    int dec_value = 0;
+ 
+    // Initializing base value to 1, i.e 2^0
+    int base = 1;
+ 
+    int temp = num;
+    while (temp) {
+        int last_digit = temp % 10;
+        temp = temp / 10;
+ 
+        dec_value += last_digit * base;
+ 
+        base = base * 2;
+    }
+ 
+    return dec_value;
+}
 void solve(){
     int n;
     cin>>n;
-    string a[n];
+    int a[n];
     for(int i=0;i<n;i++)
     cin>>a[i];
-    vector<int> a[26];
+    ll num=0;
+    int c=1;
+    int andd=-1;
     for(int i=0;i<n;i++){
-        
+        andd=andd & a[i];
     }
-
+    // for(int j=0;j<32;j++){
+    //     bool f=false;
+    //     for(int i=0;i<n;i++){
+            
+    //            if((a[i]&(1<<j))==0){
+    //                f=true;
+    //                break;
+    //            }
+    //            if(f)
+    //            break;
+    //            else{
+    //                num+=c*1;
+    //                break;
+    //            }
+    //     }
+    //     c*=10;
+    // }
+    
+    // for(int i=0;i<32;i++){
+    //      num+=ans[i]*c;
+    //      c*=10;
+    // }
+    cout<<andd<<" ";
+    int x=andd;
+    for(int i=0;i<n;i++){
+        a[i]^=x;
+    }
+    int d=0;
+    for(int i=0;i<n;i++){
+        d=d|a[i];
+    }
+    cout<<d<<endl;
 }
 
 int32_t main(){
@@ -166,5 +218,3 @@ solve();
 }
 return 0;
 }
-
-

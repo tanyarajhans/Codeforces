@@ -146,16 +146,32 @@ st[si] = st[2*si] + st[2*si+1];
 
 
 void solve(){
-    int n;
-    cin>>n;
-    string a[n];
-    for(int i=0;i<n;i++)
-    cin>>a[i];
-    vector<int> a[26];
-    for(int i=0;i<n;i++){
+    int x,y;
+    cin>>x>>y;
+    if(y%2==0 && x%2==0)
+    cout<<0<<endl;
+    else if(gcd(x,y)>1)
+    cout<<0<<endl;
+    else{
+        if(x%2==1){
+           x++;
+           if(gcd(x,y)>1){
+           cout<<1<<endl;
+           return;
+           }
         
+        y++;
+        x--;
+        if(gcd(x,y)>1){
+           cout<<1<<endl;
+           return;
+        }
+        cout<<2<<endl;
+        }
+        else 
+        cout<<1<<endl;
     }
-
+   
 }
 
 int32_t main(){
@@ -166,5 +182,3 @@ solve();
 }
 return 0;
 }
-
-
