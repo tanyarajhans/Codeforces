@@ -146,42 +146,34 @@ st[si] = st[2*si] + st[2*si+1];
 
 
 void solve(){
-    int w,h;
-    cin>>w>>h;
-    int x1,x2,y1,y2;
-    cin>>x1>>y1>>x2>>y2;
-    int w1,h1;
-    cin>>w1>>h1;
-    int k=1e15;
-
-    if(x2-x1+w1<=w){
-        int g=0;
-        if(w1-x1>0)
-        g=w1-x1;
-        int f=0;
-        if(x2-w+w1>0)
-        f=x2-w+w1;
-        k=min(k, min(g,f));
-       // cout<<fixed<<setprecision(9)<<double(ans)<<endl;
-        //return;
+    int m;
+    cin>>m;
+    int mat[2][m];
+    for(int i=0;i<2;i++){
+        for(int j=0;j<m;j++){
+            cin>>mat[i][j];
+        }
     }
-    if(y2-y1+h1<=h){
-        int g=0;
-        if(h1-y1>0)
-        g=h1-y1;
-        int f=0;
-        if(y2-h+h1>0)
-        f=y2-h+h1;
-        k=min(k, min(g,f));
+    if(m==1){
+       cout<<0<<endl;
+       return;
     }
-    if(k!=1e15)
-        cout<<fixed<<setprecision(9)<<double(k)<<endl;
-        
-
-    else
-    cout<<-1<<endl; 
     
+    int pre[2][m];
+    pre[0][0]=mat[0][0];
+    for(int i=1;i<m;i++){
+      pre[0][i]=pre[0][i-1]+mat[0][i];
+    }
+    pre[1][0]=mat[1][0];
+    for(int i=1;i<m;i++){
+      pre[1][i]=pre[1][i-1]+mat[1][i];
+    }
     
+    int ans=pre[0][m-1]-pre[0][0];
+    for(int i=1;i<m;i++){
+        ans=min(ans, max(pre[1][i-1], pre[0][m-1]-pre[0][i]));
+    }
+    cout<<ans<<endl;
 }
 
 int32_t main(){

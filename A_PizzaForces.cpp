@@ -146,42 +146,66 @@ st[si] = st[2*si] + st[2*si+1];
 
 
 void solve(){
-    int w,h;
-    cin>>w>>h;
-    int x1,x2,y1,y2;
-    cin>>x1>>y1>>x2>>y2;
-    int w1,h1;
-    cin>>w1>>h1;
-    int k=1e15;
-
-    if(x2-x1+w1<=w){
-        int g=0;
-        if(w1-x1>0)
-        g=w1-x1;
-        int f=0;
-        if(x2-w+w1>0)
-        f=x2-w+w1;
-        k=min(k, min(g,f));
-       // cout<<fixed<<setprecision(9)<<double(ans)<<endl;
-        //return;
+    int n;
+    cin>>n;
+    if(n<=6)
+    cout<<15<<endl;
+    else if(n>=6 && n<=8)
+    cout<<20<<endl;
+    else if(n>=8 && n<=10)
+    cout<<25<<endl;
+    else if(n%2==0){
+        cout<<(n*15)/6<<endl;
     }
-    if(y2-y1+h1<=h){
-        int g=0;
-        if(h1-y1>0)
-        g=h1-y1;
-        int f=0;
-        if(y2-h+h1>0)
-        f=y2-h+h1;
-        k=min(k, min(g,f));
+    else{
+        cout<<((n+1)*15)/6<<endl;
     }
-    if(k!=1e15)
-        cout<<fixed<<setprecision(9)<<double(k)<<endl;
-        
-
-    else
-    cout<<-1<<endl; 
-    
-    
+    // }
+    // else if(n%8==0){
+    //     cout<<(n*20)/8<<endl;
+    // }
+    // else if(n%10==0){
+    //     cout<<(n*25)/10<<endl;
+    // }
+    // else{
+    //     int k=n/10;
+    //     int ans=k*25;
+    //     if(n%10)
+    //     {
+    //         int g=n%10;
+    //         if(g<=6){
+    //             ans+=15;
+    //         }
+    //         else if(g<=8){
+    //             ans+=20;
+    //         }
+    //         else if(g<10){
+    //             ans+=25;
+    //         }
+    //     }
+    //     int k1=n/6;
+    //     int ans1=k1*15;
+    //     if(n%6)
+    //     {
+    //         int g=n%6;
+    //         if(g<6){
+    //             ans1+=15;
+    //         }
+    //     }
+    //     int k2=n/8;
+    //     int ans2=k2*20;
+    //     if(n%8)
+    //     {
+    //         int g=n%8;
+    //         if(g<=6){
+    //             ans2+=15;
+    //         }
+    //         else if(g<8){
+    //             ans2+=20;
+    //         }
+    //     }
+    //     cout<<min(ans, min(ans1, ans2))<<endl;
+    // }
 }
 
 int32_t main(){

@@ -1,0 +1,44 @@
+<div><b> There are two cases we have to consider since our array is circular:</b>
+    <img src="https://assets.leetcode.com/users/motorix/image_1538888300.png" >
+    <p>Case 1. The first is that the max subarray takes only a middle part of the array, i.e., the subarray isn't divided due to any wrap-around, and we know how to find this max subarray sum using Kadane's Algorithm.</p>
+        <p>Case2. The second is that the subarray takes a part of head array and a part of tail array due to wrap around (circular array). Here, we just have to find the minimum subarray sum which is the middle part o the head and tail array and subtract it from total sum of the array.</p>
+        <b>Edge Case</b>
+        <p>When all the elements are negative, the max subarray sum is negative, and it's our answer.</p>
+        </div>
+        
+        
+        <div><p>The max subarray circular sum equals to
+        max(the max subarray sum, the total sum - the min subarray sum).</p></div>
+        
+        <div><p>Our time complexity is O(N) and space complexity is O(1).</p></div>
+        
+        
+        <div><p><b>Official Solution:</b> <pre class="line-numbers language-cpp"><code class=" language-cpp">
+        #include &lt;bits/stdc++.h&gt;
+        using namespace std;
+         
+        typedef long long int ll;
+        
+        int maxSubarraySumCircular(vector<int>& A) {
+                int total = 0, maxSum = A[0], curMax = 0, minSum = A[0], curMin = 0;
+                for (int& a : A) {
+                    curMax = max(curMax + a, a);
+                    maxSum = max(maxSum, curMax);
+                    curMin = min(curMin + a, a);
+                    minSum = min(minSum, curMin);
+                    total += a;
+                }
+                return maxSum > 0 ? max(maxSum, total - minSum) : maxSum;
+        }
+        
+        int main()
+        {
+            int n;
+            cin>>n;
+            vector<int> a(n);
+            for(int i=0;i&lt;n;i++)
+            cin&gt;&gt;a[i];
+            cout&lt;&lt;maxSubarraySumCircular(a)&lt;&lt;endl;
+            return 0;
+        }
+        </code></pre></p></div>
