@@ -1,0 +1,1 @@
+{"name":"Local: at","url":"/Users/tanyarajhans/Desktop/cpp/at.cpp","tests":[{"id":1632503691816,"input":"3\n5 6\n2 1\n3 4\n2 3","output":"2"},{"id":1632503766701,"input":"3\n8 8\n3 4\n2 3\n2 1","output":"-1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/tanyarajhans/Desktop/cpp/at.cpp","group":"local","local":true}
