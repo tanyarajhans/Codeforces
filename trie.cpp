@@ -74,4 +74,16 @@ public:
         }
         return (temp->isEnd==true);
     }
+    
+    bool startsWith(string word) {
+        int n=word.size();
+        Node* temp=root;
+        for(int i=0;i<n;i++){
+            char ch=word[i];
+            if(temp->arr[ch-'a']==NULL)
+                return false;
+            temp=temp->arr[ch-'a'];
+        }
+        return true;
+    }
 };
