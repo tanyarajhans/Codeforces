@@ -144,14 +144,65 @@ update(2*si+1 , mid+1 , se , qs , qe , val);
 st[si] = st[2*si] + st[2*si+1];
 }
 
+vector<int> adj[400005];
 
 void solve(){
+int n,k;
+cin>>n>>k;
+for(int i=1;i<=n;i++)
+adj[i].clear();
+int m=n-1;
+int in[n+1];
+for(int i=1;i<=n;i++)
+in[i]=0;
+while(m--){
+    int x,y;
+    cin>>x>>y;
+    adj[x].pb(y);
+    adj[y].pb(x);
+    in[y]++;
+    in[x]++;
+}
+if(n<=2){
+    cout<<0<<endl;
+    return;
+}
+queue<int> q;
+int vis[n+1];
+vis[0]=1;
+for(int i=1;i<=n;i++)
+vis[i]=0;
+for(int i=1;i<=n;i++){
+if(in[i]==1)
+q.push(i);
+}
+while(k-- && !q.empty()){
+int v=q.size();
+while(v--){
+    int curr=q.front();
+    q.pop();
+    vis[curr]=1;
+    for(int i=0;i<adj[curr].size();i++){
+        int g=adj[curr][i];
+        in[g]--;
+        if(in[g]==1 && !vis[g])
+        q.push(g);
+    }
+}
+}
+int ans=0;
+for(int i=1;i<=n;i++)
+{
+    if(vis[i]==0)
+    ans++;
+}
+cout<<ans<<endl;
 }
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;
