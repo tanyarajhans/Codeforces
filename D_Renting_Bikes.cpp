@@ -41,111 +41,149 @@ using namespace std;
 ll pf[10000001];
 
 // Tanya Rajhans
-int gcd(int a, int b)
-{
-    if (b == 0)
-        return a;
-    return gcd(b, a % b); 
+// int gcd(int a, int b)
+// {
+//     if (b == 0)
+//         return a;
+//     return gcd(b, a % b); 
      
-}
+// }
 
-void prime(){
-       memset(pf,0,10000001);
-       pf[0]=pf[1]=1;
-   for(ll i=2;i<10000001;i++){
-        if(pf[i]==0){
-            for(ll j=i*i;j<10000001;j=j+i)
-                  pf[j]=1;
-        }
-    }
-}
+// void prime(){
+//        memset(pf,0,10000001);
+//        pf[0]=pf[1]=1;
+//    for(ll i=2;i<10000001;i++){
+//         if(pf[i]==0){
+//             for(ll j=i*i;j<10000001;j=j+i)
+//                   pf[j]=1;
+//         }
+//     }
+// }
  
-int lcm(int a, int b) { return a * b / gcd(a, b); }
+// int lcm(int a, int b) { return a * b / gcd(a, b); }
 
-int check_ps(ll n){
-    double sqrt_n = sqrt(n);
-    if(sqrt_n == int32_t(sqrt_n)){
-        return 1;
-    }
-    else{
-        return 0;
-    }
-}
+// int check_ps(ll n){
+//     double sqrt_n = sqrt(n);
+//     if(sqrt_n == int32_t(sqrt_n)){
+//         return 1;
+//     }
+//     else{
+//         return 0;
+//     }
+// }
 
-int st[400004], lazy[400004], a[100001];
+// int st[400004], lazy[400004], a[100001];
 
-void build(int si, int ss, int se){
-    if(ss==se){
-        st[si]=a[ss];
-        return;
-    }
-    int mid=(ss+se)/2;
-    build(2*si, ss, mid);
-    build(2*si+1, mid+1, se);
+// void build(int si, int ss, int se){
+//     if(ss==se){
+//         st[si]=a[ss];
+//         return;
+//     }
+//     int mid=(ss+se)/2;
+//     build(2*si, ss, mid);
+//     build(2*si+1, mid+1, se);
 
-    st[si]=st[2*si] + st[2*si+1];
-}
+//     st[si]=st[2*si] + st[2*si+1];
+// }
  
-int query(int si, int ss, int se, int qs, int qe){
+// int query(int si, int ss, int se, int qs, int qe){
 
-    if(lazy[si]!=0){
-       int dx=lazy[si];
-       lazy[si]=0;
-       st[si]+=dx*(se-ss+1);
+//     if(lazy[si]!=0){
+//        int dx=lazy[si];
+//        lazy[si]=0;
+//        st[si]+=dx*(se-ss+1);
 
-       if(ss!=se){
-          lazy[2*si]+=dx;
-          lazy[2*si+1]+=dx;  
-       }
+//        if(ss!=se){
+//           lazy[2*si]+=dx;
+//           lazy[2*si+1]+=dx;  
+//        }
+//     }
+
+//     if(qs>se || qe<ss)
+//     return 0;
+
+//     if(qs<=ss && se<=qe)
+//     return st[si];
+
+//     int mid=(ss+se)/2;
+//     int l=query(2*si, ss, mid, qs, qe);
+//     int r=query(2*si+1, mid+1, se, qs, qe);
+
+//     return l+r;
+
+// }
+
+// void update(int si , int ss , int se , int qs , int qe , int val)
+// {
+// if(lazy[si] != 0)
+// {
+// int dx = lazy[si];
+// lazy[si] = 0;
+// st[si] += dx * (se - ss + 1);
+
+// if(ss != se)
+// lazy[2*si] += dx , lazy[2*si+1] += dx;
+// }
+
+// if(ss > qe || se < qs) return;
+
+// if(ss >= qs && se <= qe)
+// {
+// int dx = (se - ss + 1) * val;
+// st[si] += dx;
+
+// if(ss != se)
+// lazy[2*si] += val , lazy[2*si+1] += val;
+// return;
+// }
+
+// int mid = (ss + se) / 2;
+// update(2*si , ss , mid , qs , qe , val);
+// update(2*si+1 , mid+1 , se , qs , qe , val);
+
+// st[si] = st[2*si] + st[2*si+1];
+// }
+int n,m,a;
+
+int solve1(int mid, vi &b, vi &p){
+    int x=0;
+    for(int i=1;i<=mid;i++){
+        if(b[n-mid+i]<p[i])
+           x+=p[i]-b[n-mid+i];
     }
-
-    if(qs>se || qe<ss)
-    return 0;
-
-    if(qs<=ss && se<=qe)
-    return st[si];
-
-    int mid=(ss+se)/2;
-    int l=query(2*si, ss, mid, qs, qe);
-    int r=query(2*si+1, mid+1, se, qs, qe);
-
-    return l+r;
-
+    return x;
 }
-
-void update(int si , int ss , int se , int qs , int qe , int val)
-{
-if(lazy[si] != 0)
-{
-int dx = lazy[si];
-lazy[si] = 0;
-st[si] += dx * (se - ss + 1);
-
-if(ss != se)
-lazy[2*si] += dx , lazy[2*si+1] += dx;
-}
-
-if(ss > qe || se < qs) return;
-
-if(ss >= qs && se <= qe)
-{
-int dx = (se - ss + 1) * val;
-st[si] += dx;
-
-if(ss != se)
-lazy[2*si] += val , lazy[2*si+1] += val;
-return;
-}
-
-int mid = (ss + se) / 2;
-update(2*si , ss , mid , qs , qe , val);
-update(2*si+1 , mid+1 , se , qs , qe , val);
-
-st[si] = st[2*si] + st[2*si+1];
-}
-
 
 void solve(){
+    cin>>n>>m>>a;
+    vi b(n+1);
+    for(int i=1;i<=n;i++)
+    cin>>b[i];
+    vi p(m+1);
+    for(int i=1;i<=m;i++)
+    cin>>p[i];
+    sort(all(p));
+    sort(all(b));
+    //bs on num of bikes
+    int l=0, r=min(n,m);
+    int ans=0;
+    while(l<=r){
+        int mid=l+(r-l)/2;
+        if(solve1(mid, b, p)<=a){
+            l=mid+1;
+            ans=mid;
+        }
+        else
+        r=mid-1;
+    }
+    int d=0;
+    for(int i=1;i<=ans;i++){
+        d+=p[i];
+    }
+    if(d-a>=0)
+    cout<<ans<<" "<<d-a<<endl;
+    else
+    cout<<ans<<" "<<0<<endl;
 }
 
 int32_t main(){
