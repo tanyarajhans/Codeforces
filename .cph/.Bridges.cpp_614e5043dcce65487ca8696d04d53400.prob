@@ -1,0 +1,1 @@
+{"name":"Local: Bridges","url":"/Users/tanyarajhans/Desktop/cpp/Bridges.cpp","tests":[{"id":1638518755578,"input":"4 4\n1 2\n2 3\n3 4\n2 4","output":"3->4is a bridge"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/tanyarajhans/Desktop/cpp/Bridges.cpp","group":"local","local":true}
