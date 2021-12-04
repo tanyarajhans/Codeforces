@@ -1,0 +1,1 @@
+{"name":"Local: ArticulationPoints","url":"/Users/tanyarajhans/Desktop/cpp/ArticulationPoints.cpp","tests":[{"id":1638605572410,"input":"5 10\n0 2\n2 0\n0 3\n1 0\n0 1\n2 1\n1 2\n3 4\n4 3","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/tanyarajhans/Desktop/cpp/ArticulationPoints.cpp","group":"local","local":true}
