@@ -17,7 +17,7 @@
 #include<iomanip>
 #define f               first
 #define s              second
-// #define int               long long
+#define int               long long
 #define ll               long long
 #define pb               push_back
 #define mp               make_pair
@@ -144,110 +144,35 @@ update(2*si+1 , mid+1 , se , qs , qe , val);
 st[si] = st[2*si] + st[2*si+1];
 }
 
-map<string, int> id;
-map<int, string> rid;
-map<int, vector<int> > likes;
-map<int, vector<int> > dislikes;
-
-vector<string> ans;
-int n;
-
-int sim(set<string> &ingredients){
-    vector<int> ans(n);
-    set<string>::iterator it;
-    for(it=ingredients.begin();it!=ingredients.end();it++){
-        string s=*it;
-        for(int j=0;j<dislikes[id[s]].size();j++){
-            ans[dislikes[id[s]][j]]=1;
-        }
-    }
-    int c=0;
-    for(int i=0;i<n;i++){
-        if(ans[i]==1)
-            continue;
-        for(int j=0;j<likes[i].size();j++){
-            if(ingredients.find(rid[likes[i][j]])==ingredients.end()){
-                ans[i]=1;
-                break;
-            }
-        }
-    }
-    for(int i=0;i<n;i++){
-        if(ans[i]==0)
-            c++;
-    }
-    return c;
-}
-
-bool comp(int a, int b){
-    return likes[a].size() + dislikes[a].size() < likes[a].size() + dislikes[b].size();
-}
 
 void solve(){
-    
-    cin>>n;
-    set<string> ingredients;
-    int c=0;
-    for(int i=0;i<n;i++){
-        int x;
-        cin>>x;
-        for(int j=0;j<x;j++){
-            string s;
-            cin>>s;
-            if(id.find(s)==id.end()){
-                id[s]=c;
-                rid[c]=s;
-                c++;
-            }
-            likes[id[s]].pb(i);
-            ingredients.insert(s);
-        }
-        int y;
-        cin>>y;
-        for(int j=0;j<y;j++){
-            string s;
-            cin>>s;
-            if(id.find(s)==id.end()){
-                id[s]=c;
-                rid[c]=s;
-                c++;
-            }
-            dislikes[id[s]].pb(i);
-            ingredients.insert(s);
-        }
+    int a,b,c;
+    cin>>a>>b>>c;
+    if(b-a==c-b){
+        cout<<"YES"<<endl;
+        return;
     }
-    vector<string> pick;
-    vector<string> notpick;
-    vector<string> ing;
-    vector<int> ingID;
+    int p = 2*b-c;
+    int q = (a+c)/2;
+    int r = 2*b-a;
 
-    set<string>::iterator it;
-    for(it=ingredients.begin();it!=ingredients.end();it++){
-        string s=*it;
-        ing.pb(s);
-        ingID.pb(id[s]);
+    if((p && p%a==0 && p>=a) || (r &&  r%c==0 && r>=c))
+        cout<<"YES"<<endl;
+    else if((a+c)%2==0){
+        if((q &&q%b==0 && q>=b))
+            cout<<"YES"<<endl;
+        else
+            cout<<"NO"<<endl;
     }
+    else
+        cout<<"NO"<<endl;
 
-    sort(ingID.begin(), ingID.end(), comp);
-    for(int i=0;i<ingID.size();i++){
-        if(dislikes[ingID[i]].size() )
-            pick.pb(ing[i]);
-        else 
-            notpick.pb(ing[i]);
-    }
-    int ans = sim(ingredients);
-    cout<<pick.size()<<" ";
-    for(int i=0;i<pick.size();i++){
-        cout<<pick[i]<<" ";
-    }
-    // cout<<ans;
-    // cout<<dislikes[id["cheese"]].size();
 }
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;
