@@ -146,35 +146,12 @@ st[si] = st[2*si] + st[2*si+1];
 
 
 void solve(){
-    int n;
-    cin>>n;
-    int a[n];
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    sort(a,a+n);
-    reverse(a,a+n);
-    map<int, int> m;
-    for(int i=0;i<n;i++){
-        int x=a[i];
-        while(x>n || m.find(x)!=m.end()){
-            x/=2;
-        }
-        if(x>0)
-            m[x]++;
-        else{
-            cout<<"NO"<<endl;
-            return;
-        }
-    }
-    cout<<"YES"<<endl;
-
 }
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-w(t){
+{
 solve();
 }
 return 0;
