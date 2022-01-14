@@ -146,12 +146,31 @@ st[si] = st[2*si] + st[2*si+1];
 
 
 void solve(){
+    int n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    map<char, int> m;
+    for(int i=0;i<n;i++)
+        m[s[i]]++;
+    int e=0,o=0;
+    for(auto x: m){
+        e+=x.s/2;
+        o+=x.s%2;
+    }
+    int ans=0;
+    ans+=2*(e/k);
+    o+=2*(e%k);
+    if(o>=k){
+        ans++;
+    }
+    cout<<ans<<endl;
 }
 
 int32_t main(){
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-{
+w(t){
 solve();
 }
 return 0;
